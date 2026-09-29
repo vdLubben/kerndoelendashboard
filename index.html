@@ -54,7 +54,10 @@
                 <div class="flex items-center gap-4">
                     <div class="flex flex-col">
                         <label for="sectieDocentenInput" class="text-[10px] uppercase font-semibold tracking-wider text-slate-400">Sectie / Vak (bijv. Aardrijkskunde, Biologie, Nederlands)</label>
-                        <input id="sectieDocentenInput" type="text" value="Algemeen" placeholder="Sectie / Vak (bijv. Aardrijkskunde, Biologie, Nederlands)" onchange="handleSectieChange(this.value)" class="bg-slate-800 text-slate-100 text-xs font-medium rounded-lg border border-slate-700 px-3 py-1.5 focus:ring-2 focus:ring-brand-500 focus:outline-none w-64 sm:w-80">
+                        <div class="flex items-center gap-2">
+                            <input id="sectieDocentenInput" type="text" value="Algemeen" placeholder="Sectie / Vak (bijv. Aardrijkskunde, Biologie, Nederlands)" onchange="handleSectieChange(this.value)" class="bg-slate-800 text-slate-100 text-xs font-medium rounded-lg border border-slate-700 px-3 py-1.5 focus:ring-2 focus:ring-brand-500 focus:outline-none w-52 sm:w-64">
+                            <button type="button" onclick="setAdminMode()" class="px-2.5 py-1.5 text-xs font-bold rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition flex items-center gap-1 shadow-sm whitespace-nowrap"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Schoolbreed (Admin)</button>
+                        </div>
                     </div>
 
                     <div class="pt-3">
@@ -2097,10 +2100,26 @@
             renderCurrentView();
         }
 
+        function isAdminMode() {
+            const sec = (appState.currentSectie || '').toLowerCase();
+            return sec.includes('admin') || sec.includes('school') || sec.includes('totaal') || sec.includes('alle');
+        }
+
+        function setAdminMode() {
+            handleSectieChange("Admin (Schoolbreed)");
+        }
+
         function handleSectieChange(newSectie) {
-            const cleaned = newSectie.trim() || "Algemeen";
+            let cleaned = (newSectie || '').trim();
+            const lower = cleaned.toLowerCase();
+
+            if (!cleaned || lower === 'admin' || lower.includes('admin') || lower === 'school' || lower === 'totaal' || lower === 'alle') {
+                cleaned = "Admin (Schoolbreed)";
+            }
+
             appState.currentSectie = cleaned;
-            document.getElementById("sectieDocentenInput").value = cleaned;
+            const inputEl = document.getElementById("sectieDocentenInput");
+            if (inputEl) inputEl.value = cleaned;
             saveToLocalStorage();
             renderCurrentView();
         }
@@ -2210,14 +2229,110 @@
         // ACCORDION CARD RENDER FUNCTION WITH UNIQUE BADGE ID
         // =========================================================================
         function renderAccordionCard(kd, activeSubject, currentSectie) {
-            const data = getGoalData(activeSubject, currentSectie, kd.id);
-            const effStatus = getEffectiveStatus(data);
-            
-            // Status badges WITH UNIQUE ID id="statusBadge_${kd.id}"
-            let statusBadge = `<span id="statusBadge_${kd.id}" class="px-2.5 py-1 text-xs font-semibold bg-slate-100 text-slate-600 rounded-full border border-slate-300">⚪ Niet gestart</span>`;
-            if (effStatus === 'geborgd') statusBadge = `<span id="statusBadge_${kd.id}" class="px-2.5 py-1 text-xs font-semibold bg-emerald-100 text-emerald-800 rounded-full border border-emerald-300">🟢 Geborgd</span>`;
-            if (effStatus === 'in-ontwikkeling') statusBadge = `<span id="statusBadge_${kd.id}" class="px-2.5 py-1 text-xs font-semibold bg-amber-100 text-amber-800 rounded-full border border-amber-300">🟡 In ontwikkeling</span>`;
+            const inAdmin = isAdminMode();
+            const sectionsForSubj = appState.inventory[activeSubject] || {};
+            const sectionKeys = Object.keys(sectionsForSubj);
 
+            let effStatus = 'niet-gestart';
+            if (inAdmin) {
+                sectionKeys.forEach(s => {
+                    const st = getEffectiveStatus(sectionsForSubj[s]?.[kd.id]);
+                    if (st === 'geborgd') effStatus = 'geborgd';
+                    else if (st === 'in-ontwikkeling' && effStatus !== 'geborgd') effStatus = 'in-ontwikkeling';
+                });
+            } else {
+                const data = getGoalData(activeSubject, currentSectie, kd.id);
+                effStatus = getEffectiveStatus(data);
+            }
+
+            let statusBadge = `<span id="statusBadge_${kd.id}" class="px-2.5 py-1 text-xs font-semibold bg-slate-100 text-slate-600 rounded-full border border-slate-300">⚪ Niet gestart</span>`;
+            if (effStatus === 'geborgd') statusBadge = `<span id="statusBadge_${kd.id}" class="px-2.5 py-1 text-xs font-semibold bg-emerald-100 text-emerald-800 rounded-full border border-emerald-300">🟢 Geborgd ${inAdmin ? '(Schoolbreed)' : ''}</span>`;
+            if (effStatus === 'in-ontwikkeling') statusBadge = `<span id="statusBadge_${kd.id}" class="px-2.5 py-1 text-xs font-semibold bg-amber-100 text-amber-800 rounded-full border border-amber-300">🟡 In ontwikkeling ${inAdmin ? '(Schoolbreed)' : ''}</span>`;
+
+            if (inAdmin) {
+                // ADMIN MODUS RENDER FOR CARD
+                const activeSectionEntries = sectionKeys.map(s => {
+                    const gData = sectionsForSubj[s]?.[kd.id];
+                    const st = getEffectiveStatus(gData);
+                    return { sectie: s, data: gData, status: st };
+                }).filter(e => e.status !== 'niet-gestart' || (e.data && (e.data.opdrachten || e.data.bewijslast)));
+
+                return `
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-3" id="card_${kd.id}">
+                        <button onclick="toggleAccordion('${kd.id}')" class="w-full text-left p-4 hover:bg-slate-50 flex items-center justify-between gap-4 transition select-none">
+                            <div class="flex items-center gap-3 flex-wrap">
+                                <span class="px-2.5 py-1 bg-indigo-900 text-white font-bold text-xs rounded-md shadow-sm">Kerndoel ${kd.nummer}</span>
+                                <h4 class="font-bold text-slate-900 text-sm">${kd.kernzin}</h4>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                ${statusBadge}
+                                <i data-lucide="chevron-down" id="chevron_${kd.id}" class="w-5 h-5 text-slate-400 transition-transform duration-200"></i>
+                            </div>
+                        </button>
+
+                        <div id="body_${kd.id}" class="hidden border-t border-slate-100 p-5 bg-indigo-50/30 space-y-5">
+                            <!-- Subdoelen weergave -->
+                            <div class="space-y-3">
+                                ${kd.subdoelen.map(sub => `
+                                    <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                                        <div class="flex items-center gap-2 flex-wrap">
+                                            <span class="px-2 py-0.5 bg-indigo-100 text-indigo-800 font-black text-xs rounded border border-indigo-200">
+                                                Subdoel ${sub.code}
+                                            </span>
+                                            ${sub.isHavoVwoExtra ? '<span class="px-2 py-0.5 text-[10px] font-bold bg-amber-300 text-slate-900 rounded border border-amber-400">[Havo/Vwo]</span>' : ''}
+                                            <span class="font-bold text-slate-800 text-xs">${sub.doelzin}</span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+
+                            <!-- Admin Sectie Overzicht voor dit kerndoel -->
+                            <div class="bg-white p-4 rounded-xl border border-indigo-200 shadow-sm space-y-3">
+                                <div class="flex items-center justify-between flex-wrap gap-2 pb-2 border-b border-slate-100">
+                                    <h5 class="text-xs font-extrabold text-indigo-950 uppercase tracking-wider flex items-center gap-1.5">
+                                        <i data-lucide="shield-check" class="w-4 h-4 text-indigo-600"></i>
+                                        Schoolbreed Sectie-overzicht (${activeSubject})
+                                    </h5>
+                                    ${sectionKeys.length > 0 ? `
+                                        <div class="flex items-center gap-1.5 text-xs text-slate-600">
+                                            <span>Bekijk & bewerk invoer van:</span>
+                                            <select onchange="handleSectieChange(this.value)" class="text-xs bg-slate-100 border border-slate-300 rounded px-2 py-0.5 font-semibold text-slate-800">
+                                                <option value="Admin (Schoolbreed)" selected>-- Alle Secties --</option>
+                                                ${sectionKeys.map(s => `<option value="${s}">${s}</option>`).join('')}
+                                            </select>
+                                        </div>
+                                    ` : ''}
+                                </div>
+
+                                ${activeSectionEntries.length === 0 ? `
+                                    <div class="text-center py-4 text-slate-400 text-xs italic">
+                                        ⚪ Nog geen van de secties heeft voor dit kerndoel invoer of status vastgelegd.
+                                    </div>
+                                ` : `
+                                    <div class="space-y-3">
+                                        ${activeSectionEntries.map(e => `
+                                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs space-y-1.5">
+                                                <div class="flex items-center justify-between">
+                                                    <span class="font-bold text-slate-900 text-xs flex items-center gap-1.5">
+                                                        <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+                                                        ${e.sectie}
+                                                    </span>
+                                                    ${e.status === 'geborgd' ? '<span class="text-emerald-700 font-bold bg-emerald-100 px-2 py-0.5 rounded text-[10px] border border-emerald-300">🟢 Geborgd</span>' : '<span class="text-amber-800 font-bold bg-amber-100 px-2 py-0.5 rounded text-[10px] border border-amber-300">🟡 In ontwikkeling</span>'}
+                                                </div>
+                                                ${e.data && e.data.opdrachten ? `<p class="text-slate-700"><strong>Opdrachten:</strong> ${e.data.opdrachten}</p>` : ''}
+                                                ${e.data && e.data.bewijslast ? `<p class="text-slate-600"><strong>Bewijslast:</strong> ${e.data.bewijslast}</p>` : ''}
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                `}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // STANDARD SECTION RENDER FOR CARD
+            const data = getGoalData(activeSubject, currentSectie, kd.id);
             return `
                 <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-3" id="card_${kd.id}">
                     <!-- Accordion Header -->
@@ -2409,13 +2524,40 @@
             const blockCGoals = KERNDOELEN_DATA.filter(kd => kd.leergebied === "Burgerschap");
             const allGoals = [...blockAGoals, ...blockBGoals, ...blockCGoals];
 
+            // Verzamel alle secties die data hebben voor dit specifieke vak
+            const sectionsForSubj = appState.inventory[subjectName] || {};
+            const availableSections = Object.keys(sectionsForSubj).filter(s => s.toLowerCase() !== 'algemeen');
+
+            let effectiveSection = currentSectie;
+            // Als de huidige sectie 'Algemeen' is, maar er is een geïmporteerde sectie (zoals Aardrijkskunde), toon dan die data!
+            if ((!effectiveSection || effectiveSection.toLowerCase() === 'algemeen') && availableSections.length > 0) {
+                effectiveSection = availableSections[0];
+                appState.currentSectie = effectiveSection;
+                const inputEl = document.getElementById("sectieDocentenInput");
+                if (inputEl) inputEl.value = effectiveSection;
+                const badgeEl = document.getElementById("activeSectieBadge");
+                if (badgeEl) badgeEl.innerText = effectiveSection;
+            }
+
             let geborgdCount = 0;
             let ontwikkelingCount = 0;
             let nietGestartCount = 0;
 
             allGoals.forEach(kd => {
-                const data = getGoalData(subjectName, currentSectie, kd.id);
-                const effStatus = getEffectiveStatus(data);
+                // Kijk of het doel geborgd is in de effectieve sectie, of in een van de secties van dit vak
+                let data = getGoalData(subjectName, effectiveSection, kd.id);
+                let effStatus = getEffectiveStatus(data);
+
+                // Fallback geaggregeerd: als het in een andere sectie van ditzelfde vakgebied geborgd is, telt het mee
+                if (effStatus === 'niet-gestart' && availableSections.length > 1) {
+                    availableSections.forEach(s => {
+                        const otherData = sectionsForSubj[s]?.[kd.id];
+                        const otherSt = getEffectiveStatus(otherData);
+                        if (otherSt === 'geborgd') effStatus = 'geborgd';
+                        else if (otherSt === 'in-ontwikkeling' && effStatus !== 'geborgd') effStatus = 'in-ontwikkeling';
+                    });
+                }
+
                 if (effStatus === 'geborgd') geborgdCount++;
                 else if (effStatus === 'in-ontwikkeling') ontwikkelingCount++;
                 else nietGestartCount++;
@@ -2430,11 +2572,13 @@
             const bOnt = document.getElementById("barOntwikkeling");
             const bNiet = document.getElementById("barNietGestart");
             const pCounts = document.getElementById("progressCounts");
+            const pSec = document.getElementById("progressSectieName");
 
             if (bGeb) bGeb.style.width = `${pctGeborgd}%`;
             if (bOnt) bOnt.style.width = `${pctOntwikkeling}%`;
             if (bNiet) bNiet.style.width = `${pctNietGestart}%`;
             if (pCounts) pCounts.innerText = `${geborgdCount} van de ${total} kerndoelen geborgd (${pctGeborgd}%)`;
+            if (pSec) pSec.innerText = effectiveSection || "Algemeen";
         }
 
         // =========================================================================
@@ -2588,6 +2732,21 @@
                 }
             });
 
+            // Unieke geïmporteerde secties (exclusief 'algemeen' en 'standaard sectie')
+            const uniqueSections = new Set();
+            Object.keys(appState.inventory).forEach(subj => {
+                const secties = appState.inventory[subj] || {};
+                Object.keys(secties).forEach(secName => {
+                    const cleanName = secName.trim();
+                    if (cleanName.toLowerCase() !== 'algemeen' && cleanName.toLowerCase() !== 'standaard sectie') {
+                        const hasData = Object.values(secties[secName]).some(g => getEffectiveStatus(g) !== 'niet-gestart');
+                        if (hasData) {
+                            uniqueSections.add(cleanName);
+                        }
+                    }
+                });
+            });
+
             // 1. KPI Cards (Dynamisch berekend met totalKerndoelenCount & totalSubdoelenCount)
             const kpiContainer = document.getElementById("kpiCardsContainer");
             kpiContainer.innerHTML = `
@@ -2629,7 +2788,7 @@
                         </div>
                         <div>
                             <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Geïmporteerde Secties</p>
-                            <p class="text-2xl font-extrabold text-slate-900">${activeSectionsSet.size} <span class="text-xs font-normal text-slate-500">sectieteams</span></p>
+                            <p class="text-2xl font-extrabold text-slate-900">${uniqueSections.size} <span class="text-xs font-normal text-slate-500">sectieteams</span></p>
                         </div>
                     </div>
                     <i data-lucide="chevron-right" class="w-5 h-5 text-slate-400 group-hover:text-brand-600 transition"></i>
@@ -2675,7 +2834,20 @@
 
                 const totalSubjGoals = subjGoals.length;
                 const pct = totalSubjGoals ? Math.round((gCount / totalSubjGoals) * 100) : 0;
-                const sectionsList = appState.inventory[subj] ? Object.keys(appState.inventory[subj]) : [];
+                const cleanSectionsList = (appState.inventory[subj] ? Object.keys(appState.inventory[subj]) : [])
+                    .filter(s => s.trim().toLowerCase() !== 'algemeen' && s.trim().toLowerCase() !== 'standaard sectie');
+
+                const transverseGoals = KERNDOELEN_DATA.filter(kd => kd.leergebied === "Digitale geletterdheid" || kd.leergebied === "Burgerschap");
+                let transverseCount = 0;
+                transverseGoals.forEach(kd => {
+                    const sections = appState.inventory[subj] || {};
+                    let isCovered = false;
+                    Object.keys(sections).forEach(s => {
+                        const st = getEffectiveStatus(sections[s]?.[kd.id]);
+                        if (st !== 'niet-gestart') isCovered = true;
+                    });
+                    if (isCovered) transverseCount++;
+                });
 
                 return `
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between hover:shadow-md transition">
@@ -2684,21 +2856,28 @@
                                 <h4 class="font-bold text-slate-900 text-base">${subj}</h4>
                                 <span class="px-2.5 py-0.5 text-xs font-bold bg-brand-50 text-brand-700 rounded-full border border-brand-200">${pct}%</span>
                             </div>
-                            <p class="text-xs text-slate-500 mb-3">${totalSubjGoals} vakkerndoelen &bull; ${gCount} geborgd</p>
+                            <p class="text-xs text-slate-500 mb-2 font-medium">${totalSubjGoals} vakkerndoelen &bull; <span class="text-emerald-700 font-semibold">${gCount} geborgd</span> &bull; <span class="text-amber-700 font-semibold">${oCount} in ontw.</span></p>
 
                             <!-- Progress Bar -->
-                            <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden flex mb-4">
+                            <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden flex mb-3">
                                 <div class="bg-emerald-500 h-full" style="width: ${pct}%"></div>
-                                <div class="bg-amber-400 h-full" style="width: ${Math.round((oCount/totalSubjGoals)*100)}%"></div>
+                                <div class="bg-amber-400 h-full" style="width: ${totalSubjGoals ? Math.round((oCount/totalSubjGoals)*100) : 0}%"></div>
                             </div>
+
+                            ${transverseCount > 0 ? `
+                                <div class="text-[11px] font-semibold text-indigo-700 bg-indigo-50/80 px-2.5 py-1 rounded-lg border border-indigo-200/60 mb-3 flex items-center gap-1.5">
+                                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-500 shrink-0"></i>
+                                    <span>Transversale bijdrage: <strong>${transverseCount}</strong> doelen DG/Burgerschap</span>
+                                </div>
+                            ` : ''}
 
                             <!-- Sections badges -->
                             <div class="mb-4">
                                 <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Actieve Sectie Invoer:</span>
                                 <div class="flex flex-wrap gap-1">
-                                    ${sectionsList.length > 0 
-                                        ? sectionsList.map(s => `<span class="px-2 py-0.5 text-[10px] font-medium bg-slate-100 text-slate-700 rounded border border-slate-200">${s}</span>`).join('')
-                                        : `<span class="text-xs italic text-slate-400">Nog geen invoer</span>`
+                                    ${cleanSectionsList.length > 0 
+                                        ? cleanSectionsList.map(s => `<span class="px-2 py-0.5 text-[10px] font-medium bg-slate-100 text-slate-700 rounded border border-slate-200">${s}</span>`).join('')
+                                        : `<span class="text-xs italic text-slate-400">Nog geen specifieke sectie-invoer</span>`
                                     }
                                 </div>
                             </div>
@@ -2910,92 +3089,82 @@
             const modal = document.getElementById("importedSectionsModal");
             const container = document.getElementById("importedSectionsContent");
 
-            const allSectionEntries = [];
-            const subjects = NAV_TABS.filter(t => t.subject !== null).map(t => t.subject);
+            // Verzamel unieke secties over alle leergebieden heen (exclusief 'algemeen')
+            const sectionsSummary = {}; // sectieNaam -> { leergebieden: Set, geborgd: 0, inOntw: 0 }
 
-            subjects.forEach(subj => {
-                const sections = appState.inventory[subj] || {};
-                Object.keys(sections).forEach(sectieName => {
-                    const sectionGoals = sections[sectieName] || {};
-                    const subjGoals = KERNDOELEN_DATA.filter(kd => kd.leergebied === subj);
-                    
-                    let geborgdCount = 0;
-                    let ontwikkelingCount = 0;
-                    let nietGestartCount = 0;
+            Object.keys(appState.inventory).forEach(subject => {
+                const secties = appState.inventory[subject] || {};
+                Object.keys(secties).forEach(secName => {
+                    const cleanName = secName.trim();
+                    if (cleanName.toLowerCase() === 'algemeen' || cleanName.toLowerCase() === 'standaard sectie') return;
 
-                    subjGoals.forEach(kd => {
-                        const goalData = sectionGoals[kd.id];
-                        const effSt = getEffectiveStatus(goalData);
-                        if (effSt === 'geborgd') geborgdCount++;
-                        else if (effSt === 'in-ontwikkeling') ontwikkelingCount++;
-                        else nietGestartCount++;
+                    const goalEntries = Object.values(secties[secName]);
+                    let geborgd = 0;
+                    let inOntw = 0;
+
+                    goalEntries.forEach(g => {
+                        const st = getEffectiveStatus(g);
+                        if (st === 'geborgd') geborgd++;
+                        else if (st === 'in-ontwikkeling') inOntw++;
                     });
 
-                    const totalGoals = subjGoals.length;
-                    const pctGeborgd = totalGoals ? Math.round((geborgdCount / totalGoals) * 100) : 0;
-                    const pctOntwikkeling = totalGoals ? Math.round((ontwikkelingCount / totalGoals) * 100) : 0;
-
-                    allSectionEntries.push({
-                        subject: subj,
-                        sectie: sectieName,
-                        geborgdCount,
-                        ontwikkelingCount,
-                        nietGestartCount,
-                        totalGoals,
-                        pctGeborgd,
-                        pctOntwikkeling
-                    });
+                    // Alleen tonen als er daadwerkelijk iets in staat
+                    if (geborgd > 0 || inOntw > 0) {
+                        if (!sectionsSummary[cleanName]) {
+                            sectionsSummary[cleanName] = {
+                                leergebieden: new Set(),
+                                geborgd: 0,
+                                inOntw: 0
+                            };
+                        }
+                        sectionsSummary[cleanName].leergebieden.add(subject);
+                        sectionsSummary[cleanName].geborgd += geborgd;
+                        sectionsSummary[cleanName].inOntw += inOntw;
+                    }
                 });
             });
 
-            if (allSectionEntries.length === 0) {
+            const uniqueNames = Object.keys(sectionsSummary);
+
+            if (uniqueNames.length === 0) {
                 container.innerHTML = `
-                    <div class="text-center py-10 text-slate-500 space-y-3">
-                        <div class="w-12 h-12 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto">
-                            <i data-lucide="users" class="w-6 h-6"></i>
-                        </div>
-                        <h4 class="font-bold text-slate-800 text-sm">Nog geen sectie-inventarisaties aanwezig</h4>
-                        <p class="text-xs text-slate-500 max-w-sm mx-auto">
-                            Er zijn nog geen secties ingevuld of geïmporteerd. Gebruik de knop <strong>"Importeer Sectie JSON(s)"</strong> op het dashboard om sectie-bestanden in te laden.
-                        </p>
+                    <div class="text-center py-8 text-slate-500 space-y-2">
+                        <i data-lucide="inbox" class="w-10 h-10 mx-auto text-slate-300"></i>
+                        <p class="font-bold text-slate-800 text-sm">Nog geen sectiebestanden ingeladen</p>
+                        <p class="text-xs text-slate-500">Gebruik de knop "Importeer Sectie JSON(s)" om bestanden van docenten in te laden.</p>
                     </div>
                 `;
             } else {
                 container.innerHTML = `
                     <div class="space-y-3">
-                        <div class="flex items-center justify-between text-xs text-slate-500 pb-2 border-b border-slate-200">
-                            <span>Totaal <strong>${allSectionEntries.length}</strong> actieve sectie-inventarisatie(s)</span>
-                        </div>
-                        ${allSectionEntries.map(entry => `
-                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-brand-300 transition space-y-3">
-                                <div class="flex items-center justify-between flex-wrap gap-2">
-                                    <div>
-                                        <div class="flex items-center gap-2">
-                                            <span class="px-2.5 py-0.5 bg-brand-50 text-brand-700 font-bold text-xs rounded border border-brand-200">
-                                                ${entry.subject}
+                        <p class="text-xs text-slate-500 font-medium">In totaal <strong>${uniqueNames.length}</strong> unieke sectie(s) ingeladen:</p>
+                        <div class="grid grid-cols-1 gap-2.5">
+                            ${uniqueNames.map(name => {
+                                const sec = sectionsSummary[name];
+                                const vakkenList = Array.from(sec.leergebieden).join(', ');
+                                return `
+                                    <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+                                        <div class="space-y-1">
+                                            <div class="flex items-center gap-2">
+                                                <span class="w-2.5 h-2.5 rounded-full bg-brand-600"></span>
+                                                <h4 class="font-bold text-slate-900 text-sm">${name}</h4>
+                                            </div>
+                                            <p class="text-[11px] text-slate-500">Gekoppeld aan: <strong class="text-slate-700">${vakkenList}</strong></p>
+                                        </div>
+                                        <div class="text-right space-y-1">
+                                            <span class="px-2.5 py-1 text-xs font-bold bg-emerald-100 text-emerald-800 rounded-full border border-emerald-300 inline-block">
+                                                🟢 ${sec.geborgd} geborgd
                                             </span>
-                                            <h4 class="font-extrabold text-slate-900 text-sm">${entry.sectie}</h4>
+                                            ${sec.inOntw > 0 ? `
+                                                <span class="px-2 py-0.5 text-[10px] font-semibold bg-amber-100 text-amber-800 rounded-full border border-amber-300 block">
+                                                    🟡 ${sec.inOntw} in uitrol
+                                                </span>
+                                            ` : ''}
                                         </div>
                                     </div>
-                                    <div class="flex items-center gap-2">
-                                        <span class="px-2.5 py-1 text-xs font-bold bg-emerald-100 text-emerald-800 rounded-full border border-emerald-300">
-                                            🟢 ${entry.geborgdCount} geborgd (${entry.pctGeborgd}%)
-                                        </span>
-                                        ${entry.ontwikkelingCount > 0 ? `
-                                            <span class="px-2.5 py-1 text-xs font-bold bg-amber-100 text-amber-800 rounded-full border border-amber-300">
-                                                🟡 ${entry.ontwikkelingCount} in ontw.
-                                            </span>
-                                        ` : ''}
-                                    </div>
-                                </div>
-
-                                <!-- Progress Bar -->
-                                <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden flex">
-                                    <div class="bg-emerald-500 h-full transition-all duration-300" style="width: ${entry.pctGeborgd}%" title="Geborgd"></div>
-                                    <div class="bg-amber-400 h-full transition-all duration-300" style="width: ${entry.pctOntwikkeling}%" title="In ontwikkeling"></div>
-                                </div>
-                            </div>
-                        `).join('')}
+                                `;
+                            }).join('')}
+                        </div>
                     </div>
                 `;
             }
