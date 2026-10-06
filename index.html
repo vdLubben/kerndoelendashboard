@@ -2112,7 +2112,7 @@
                 if (local) {
                     const parsed = JSON.parse(local);
                     if (parsed.inventory) appState.inventory = parsed.inventory;
-                    if (parsed.currentSectie && parsed.currentSectie.toLowerCase() !== 'algemeen' && parsed.currentSectie.toLowerCase() !== 'standaard sectie') {
+                    if (parsed.currentSectie && parsed.currentSectie.toLowerCase() !== 'algemeen') {
                         appState.currentSectie = parsed.currentSectie;
                     } else {
                         appState.currentSectie = "aardrijkskunde";
@@ -2122,7 +2122,6 @@
                 console.warn("Fout bij lokaal laden:", e);
             }
 
-            // Live data ophalen uit Google Sheets
             if (GOOGLE_SCRIPT_URL) {
                 const ind = document.getElementById("savedIndicator");
                 try {
@@ -2135,10 +2134,15 @@
                     const res = await fetch(GOOGLE_SCRIPT_URL);
                     const liveData = await res.json();
 
-                    // Controleer of liveData daadwerkelijk gevulde secties bevat
                     if (liveData && typeof liveData === "object" && Object.keys(liveData).length > 0) {
-                        // Merge cloud data met eventuele lokale records
-                        appState.inventory = Object.assign({}, appState.inventory, liveData);
+                        // Deep merge: loop over alle leergebieden heen zodat niets wordt overschreven
+                        Object.keys(liveData).forEach(subj => {
+                            if (!appState.inventory[subj]) appState.inventory[subj] = {};
+                            Object.keys(liveData[subj]).forEach(sec => {
+                                appState.inventory[subj][sec] = liveData[subj][sec];
+                            });
+                        });
+
                         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({
                             inventory: appState.inventory,
                             currentSectie: appState.currentSectie
@@ -2153,11 +2157,6 @@
                     }
                 } catch (err) {
                     console.error("Live cloud sync kon data niet ophalen:", err);
-                    if (ind) {
-                        ind.innerHTML = '<i data-lucide="hard-drive" class="w-3.5 h-3.5"></i> Lokaal actief';
-                        ind.className = "text-xs text-slate-300 font-medium flex items-center gap-1 bg-slate-800 px-2.5 py-1 rounded-full border border-slate-700";
-                        if (window.lucide) lucide.createIcons();
-                    }
                 }
             }
         }
@@ -2175,19 +2174,17 @@
 
             const ind = document.getElementById("savedIndicator");
             if (ind) {
-                ind.innerHTML = '<i data-lucide="clock" class="w-3.5 h-3.5"></i> Wijziging opslaan...';
+                ind.innerHTML = '<i data-lucide="refresh-cw" class="w-3.5 h-3.5 animate-spin"></i> Cloud sync...';
                 ind.className = "text-xs text-amber-400 font-medium flex items-center gap-1 bg-amber-950/60 px-2.5 py-1 rounded-full border border-amber-800";
                 if (window.lucide) lucide.createIcons();
             }
 
-            // Wacht 800ms na laatste actie voor cloud sync
             clearTimeout(syncCloudTimeout);
             syncCloudTimeout = setTimeout(async () => {
                 if (!GOOGLE_SCRIPT_URL) return;
 
                 try {
-                    // Verstuur data als text/plain zodat Google Apps Script geen CORS preflight OPTIONS error geeft
-                    const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    await fetch(GOOGLE_SCRIPT_URL, {
                         method: "POST",
                         headers: {
                             "Content-Type": "text/plain;charset=utf-8"
@@ -2208,7 +2205,7 @@
                         if (window.lucide) lucide.createIcons();
                     }
                 }
-            }, 800);
+            }, 400);
         }
 
         function isAdminMode() {
@@ -2361,11 +2358,33 @@
         }
 
         function handleSubgoalItemToggle(subject, sectie, goalId, subCode, itemId, checked) {
-            const subData = getSubgoalData(subject, sectie, goalId, subCode);
-            if (!subData.checkedItems) subData.checkedItems = [];
+            if (!subject || !sectie) return;
             
+            // Zorg voor gegarandeerde initialisatie in de boomstructuur
+            if (!appState.inventory[subject]) appState.inventory[subject] = {};
+            if (!appState.inventory[subject][sectie]) appState.inventory[subject][sectie] = {};
+            if (!appState.inventory[subject][sectie][goalId]) {
+                appState.inventory[subject][sectie][goalId] = { subdoelen: {} };
+            }
+            if (!appState.inventory[subject][sectie][goalId].subdoelen) {
+                appState.inventory[subject][sectie][goalId].subdoelen = {};
+            }
+            if (!appState.inventory[subject][sectie][goalId].subdoelen[subCode]) {
+                appState.inventory[subject][sectie][goalId].subdoelen[subCode] = {
+                    status: 'niet-gestart',
+                    checkedItems: [],
+                    opdrachten: '',
+                    bewijslast: ''
+                };
+            }
+
+            const subData = appState.inventory[subject][sectie][goalId].subdoelen[subCode];
+            if (!Array.isArray(subData.checkedItems)) subData.checkedItems = [];
+
             if (checked) {
-                if (!subData.checkedItems.includes(itemId)) subData.checkedItems.push(itemId);
+                if (!subData.checkedItems.includes(itemId)) {
+                    subData.checkedItems.push(itemId);
+                }
                 if (subData.status === 'niet-gestart') {
                     subData.status = 'in-ontwikkeling';
                     const radio = document.querySelector(`input[name="status_${goalId}_${subCode}"][value="in-ontwikkeling"]`);
@@ -2383,7 +2402,7 @@
             const effSt = getEffectiveStatus(subData);
             updateSubgoalBadgeDOM(goalId, subCode, effSt);
             updateMainGoalBadgeDOM(subject, sectie, goalId);
-            
+
             saveToLocalStorage();
             updateSubjectProgressBar(subject, sectie);
         }
