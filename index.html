@@ -2334,26 +2334,66 @@
             return getEffectiveStatus(goalData);
         }
 
+        function updateSubgoalBadgeDOM(goalId, subCode, statusValue) {
+            const badgeEl = document.getElementById(`subBadge_${goalId}_${subCode}`);
+            if (!badgeEl) return;
+            if (statusValue === 'geborgd') {
+                badgeEl.className = "text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800";
+                badgeEl.innerHTML = "🟢 Geborgd";
+            } else if (statusValue === 'in-ontwikkeling') {
+                badgeEl.className = "text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800";
+                badgeEl.innerHTML = "🟡 In ontw.";
+            } else {
+                badgeEl.className = "text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600";
+                badgeEl.innerHTML = "⚪ Niet gestart";
+            }
+        }
+
+        function updateMainGoalBadgeDOM(subject, sectie, goalId) {
+            const kdDef = KERNDOELEN_DATA.find(k => k.id === goalId);
+            const data = getGoalData(subject, sectie, goalId);
+            const effStatus = getEffectiveGoalStatus(data, kdDef);
+            updateStatusBadgeDOM(goalId, effStatus);
+        }
+
         function handleSubgoalItemToggle(subject, sectie, goalId, subCode, itemId, checked) {
             const subData = getSubgoalData(subject, sectie, goalId, subCode);
             if (!subData.checkedItems) subData.checkedItems = [];
+            
             if (checked) {
                 if (!subData.checkedItems.includes(itemId)) subData.checkedItems.push(itemId);
-                if (subData.status === 'niet-gestart') subData.status = 'in-ontwikkeling';
+                if (subData.status === 'niet-gestart') {
+                    subData.status = 'in-ontwikkeling';
+                    const radio = document.querySelector(`input[name="status_${goalId}_${subCode}"][value="in-ontwikkeling"]`);
+                    if (radio) radio.checked = true;
+                }
             } else {
                 subData.checkedItems = subData.checkedItems.filter(i => i !== itemId);
+                if (subData.checkedItems.length === 0 && !subData.opdrachten && !subData.bewijslast && subData.status === 'in-ontwikkeling') {
+                    subData.status = 'niet-gestart';
+                    const radio = document.querySelector(`input[name="status_${goalId}_${subCode}"][value="niet-gestart"]`);
+                    if (radio) radio.checked = true;
+                }
             }
+
+            const effSt = getEffectiveStatus(subData);
+            updateSubgoalBadgeDOM(goalId, subCode, effSt);
+            updateMainGoalBadgeDOM(subject, sectie, goalId);
+            
             saveToLocalStorage();
             updateSubjectProgressBar(subject, sectie);
-            renderCurrentView();
         }
 
         function handleSubgoalStatusChange(subject, sectie, goalId, subCode, statusValue) {
             const subData = getSubgoalData(subject, sectie, goalId, subCode);
             subData.status = statusValue;
+
+            const effSt = getEffectiveStatus(subData);
+            updateSubgoalBadgeDOM(goalId, subCode, effSt);
+            updateMainGoalBadgeDOM(subject, sectie, goalId);
+
             saveToLocalStorage();
             updateSubjectProgressBar(subject, sectie);
-            renderCurrentView();
         }
 
         function handleSubgoalTextChange(subject, sectie, goalId, subCode, field, value) {
@@ -2361,7 +2401,14 @@
             subData[field] = value;
             if (value.trim().length > 0 && subData.status === 'niet-gestart') {
                 subData.status = 'in-ontwikkeling';
+                const radio = document.querySelector(`input[name="status_${goalId}_${subCode}"][value="in-ontwikkeling"]`);
+                if (radio) radio.checked = true;
             }
+
+            const effSt = getEffectiveStatus(subData);
+            updateSubgoalBadgeDOM(goalId, subCode, effSt);
+            updateMainGoalBadgeDOM(subject, sectie, goalId);
+
             saveToLocalStorage();
             updateSubjectProgressBar(subject, sectie);
         }
@@ -2567,7 +2614,7 @@
                                             ${sub.isHavoVwoExtra ? '<span class="px-2 py-0.5 text-[10px] font-bold bg-amber-300 text-slate-900 rounded border border-amber-400">[Havo/Vwo]</span>' : ''}
                                             <span class="font-bold text-slate-800 text-xs">${sub.doelzin}</span>
                                         </div>
-                                        <span class="text-xs font-semibold px-2 py-0.5 rounded-full ${subEffStatus === 'geborgd' ? 'bg-emerald-100 text-emerald-800' : (subEffStatus === 'in-ontwikkeling' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-600')}">
+                                        <span id="subBadge_${kd.id}_${sub.code}" class="text-xs font-semibold px-2 py-0.5 rounded-full ${subEffStatus === 'geborgd' ? 'bg-emerald-100 text-emerald-800' : (subEffStatus === 'in-ontwikkeling' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-600')}">
                                             ${subEffStatus === 'geborgd' ? '🟢 Geborgd' : (subEffStatus === 'in-ontwikkeling' ? '🟡 In ontw.' : '⚪ Niet gestart')}
                                         </span>
                                     </div>
