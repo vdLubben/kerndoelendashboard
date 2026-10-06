@@ -2133,12 +2133,10 @@ const KERNDOELEN_DATA = [
                                     } else {
                                         const incItems = Array.isArray(incSub.checkedItems) ? incSub.checkedItems : [];
                                         const localItems = Array.isArray(localSub.checkedItems) ? localSub.checkedItems : [];
-                                        const mergedItems = Array.from(new Set([...localItems, ...incItems]));
-                                        
-                                        if (mergedItems.length !== localItems.length) {
-                                            localSub.checkedItems = mergedItems;
+                                        if (incItems.length !== localItems.length || !incItems.every((item, idx) => item === localItems[idx])) {
                                             hasChanges = true;
                                         }
+                                        localSub.checkedItems = incItems;
 
                                         if (incSub.status === 'geborgd' && localSub.status !== 'geborgd') {
                                             localSub.status = 'geborgd';
