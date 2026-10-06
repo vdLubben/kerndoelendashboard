@@ -2124,20 +2124,21 @@
 
             // Live data ophalen uit Google Sheets
             if (GOOGLE_SCRIPT_URL) {
+                const ind = document.getElementById("savedIndicator");
                 try {
-                    const ind = document.getElementById("savedIndicator");
                     if (ind) {
                         ind.innerHTML = '<i data-lucide="refresh-cw" class="w-3.5 h-3.5 animate-spin"></i> Synchroniseren...';
                         ind.className = "text-xs text-amber-400 font-medium flex items-center gap-1 bg-amber-950/60 px-2.5 py-1 rounded-full border border-amber-800";
-                        lucide.createIcons();
+                        if (window.lucide) lucide.createIcons();
                     }
 
                     const res = await fetch(GOOGLE_SCRIPT_URL);
                     const liveData = await res.json();
 
+                    // Controleer of liveData daadwerkelijk gevulde secties bevat
                     if (liveData && typeof liveData === "object" && Object.keys(liveData).length > 0) {
-                        // Merge data: overschrijf lokale state met meest actuele online data
-                        appState.inventory = liveData;
+                        // Merge cloud data met eventuele lokale records
+                        appState.inventory = Object.assign({}, appState.inventory, liveData);
                         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({
                             inventory: appState.inventory,
                             currentSectie: appState.currentSectie
@@ -2148,21 +2149,19 @@
                     if (ind) {
                         ind.innerHTML = '<i data-lucide="cloud-check" class="w-3.5 h-3.5"></i> Live Cloud Sync';
                         ind.className = "text-xs text-emerald-400 font-medium flex items-center gap-1 bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-800";
-                        lucide.createIcons();
+                        if (window.lucide) lucide.createIcons();
                     }
                 } catch (err) {
-                    console.error("Live cloud sync mislukt, lokale data blijft behouden:", err);
-                    const ind = document.getElementById("savedIndicator");
+                    console.error("Live cloud sync kon data niet ophalen:", err);
                     if (ind) {
-                        ind.innerHTML = '<i data-lucide="hard-drive" class="w-3.5 h-3.5"></i> Lokaal opgeslagen';
+                        ind.innerHTML = '<i data-lucide="hard-drive" class="w-3.5 h-3.5"></i> Lokaal actief';
                         ind.className = "text-xs text-slate-300 font-medium flex items-center gap-1 bg-slate-800 px-2.5 py-1 rounded-full border border-slate-700";
-                        lucide.createIcons();
+                        if (window.lucide) lucide.createIcons();
                     }
                 }
             }
         }
 
-        // Lokale opslag plus debounce cloud-synchronisatie naar Google Sheets
         let syncCloudTimeout = null;
         function saveToLocalStorage() {
             try {
@@ -2178,20 +2177,20 @@
             if (ind) {
                 ind.innerHTML = '<i data-lucide="clock" class="w-3.5 h-3.5"></i> Wijziging opslaan...';
                 ind.className = "text-xs text-amber-400 font-medium flex items-center gap-1 bg-amber-950/60 px-2.5 py-1 rounded-full border border-amber-800";
-                lucide.createIcons();
+                if (window.lucide) lucide.createIcons();
             }
 
-            // Wacht 1 seconde na de laatste toetsaanslag of klik voor verzending naar Google
+            // Wacht 800ms na laatste actie voor cloud sync
             clearTimeout(syncCloudTimeout);
             syncCloudTimeout = setTimeout(async () => {
                 if (!GOOGLE_SCRIPT_URL) return;
 
                 try {
-                    await fetch(GOOGLE_SCRIPT_URL, {
+                    // Verstuur data als text/plain zodat Google Apps Script geen CORS preflight OPTIONS error geeft
+                    const response = await fetch(GOOGLE_SCRIPT_URL, {
                         method: "POST",
-                        mode: "no-cors", // Cruciaal voor CORS bij Google Apps Script Web Apps
                         headers: {
-                            "Content-Type": "application/json"
+                            "Content-Type": "text/plain;charset=utf-8"
                         },
                         body: JSON.stringify(appState.inventory)
                     });
@@ -2199,12 +2198,17 @@
                     if (ind) {
                         ind.innerHTML = '<i data-lucide="cloud-check" class="w-3.5 h-3.5"></i> Live Cloud Sync';
                         ind.className = "text-xs text-emerald-400 font-medium flex items-center gap-1 bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-800";
-                        lucide.createIcons();
+                        if (window.lucide) lucide.createIcons();
                     }
                 } catch (err) {
-                    console.error("Fout bij synchroniseren naar cloud:", err);
+                    console.error("Fout bij synchroniseren naar Google Sheets:", err);
+                    if (ind) {
+                        ind.innerHTML = '<i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> Sync fout';
+                        ind.className = "text-xs text-rose-400 font-medium flex items-center gap-1 bg-rose-950/60 px-2.5 py-1 rounded-full border border-rose-800";
+                        if (window.lucide) lucide.createIcons();
+                    }
                 }
-            }, 1000);
+            }, 800);
         }
 
         function isAdminMode() {
