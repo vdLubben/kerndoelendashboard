@@ -53,10 +53,38 @@
                 <!-- Header Right Controls: Input Sectie / Vak & Saved Indicator -->
                 <div class="flex items-center gap-4">
                     <div class="flex flex-col">
-                        <label for="sectieDocentenInput" class="text-[10px] uppercase font-semibold tracking-wider text-slate-400">Sectie / Vak (bijv. Aardrijkskunde, Biologie, Nederlands)</label>
+                        <label for="sectieSelectDropdown" class="text-[10px] uppercase font-semibold tracking-wider text-slate-400">Selecteer jouw Sectie / Vak</label>
                         <div class="flex items-center gap-2">
-                            <input id="sectieDocentenInput" type="text" value="Algemeen" placeholder="Sectie / Vak (bijv. Aardrijkskunde, Biologie, Nederlands)" onchange="handleSectieChange(this.value)" class="bg-slate-800 text-slate-100 text-xs font-medium rounded-lg border border-slate-700 px-3 py-1.5 focus:ring-2 focus:ring-brand-500 focus:outline-none w-52 sm:w-64">
-                            <button type="button" onclick="setAdminMode()" class="px-2.5 py-1.5 text-xs font-bold rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition flex items-center gap-1 shadow-sm whitespace-nowrap"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Schoolbreed (Admin)</button>
+                            <select id="sectieSelectDropdown" onchange="handleSectieChange(this.value)" class="bg-slate-800 text-slate-100 text-xs font-semibold rounded-lg border border-slate-700 px-3 py-1.5 focus:ring-2 focus:ring-brand-500 focus:outline-none w-56 sm:w-64 cursor-pointer">
+                                <option value="" disabled selected>-- Selecteer jouw vaksectie --</option>
+                                <option value="aardrijkskunde">Aardrijkskunde</option>
+                                <option value="beeldende vorming">Beeldende vorming</option>
+                                <option value="biologie">Biologie</option>
+                                <option value="culturele kunstzinnige vorming">Culturele kunstzinnige vorming</option>
+                                <option value="audiovisueel">Audiovisueel</option>
+                                <option value="dans">Dans</option>
+                                <option value="drama">Drama</option>
+                                <option value="Duits">Duits</option>
+                                <option value="economie/bedrijfseconomie">Economie / bedrijfseconomie</option>
+                                <option value="Engels">Engels</option>
+                                <option value="filosofie">Filosofie</option>
+                                <option value="Frans">Frans</option>
+                                <option value="geschiedenis">Geschiedenis</option>
+                                <option value="informatica / informatiekunde">Informatica / informatiekunde</option>
+                                <option value="KGL">KGL</option>
+                                <option value="klassieke talen">Klassieke talen</option>
+                                <option value="lichamelijke opvoeding">Lichamelijke opvoeding</option>
+                                <option value="maatschappijleer">Maatschappijleer</option>
+                                <option value="muziek">Muziek</option>
+                                <option value="natuurkunde">Natuurkunde</option>
+                                <option value="Nederlands">Nederlands</option>
+                                <option value="o & o">O & O</option>
+                                <option value="scheikunde">Scheikunde</option>
+                                <option value="wiskunde">Wiskunde</option>
+                            </select>
+                            <button type="button" onclick="setAdminMode()" class="px-2.5 py-1.5 text-xs font-bold rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition flex items-center gap-1 shadow-sm whitespace-nowrap">
+                                <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Admin
+                            </button>
                         </div>
                     </div>
 
@@ -93,7 +121,7 @@
                         <!-- Subject Title Injected Here -->
                     </h2>
                     <p id="subjectSubtitle" class="text-sm text-slate-500 mt-0.5">
-                        Actieve sectie: <span id="activeSectieBadge" class="font-semibold text-brand-600 bg-brand-50 px-2 py-0.5 rounded border border-brand-200">Algemeen</span>
+                        Actieve sectie: <span id="activeSectieBadge" class="font-semibold text-brand-600 bg-brand-50 px-2 py-0.5 rounded border border-brand-200 capitalize">aardrijkskunde</span>
                     </p>
                 </div>
                 
@@ -335,6 +363,8 @@
 
     <!-- COMPLETE JAVASCRIPT APPLICATION CODE -->
     <script>
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw4i22NInnG5Ler638s8HGwNckUPncp0XyfelDnTB_W4HOTv3SxwKyLkfwI_mnyZVQ/exec";
+
         // =========================================================================
         // 1. KERNDOELEN DATASET (VOLLEDIGE 45 KERNDOELEN 3E DRUK 2026)
         // =========================================================================
@@ -2011,7 +2041,7 @@
         // =========================================================================
         let appState = {
             activeTabId: "nederlands",
-            currentSectie: "Algemeen",
+            currentSectie: "aardrijkskunde",
             inventory: {}
         };
 
@@ -2020,107 +2050,39 @@
         // =========================================================================
         // 3. INITIALIZATION & STORAGE
         // =========================================================================
-        document.addEventListener("DOMContentLoaded", () => {
-            loadFromLocalStorage();
+        document.addEventListener("DOMContentLoaded", async () => {
+            // 1. Bouw direct de 8 navigatietabs op
             renderNavTabs();
+            
+            // 2. Laad de gegevens en synchroniseer
+            await loadFromLocalStorage();
             syncHeaderControls();
+            
+            // 3. Bouw de actieve weergave op
             renderCurrentView();
-            lucide.createIcons();
+            if (window.lucide) lucide.createIcons();
         });
 
-        function loadFromLocalStorage() {
-            try {
-                const data = localStorage.getItem(LOCAL_STORAGE_KEY);
-                if (data) {
-                    const parsed = JSON.parse(data);
-                    if (parsed.inventory) appState.inventory = parsed.inventory;
-                    if (parsed.currentSectie) appState.currentSectie = parsed.currentSectie;
-                }
-            } catch (e) {
-                console.error("Fout bij laden LocalStorage:", e);
-            }
-        }
-
-        function saveToLocalStorage() {
-            try {
-                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({
-                    inventory: appState.inventory,
-                    currentSectie: appState.currentSectie
-                }));
-                // Briefly show saved indicator
-                const ind = document.getElementById("savedIndicator");
-                if (ind) {
-                    ind.classList.remove("opacity-50");
-                    ind.classList.add("opacity-100");
-                }
-            } catch (e) {
-                console.error("Fout bij opslaan LocalStorage:", e);
-            }
-        }
-
-        function syncHeaderControls() {
-            document.getElementById("sectieDocentenInput").value = appState.currentSectie;
-        }
-
         // =========================================================================
-        // EFFECTIVE STATUS HELPER (FALLBACK VOOR VINKJES EN TEKST)
-        // =========================================================================
-        function getEffectiveStatus(goalData) {
-            if (!goalData) return 'niet-gestart';
-            if (goalData.status === 'geborgd') return 'geborgd';
-            if (goalData.status === 'in-ontwikkeling') return 'in-ontwikkeling';
-            // Fallback: als er vinkjes of tekst zijn, telt het als 'in-ontwikkeling'
-            if ((goalData.checkedItems && goalData.checkedItems.length > 0) || (goalData.opdrachten && goalData.opdrachten.trim() !== '') || (goalData.bewijslast && goalData.bewijslast.trim() !== '')) {
-                return 'in-ontwikkeling';
-            }
-            return 'niet-gestart';
-        }
-
-        // =========================================================================
-        // 4. NAVIGATION & VIEWS RENDER
+        // 4. NAVIGATION & ROUTING
         // =========================================================================
         function renderNavTabs() {
             const container = document.getElementById("navTabsContainer");
+            if (!container) return;
             container.innerHTML = NAV_TABS.map(tab => {
                 const isActive = tab.id === appState.activeTabId;
-                const activeClasses = isActive 
-                    ? "bg-brand-600 text-white font-bold shadow-sm" 
-                    : "text-slate-300 hover:text-white hover:bg-slate-700/60 font-medium";
-                return `
-                    <button onclick="switchTab('${tab.id}')" class="px-3.5 py-2 text-xs rounded-lg transition-all flex items-center whitespace-nowrap ${activeClasses}">
-                        ${tab.label}
-                    </button>
-                `;
+                const activeClasses = isActive
+                    ? "bg-brand-600 text-white font-bold shadow-sm"
+                    : "text-slate-300 hover:bg-slate-700/60 hover:text-white font-medium";
+                return `<button onclick="switchTab('${tab.id}')" class="px-3.5 py-2 text-xs rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 ${activeClasses}">
+                    ${tab.label}
+                </button>`;
             }).join("");
         }
 
         function switchTab(tabId) {
             appState.activeTabId = tabId;
             renderNavTabs();
-            renderCurrentView();
-        }
-
-        function isAdminMode() {
-            const sec = (appState.currentSectie || '').toLowerCase();
-            return sec.includes('admin') || sec.includes('school') || sec.includes('totaal') || sec.includes('alle');
-        }
-
-        function setAdminMode() {
-            handleSectieChange("Admin (Schoolbreed)");
-        }
-
-        function handleSectieChange(newSectie) {
-            let cleaned = (newSectie || '').trim();
-            const lower = cleaned.toLowerCase();
-
-            if (!cleaned || lower === 'admin' || lower.includes('admin') || lower === 'school' || lower === 'totaal' || lower === 'alle') {
-                cleaned = "Admin (Schoolbreed)";
-            }
-
-            appState.currentSectie = cleaned;
-            const inputEl = document.getElementById("sectieDocentenInput");
-            if (inputEl) inputEl.value = cleaned;
-            saveToLocalStorage();
             renderCurrentView();
         }
 
@@ -2137,24 +2099,271 @@
             } else {
                 dashboardView.classList.add("hidden");
                 subjectView.classList.remove("hidden");
-                renderSubjectView(currentNavTab.subject);
+                const subj = (currentNavTab && currentNavTab.subject) ? currentNavTab.subject : "Nederlands";
+                renderSubjectView(subj);
             }
-            lucide.createIcons();
+            if (window.lucide) lucide.createIcons();
         }
 
-        // Helper to get inventory object safely
+        // Laadt eerst snelle lokale data en haalt direct live data op uit Google Sheets
+        async function loadFromLocalStorage() {
+            try {
+                const local = localStorage.getItem(LOCAL_STORAGE_KEY);
+                if (local) {
+                    const parsed = JSON.parse(local);
+                    if (parsed.inventory) appState.inventory = parsed.inventory;
+                    if (parsed.currentSectie && parsed.currentSectie.toLowerCase() !== 'algemeen' && parsed.currentSectie.toLowerCase() !== 'standaard sectie') {
+                        appState.currentSectie = parsed.currentSectie;
+                    } else {
+                        appState.currentSectie = "aardrijkskunde";
+                    }
+                }
+            } catch (e) {
+                console.warn("Fout bij lokaal laden:", e);
+            }
+
+            // Live data ophalen uit Google Sheets
+            if (GOOGLE_SCRIPT_URL) {
+                try {
+                    const ind = document.getElementById("savedIndicator");
+                    if (ind) {
+                        ind.innerHTML = '<i data-lucide="refresh-cw" class="w-3.5 h-3.5 animate-spin"></i> Synchroniseren...';
+                        ind.className = "text-xs text-amber-400 font-medium flex items-center gap-1 bg-amber-950/60 px-2.5 py-1 rounded-full border border-amber-800";
+                        lucide.createIcons();
+                    }
+
+                    const res = await fetch(GOOGLE_SCRIPT_URL);
+                    const liveData = await res.json();
+
+                    if (liveData && typeof liveData === "object" && Object.keys(liveData).length > 0) {
+                        // Merge data: overschrijf lokale state met meest actuele online data
+                        appState.inventory = liveData;
+                        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({
+                            inventory: appState.inventory,
+                            currentSectie: appState.currentSectie
+                        }));
+                        renderCurrentView();
+                    }
+
+                    if (ind) {
+                        ind.innerHTML = '<i data-lucide="cloud-check" class="w-3.5 h-3.5"></i> Live Cloud Sync';
+                        ind.className = "text-xs text-emerald-400 font-medium flex items-center gap-1 bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-800";
+                        lucide.createIcons();
+                    }
+                } catch (err) {
+                    console.error("Live cloud sync mislukt, lokale data blijft behouden:", err);
+                    const ind = document.getElementById("savedIndicator");
+                    if (ind) {
+                        ind.innerHTML = '<i data-lucide="hard-drive" class="w-3.5 h-3.5"></i> Lokaal opgeslagen';
+                        ind.className = "text-xs text-slate-300 font-medium flex items-center gap-1 bg-slate-800 px-2.5 py-1 rounded-full border border-slate-700";
+                        lucide.createIcons();
+                    }
+                }
+            }
+        }
+
+        // Lokale opslag plus debounce cloud-synchronisatie naar Google Sheets
+        let syncCloudTimeout = null;
+        function saveToLocalStorage() {
+            try {
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({
+                    inventory: appState.inventory,
+                    currentSectie: appState.currentSectie
+                }));
+            } catch (e) {
+                console.error("Fout bij opslaan in LocalStorage:", e);
+            }
+
+            const ind = document.getElementById("savedIndicator");
+            if (ind) {
+                ind.innerHTML = '<i data-lucide="clock" class="w-3.5 h-3.5"></i> Wijziging opslaan...';
+                ind.className = "text-xs text-amber-400 font-medium flex items-center gap-1 bg-amber-950/60 px-2.5 py-1 rounded-full border border-amber-800";
+                lucide.createIcons();
+            }
+
+            // Wacht 1 seconde na de laatste toetsaanslag of klik voor verzending naar Google
+            clearTimeout(syncCloudTimeout);
+            syncCloudTimeout = setTimeout(async () => {
+                if (!GOOGLE_SCRIPT_URL) return;
+
+                try {
+                    await fetch(GOOGLE_SCRIPT_URL, {
+                        method: "POST",
+                        mode: "no-cors", // Cruciaal voor CORS bij Google Apps Script Web Apps
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(appState.inventory)
+                    });
+
+                    if (ind) {
+                        ind.innerHTML = '<i data-lucide="cloud-check" class="w-3.5 h-3.5"></i> Live Cloud Sync';
+                        ind.className = "text-xs text-emerald-400 font-medium flex items-center gap-1 bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-800";
+                        lucide.createIcons();
+                    }
+                } catch (err) {
+                    console.error("Fout bij synchroniseren naar cloud:", err);
+                }
+            }, 1000);
+        }
+
+        function isAdminMode() {
+            const sec = (appState.currentSectie || "").toLowerCase();
+            return sec.includes("admin") || sec.includes("school") || sec.includes("totaal") || sec === "alle";
+        }
+
+        function setAdminMode() {
+            handleSectieChange("Admin (Schoolbreed)");
+        }
+
+        function syncHeaderControls() {
+            const dropdown = document.getElementById("sectieSelectDropdown");
+            const badgeEl = document.getElementById("activeSectieBadge");
+            
+            // Voorkom dat 'Algemeen' blijft hangen in de state
+            if (!appState.currentSectie || appState.currentSectie.toLowerCase() === 'algemeen') {
+                appState.currentSectie = "aardrijkskunde";
+            }
+
+            if (isAdminMode()) {
+                if (dropdown) dropdown.value = "";
+                if (badgeEl) badgeEl.innerText = "Admin (Schoolbreed overzicht)";
+            } else {
+                if (dropdown) dropdown.value = appState.currentSectie;
+                if (badgeEl) badgeEl.innerText = appState.currentSectie;
+            }
+        }
+
+        function handleSectieChange(newSectie) {
+            if (!newSectie || newSectie.toLowerCase() === 'algemeen') {
+                newSectie = "aardrijkskunde";
+            }
+            appState.currentSectie = newSectie;
+            saveToLocalStorage();
+            syncHeaderControls();
+            renderCurrentView();
+        }
+
+        function resetAllData() {
+            const cur = appState.currentSectie;
+            const inAdmin = isAdminMode();
+
+            if (inAdmin) {
+                if (confirm("WAARSCHUWING (Admin): Weet u zeker dat u de VOLLEDIGE inventarisatie van ALLE secties wilt wissen? Dit verwijdert alle data van de hele school.")) {
+                    appState.inventory = {};
+                    saveToLocalStorage();
+                    renderCurrentView();
+                }
+            } else {
+                if (confirm(`Weet u zeker dat u ALLE ingevoerde gegevens voor sectie "${cur}" wilt wissen? De invoer van andere vaksecties blijft onaangetast.`)) {
+                    Object.keys(appState.inventory).forEach(subj => {
+                        if (appState.inventory[subj] && appState.inventory[subj][cur]) {
+                            delete appState.inventory[subj][cur];
+                        }
+                    });
+                    saveToLocalStorage();
+                    renderCurrentView();
+                }
+            }
+        }
+
         function getGoalData(subject, sectie, goalId) {
             if (!appState.inventory[subject]) appState.inventory[subject] = {};
             if (!appState.inventory[subject][sectie]) appState.inventory[subject][sectie] = {};
             if (!appState.inventory[subject][sectie][goalId]) {
-                appState.inventory[subject][sectie][goalId] = {
+                appState.inventory[subject][sectie][goalId] = { subdoelen: {} };
+            }
+            if (!appState.inventory[subject][sectie][goalId].subdoelen) {
+                appState.inventory[subject][sectie][goalId].subdoelen = {};
+            }
+            return appState.inventory[subject][sectie][goalId];
+        }
+
+        function getSubgoalData(subject, sectie, goalId, subCode) {
+            const gData = getGoalData(subject, sectie, goalId);
+            if (!gData.subdoelen[subCode]) {
+                gData.subdoelen[subCode] = {
                     status: 'niet-gestart',
                     checkedItems: [],
                     opdrachten: '',
                     bewijslast: ''
                 };
             }
-            return appState.inventory[subject][sectie][goalId];
+            return gData.subdoelen[subCode];
+        }
+
+        // =========================================================================
+        // EFFECTIVE STATUS HELPERS (SUBDOEL & GEERFD KERNDOEL)
+        // =========================================================================
+        function getEffectiveStatus(subData) {
+            if (!subData) return 'niet-gestart';
+            if (typeof subData === 'string') return subData;
+            if (subData.status === 'geborgd') return 'geborgd';
+            if (subData.status === 'in-ontwikkeling') return 'in-ontwikkeling';
+            if ((subData.checkedItems && subData.checkedItems.length > 0) || 
+                (subData.opdrachten && subData.opdrachten.trim() !== '') || 
+                (subData.bewijslast && subData.bewijslast.trim() !== '')) {
+                return 'in-ontwikkeling';
+            }
+            return 'niet-gestart';
+        }
+
+        function getEffectiveGoalStatus(goalData, kdDef) {
+            if (!goalData) return 'niet-gestart';
+
+            // Als er subdoelen bestaan (nieuwe formaat)
+            if (goalData.subdoelen && typeof goalData.subdoelen === 'object' && Object.keys(goalData.subdoelen).length > 0) {
+                const subCodes = (kdDef && kdDef.subdoelen) ? kdDef.subdoelen.map(s => s.code) : Object.keys(goalData.subdoelen);
+                if (subCodes.length === 0) return 'niet-gestart';
+
+                const statuses = subCodes.map(c => {
+                    const sData = goalData.subdoelen[c];
+                    return getEffectiveStatus(sData);
+                });
+
+                const allGeborgd = statuses.length > 0 && statuses.every(s => s === 'geborgd');
+                if (allGeborgd) return 'geborgd';
+
+                const anyActive = statuses.some(s => s === 'geborgd' || s === 'in-ontwikkeling');
+                if (anyActive) return 'in-ontwikkeling';
+
+                return 'niet-gestart';
+            }
+
+            // Fallback voor oude testdata (waarbij de status direct op het doelobject stond)
+            return getEffectiveStatus(goalData);
+        }
+
+        function handleSubgoalItemToggle(subject, sectie, goalId, subCode, itemId, checked) {
+            const subData = getSubgoalData(subject, sectie, goalId, subCode);
+            if (!subData.checkedItems) subData.checkedItems = [];
+            if (checked) {
+                if (!subData.checkedItems.includes(itemId)) subData.checkedItems.push(itemId);
+                if (subData.status === 'niet-gestart') subData.status = 'in-ontwikkeling';
+            } else {
+                subData.checkedItems = subData.checkedItems.filter(i => i !== itemId);
+            }
+            saveToLocalStorage();
+            updateSubjectProgressBar(subject, sectie);
+            renderCurrentView();
+        }
+
+        function handleSubgoalStatusChange(subject, sectie, goalId, subCode, statusValue) {
+            const subData = getSubgoalData(subject, sectie, goalId, subCode);
+            subData.status = statusValue;
+            saveToLocalStorage();
+            updateSubjectProgressBar(subject, sectie);
+            renderCurrentView();
+        }
+
+        function handleSubgoalTextChange(subject, sectie, goalId, subCode, field, value) {
+            const subData = getSubgoalData(subject, sectie, goalId, subCode);
+            subData[field] = value;
+            if (value.trim().length > 0 && subData.status === 'niet-gestart') {
+                subData.status = 'in-ontwikkeling';
+            }
+            saveToLocalStorage();
+            updateSubjectProgressBar(subject, sectie);
         }
 
         // =========================================================================
@@ -2162,13 +2371,14 @@
         // =========================================================================
         function renderSubjectView(subjectName) {
             const currentSectie = appState.currentSectie;
+            const displaySectie = isAdminMode() ? "Admin (Schoolbreed overzicht)" : currentSectie;
 
             // Update Header titles
             document.getElementById("subjectTitle").innerHTML = `<i data-lucide="book-open" class="w-7 h-7 text-brand-600"></i> Kerndoelen ${subjectName}`;
-            document.getElementById("subjectSubtitle").innerHTML = `Actieve sectie: <span class="font-semibold text-brand-600 bg-brand-50 px-2 py-0.5 rounded border border-brand-200">${currentSectie}</span>`;
+            document.getElementById("subjectSubtitle").innerHTML = `Actieve sectie: <span id="activeSectieBadge" class="font-semibold text-brand-600 bg-brand-50 px-2 py-0.5 rounded border border-brand-200 capitalize">${displaySectie}</span>`;
             document.getElementById("exportSubjectBtn").innerHTML = `<i data-lucide="download" class="w-4 h-4"></i> Exporteer ${subjectName} (JSON)`;
             document.getElementById("progressSubjectName").innerText = subjectName;
-            document.getElementById("progressSectieName").innerText = currentSectie;
+            document.getElementById("progressSectieName").innerText = displaySectie;
 
             // Collect goals for Block A, B, C
             const blockAGoals = KERNDOELEN_DATA.filter(kd => kd.leergebied === subjectName);
@@ -2236,13 +2446,13 @@
             let effStatus = 'niet-gestart';
             if (inAdmin) {
                 sectionKeys.forEach(s => {
-                    const st = getEffectiveStatus(sectionsForSubj[s]?.[kd.id]);
+                    const st = getEffectiveGoalStatus(sectionsForSubj[s]?.[kd.id], kd);
                     if (st === 'geborgd') effStatus = 'geborgd';
                     else if (st === 'in-ontwikkeling' && effStatus !== 'geborgd') effStatus = 'in-ontwikkeling';
                 });
             } else {
                 const data = getGoalData(activeSubject, currentSectie, kd.id);
-                effStatus = getEffectiveStatus(data);
+                effStatus = getEffectiveGoalStatus(data, kd);
             }
 
             let statusBadge = `<span id="statusBadge_${kd.id}" class="px-2.5 py-1 text-xs font-semibold bg-slate-100 text-slate-600 rounded-full border border-slate-300">⚪ Niet gestart</span>`;
@@ -2251,12 +2461,6 @@
 
             if (inAdmin) {
                 // ADMIN MODUS RENDER FOR CARD
-                const activeSectionEntries = sectionKeys.map(s => {
-                    const gData = sectionsForSubj[s]?.[kd.id];
-                    const st = getEffectiveStatus(gData);
-                    return { sectie: s, data: gData, status: st };
-                }).filter(e => e.status !== 'niet-gestart' || (e.data && (e.data.opdrachten || e.data.bewijslast)));
-
                 return `
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-3" id="card_${kd.id}">
                         <button onclick="toggleAccordion('${kd.id}')" class="w-full text-left p-4 hover:bg-slate-50 flex items-center justify-between gap-4 transition select-none">
@@ -2271,68 +2475,68 @@
                         </button>
 
                         <div id="body_${kd.id}" class="hidden border-t border-slate-100 p-5 bg-indigo-50/30 space-y-5">
-                            <!-- Subdoelen weergave -->
-                            <div class="space-y-3">
+                            <!-- Subdoelen weergave met sectie-bijdragen -->
+                            <div class="space-y-4">
                                 ${kd.subdoelen.map(sub => `
-                                    <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
                                         <div class="flex items-center gap-2 flex-wrap">
-                                            <span class="px-2 py-0.5 bg-indigo-100 text-indigo-800 font-black text-xs rounded border border-indigo-200">
+                                            <span class="px-2.5 py-0.5 bg-indigo-100 text-indigo-800 font-black text-xs rounded border border-indigo-200">
                                                 Subdoel ${sub.code}
                                             </span>
                                             ${sub.isHavoVwoExtra ? '<span class="px-2 py-0.5 text-[10px] font-bold bg-amber-300 text-slate-900 rounded border border-amber-400">[Havo/Vwo]</span>' : ''}
                                             <span class="font-bold text-slate-800 text-xs">${sub.doelzin}</span>
                                         </div>
+
+                                        <!-- Sectie bijdragen voor dit subdoel -->
+                                        <div class="space-y-2 pt-2 border-t border-slate-100">
+                                            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Sectie-invoer per vakteam:</span>
+                                            ${sectionKeys.length === 0 ? `
+                                                <p class="text-xs italic text-slate-400">Nog geen data voor secties aanwezig.</p>
+                                            ` : `
+                                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                                    ${sectionKeys.map(s => {
+                                                        const sData = sectionsForSubj[s]?.[kd.id]?.subdoelen?.[sub.code];
+                                                        const sSt = getEffectiveStatus(sData);
+                                                        return `
+                                                            <div class="p-2.5 rounded-lg border text-xs ${sSt !== 'niet-gestart' ? 'bg-slate-50 border-slate-300' : 'bg-slate-50/50 border-slate-200 opacity-60'}">
+                                                                <div class="flex items-center justify-between font-semibold mb-1">
+                                                                    <span>${s}</span>
+                                                                    <span>${sSt === 'geborgd' ? '🟢 Geborgd' : (sSt === 'in-ontwikkeling' ? '🟡 In ontw.' : '⚪ Niet gestart')}</span>
+                                                                </div>
+                                                                ${sData && sData.opdrachten ? `<p class="text-[11px] text-slate-600"><strong>Opdrachten:</strong> ${sData.opdrachten}</p>` : ''}
+                                                                ${sData && sData.bewijslast ? `<p class="text-[11px] text-slate-500"><strong>Bewijslast:</strong> ${sData.bewijslast}</p>` : ''}
+                                                            </div>
+                                                        `;
+                                                    }).join('')}
+                                                </div>
+                                            `}
+                                        </div>
                                     </div>
                                 `).join('')}
                             </div>
 
-                            <!-- Admin Sectie Overzicht voor dit kerndoel -->
-                            <div class="bg-white p-4 rounded-xl border border-indigo-200 shadow-sm space-y-3">
-                                <div class="flex items-center justify-between flex-wrap gap-2 pb-2 border-b border-slate-100">
-                                    <h5 class="text-xs font-extrabold text-indigo-950 uppercase tracking-wider flex items-center gap-1.5">
-                                        <i data-lucide="shield-check" class="w-4 h-4 text-indigo-600"></i>
-                                        Schoolbreed Sectie-overzicht (${activeSubject})
-                                    </h5>
-                                    ${sectionKeys.length > 0 ? `
-                                        <div class="flex items-center gap-1.5 text-xs text-slate-600">
-                                            <span>Bekijk & bewerk invoer van:</span>
-                                            <select onchange="handleSectieChange(this.value)" class="text-xs bg-slate-100 border border-slate-300 rounded px-2 py-0.5 font-semibold text-slate-800">
-                                                <option value="Admin (Schoolbreed)" selected>-- Alle Secties --</option>
-                                                ${sectionKeys.map(s => `<option value="${s}">${s}</option>`).join('')}
-                                            </select>
-                                        </div>
-                                    ` : ''}
-                                </div>
-
-                                ${activeSectionEntries.length === 0 ? `
-                                    <div class="text-center py-4 text-slate-400 text-xs italic">
-                                        ⚪ Nog geen van de secties heeft voor dit kerndoel invoer of status vastgelegd.
+                            <!-- Admin Sectie Overzicht Switcher -->
+                            <div class="bg-white p-4 rounded-xl border border-indigo-200 shadow-sm flex items-center justify-between flex-wrap gap-2">
+                                <h5 class="text-xs font-extrabold text-indigo-950 uppercase tracking-wider flex items-center gap-1.5">
+                                    <i data-lucide="shield-check" class="w-4 h-4 text-indigo-600"></i>
+                                    Sectie-overzicht (${activeSubject})
+                                </h5>
+                                ${sectionKeys.length > 0 ? `
+                                    <div class="flex items-center gap-1.5 text-xs text-slate-600">
+                                        <span>Bewerken als specifieke sectie:</span>
+                                        <select onchange="handleSectieChange(this.value)" class="text-xs bg-slate-100 border border-slate-300 rounded px-2 py-1 font-semibold text-slate-800 cursor-pointer">
+                                            <option value="Admin (Schoolbreed)" selected>-- Admin Modus --</option>
+                                            ${sectionKeys.map(s => `<option value="${s}">${s}</option>`).join('')}
+                                        </select>
                                     </div>
-                                ` : `
-                                    <div class="space-y-3">
-                                        ${activeSectionEntries.map(e => `
-                                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs space-y-1.5">
-                                                <div class="flex items-center justify-between">
-                                                    <span class="font-bold text-slate-900 text-xs flex items-center gap-1.5">
-                                                        <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
-                                                        ${e.sectie}
-                                                    </span>
-                                                    ${e.status === 'geborgd' ? '<span class="text-emerald-700 font-bold bg-emerald-100 px-2 py-0.5 rounded text-[10px] border border-emerald-300">🟢 Geborgd</span>' : '<span class="text-amber-800 font-bold bg-amber-100 px-2 py-0.5 rounded text-[10px] border border-amber-300">🟡 In ontwikkeling</span>'}
-                                                </div>
-                                                ${e.data && e.data.opdrachten ? `<p class="text-slate-700"><strong>Opdrachten:</strong> ${e.data.opdrachten}</p>` : ''}
-                                                ${e.data && e.data.bewijslast ? `<p class="text-slate-600"><strong>Bewijslast:</strong> ${e.data.bewijslast}</p>` : ''}
-                                            </div>
-                                        `).join('')}
-                                    </div>
-                                `}
+                                ` : ''}
                             </div>
                         </div>
                     </div>
                 `;
             }
 
-            // STANDARD SECTION RENDER FOR CARD
-            const data = getGoalData(activeSubject, currentSectie, kd.id);
+            // REGULAR SECTION MODE RENDER
             return `
                 <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-3" id="card_${kd.id}">
                     <!-- Accordion Header -->
@@ -2348,67 +2552,74 @@
                     </button>
 
                     <!-- Accordion Body -->
-                    <div id="body_${kd.id}" class="hidden border-t border-slate-100 p-5 bg-slate-50/50 space-y-6">
-                        <!-- RENDER ELK SUBDOEL (A, B, C...) -->
-                        <div class="space-y-4">
-                            ${kd.subdoelen.map(sub => `
-                                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
-                                    <div class="flex items-center gap-2 flex-wrap">
-                                        <span class="px-2 py-0.5 bg-brand-100 text-brand-800 font-black text-xs rounded border border-brand-200">
-                                            Subdoel ${sub.code}
+                    <div id="body_${kd.id}" class="hidden border-t border-slate-100 p-5 bg-slate-50/50 space-y-4">
+                        ${kd.subdoelen.map(sub => {
+                            const subData = getSubgoalData(activeSubject, currentSectie, kd.id, sub.code);
+                            const subEffStatus = getEffectiveStatus(subData);
+
+                            return `
+                                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-4 mb-3">
+                                    <div class="flex items-center justify-between flex-wrap gap-2">
+                                        <div class="flex items-center gap-2">
+                                            <span class="px-2.5 py-0.5 bg-brand-100 text-brand-800 font-black text-xs rounded border border-brand-200">
+                                                Subdoel ${sub.code}
+                                            </span>
+                                            ${sub.isHavoVwoExtra ? '<span class="px-2 py-0.5 text-[10px] font-bold bg-amber-300 text-slate-900 rounded border border-amber-400">[Havo/Vwo]</span>' : ''}
+                                            <span class="font-bold text-slate-800 text-xs">${sub.doelzin}</span>
+                                        </div>
+                                        <span class="text-xs font-semibold px-2 py-0.5 rounded-full ${subEffStatus === 'geborgd' ? 'bg-emerald-100 text-emerald-800' : (subEffStatus === 'in-ontwikkeling' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-600')}">
+                                            ${subEffStatus === 'geborgd' ? '🟢 Geborgd' : (subEffStatus === 'in-ontwikkeling' ? '🟡 In ontw.' : '⚪ Niet gestart')}
                                         </span>
-                                        ${sub.isHavoVwoExtra ? '<span class="px-2 py-0.5 text-[10px] font-bold bg-amber-300 text-slate-900 rounded border border-amber-400">[Havo/Vwo]</span>' : ''}
-                                        <span class="font-bold text-slate-800 text-xs">${sub.doelzin}</span>
                                     </div>
 
-                                    <!-- "Het gaat hierbij om:" checkboxes -->
+                                    <!-- "Het gaat hierbij om" checkboxes -->
                                     <div class="bg-slate-50 p-3 rounded-lg border border-slate-200/80 space-y-2">
-                                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-1">Het gaat hierbij om:</span>
+                                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Het gaat hierbij om:</span>
                                         ${sub.hetGaatHierbijOm.map((itemText, idx) => {
                                             const itemId = `${sub.code}_item_${idx}`;
-                                            const isChecked = data.checkedItems && data.checkedItems.includes(itemId);
+                                            const isChecked = subData.checkedItems && subData.checkedItems.includes(itemId);
                                             return `
                                                 <label class="flex items-start gap-2.5 cursor-pointer text-xs text-slate-700 hover:text-slate-900 select-none">
-                                                    <input type="checkbox" onchange="handleSubgoalToggle('${activeSubject}', '${currentSectie}', '${kd.id}', '${itemId}', this.checked)" ${isChecked ? 'checked' : ''} class="mt-0.5 rounded text-brand-600 focus:ring-brand-500 w-4 h-4">
+                                                    <input type="checkbox" onchange="handleSubgoalItemToggle('${activeSubject}', '${currentSectie}', '${kd.id}', '${sub.code}', '${itemId}', this.checked)" ${isChecked ? 'checked' : ''} class="mt-0.5 rounded text-brand-600 focus:ring-brand-500 w-4 h-4">
                                                     <span class="${isChecked ? 'text-slate-900 font-semibold' : ''}">${itemText}</span>
                                                 </label>
                                             `;
                                         }).join('')}
                                     </div>
+
+                                    <!-- Borgingsstatus per subdoel -->
+                                    <div>
+                                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-1.5">Borgingsstatus Subdoel ${sub.code}:</span>
+                                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                            <label class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg border border-slate-200 cursor-pointer text-xs">
+                                                <input type="radio" name="status_${kd.id}_${sub.code}" value="niet-gestart" onchange="handleSubgoalStatusChange('${activeSubject}', '${currentSectie}', '${kd.id}', '${sub.code}', 'niet-gestart')" ${subData.status === 'niet-gestart' ? 'checked' : ''}>
+                                                <span>⚪ Niet gestart</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg border border-slate-200 cursor-pointer text-xs">
+                                                <input type="radio" name="status_${kd.id}_${sub.code}" value="in-ontwikkeling" onchange="handleSubgoalStatusChange('${activeSubject}', '${currentSectie}', '${kd.id}', '${sub.code}', 'in-ontwikkeling')" ${subData.status === 'in-ontwikkeling' ? 'checked' : ''}>
+                                                <span class="text-amber-800 font-semibold">🟡 In ontwikkeling</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg border border-slate-200 cursor-pointer text-xs">
+                                                <input type="radio" name="status_${kd.id}_${sub.code}" value="geborgd" onchange="handleSubgoalStatusChange('${activeSubject}', '${currentSectie}', '${kd.id}', '${sub.code}', 'geborgd')" ${subData.status === 'geborgd' ? 'checked' : ''}>
+                                                <span class="text-emerald-800 font-semibold">🟢 Geborgd</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tekstvelden per subdoel -->
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">Opdrachten & werkvormen (${sub.code})</label>
+                                            <textarea onchange="handleSubgoalTextChange('${activeSubject}', '${currentSectie}', '${kd.id}', '${sub.code}', 'opdrachten', this.value)" rows="2" placeholder="Beschrijf activiteiten voor subdoel ${sub.code}..." class="w-full bg-white text-xs border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-brand-500">${subData.opdrachten || ''}</textarea>
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">Bewijslast & toetsing (${sub.code})</label>
+                                            <textarea onchange="handleSubgoalTextChange('${activeSubject}', '${currentSectie}', '${kd.id}', '${sub.code}', 'bewijslast', this.value)" rows="2" placeholder="Verwijs naar toetsen of lesmateriaal..." class="w-full bg-white text-xs border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-brand-500">${subData.bewijslast || ''}</textarea>
+                                        </div>
+                                    </div>
                                 </div>
-                            `).join('')}
-                        </div>
-
-                        <!-- Borgingsstatus Radio's -->
-                        <div>
-                            <h5 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">Borgingsstatus (${currentSectie})</h5>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer text-xs">
-                                    <input type="radio" name="status_${kd.id}" value="niet-gestart" onchange="handleStatusChange('${activeSubject}', '${currentSectie}', '${kd.id}', 'niet-gestart')" ${data.status === 'niet-gestart' ? 'checked' : ''}>
-                                    <span class="font-medium text-slate-700">⚪ Niet gestart</span>
-                                </label>
-                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer text-xs">
-                                    <input type="radio" name="status_${kd.id}" value="in-ontwikkeling" onchange="handleStatusChange('${activeSubject}', '${currentSectie}', '${kd.id}', 'in-ontwikkeling')" ${data.status === 'in-ontwikkeling' ? 'checked' : ''}>
-                                    <span class="font-medium text-amber-800">🟡 In ontwikkeling</span>
-                                </label>
-                                <label class="flex items-center gap-2 p-2.5 bg-white rounded-lg border border-slate-200 cursor-pointer text-xs">
-                                    <input type="radio" name="status_${kd.id}" value="geborgd" onchange="handleStatusChange('${activeSubject}', '${currentSectie}', '${kd.id}', 'geborgd')" ${data.status === 'geborgd' ? 'checked' : ''}>
-                                    <span class="font-medium text-emerald-800">🟢 Geborgd in curriculum</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Open Textarea's -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-1">Concrete opdrachten & werkvormen</label>
-                                <textarea onchange="handleTextareaChange('${activeSubject}', '${currentSectie}', '${kd.id}', 'opdrachten', this.value)" rows="2" placeholder="Beschrijf welke lessen, methodes of projecten hieraan werken..." class="w-full bg-white text-xs border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-brand-500">${data.opdrachten || ''}</textarea>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-1">Bewijslast, lesmateriaal & toetsing</label>
-                                <textarea onchange="handleTextareaChange('${activeSubject}', '${currentSectie}', '${kd.id}', 'bewijslast', this.value)" rows="2" placeholder="Verwijs naar reader, PTA-toets, projectmap of links..." class="w-full bg-white text-xs border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-brand-500">${data.bewijslast || ''}</textarea>
-                            </div>
-                        </div>
+                            `;
+                        }).join('')}
                     </div>
                 </div>
             `;
@@ -2517,46 +2728,27 @@
             }
         }
 
-        // Dedicated Progress Bar Update Function
         function updateSubjectProgressBar(subjectName, currentSectie) {
+            if (!subjectName) {
+                const curTab = NAV_TABS.find(t => t.id === appState.activeTabId);
+                subjectName = curTab ? curTab.subject : "Nederlands";
+            }
+            if (!subjectName) return;
+
             const blockAGoals = KERNDOELEN_DATA.filter(kd => kd.leergebied === subjectName);
             const blockBGoals = KERNDOELEN_DATA.filter(kd => kd.leergebied === "Digitale geletterdheid");
             const blockCGoals = KERNDOELEN_DATA.filter(kd => kd.leergebied === "Burgerschap");
             const allGoals = [...blockAGoals, ...blockBGoals, ...blockCGoals];
 
-            // Verzamel alle secties die data hebben voor dit specifieke vak
-            const sectionsForSubj = appState.inventory[subjectName] || {};
-            const availableSections = Object.keys(sectionsForSubj).filter(s => s.toLowerCase() !== 'algemeen');
-
-            let effectiveSection = currentSectie;
-            // Als de huidige sectie 'Algemeen' is, maar er is een geïmporteerde sectie (zoals Aardrijkskunde), toon dan die data!
-            if ((!effectiveSection || effectiveSection.toLowerCase() === 'algemeen') && availableSections.length > 0) {
-                effectiveSection = availableSections[0];
-                appState.currentSectie = effectiveSection;
-                const inputEl = document.getElementById("sectieDocentenInput");
-                if (inputEl) inputEl.value = effectiveSection;
-                const badgeEl = document.getElementById("activeSectieBadge");
-                if (badgeEl) badgeEl.innerText = effectiveSection;
-            }
+            const effectiveSection = currentSectie || appState.currentSectie || "aardrijkskunde";
 
             let geborgdCount = 0;
             let ontwikkelingCount = 0;
             let nietGestartCount = 0;
 
             allGoals.forEach(kd => {
-                // Kijk of het doel geborgd is in de effectieve sectie, of in een van de secties van dit vak
-                let data = getGoalData(subjectName, effectiveSection, kd.id);
-                let effStatus = getEffectiveStatus(data);
-
-                // Fallback geaggregeerd: als het in een andere sectie van ditzelfde vakgebied geborgd is, telt het mee
-                if (effStatus === 'niet-gestart' && availableSections.length > 1) {
-                    availableSections.forEach(s => {
-                        const otherData = sectionsForSubj[s]?.[kd.id];
-                        const otherSt = getEffectiveStatus(otherData);
-                        if (otherSt === 'geborgd') effStatus = 'geborgd';
-                        else if (otherSt === 'in-ontwikkeling' && effStatus !== 'geborgd') effStatus = 'in-ontwikkeling';
-                    });
-                }
+                const data = getGoalData(subjectName, effectiveSection, kd.id);
+                const effStatus = getEffectiveGoalStatus(data, kd);
 
                 if (effStatus === 'geborgd') geborgdCount++;
                 else if (effStatus === 'in-ontwikkeling') ontwikkelingCount++;
@@ -2572,13 +2764,15 @@
             const bOnt = document.getElementById("barOntwikkeling");
             const bNiet = document.getElementById("barNietGestart");
             const pCounts = document.getElementById("progressCounts");
+            const pSubj = document.getElementById("progressSubjectName");
             const pSec = document.getElementById("progressSectieName");
 
             if (bGeb) bGeb.style.width = `${pctGeborgd}%`;
             if (bOnt) bOnt.style.width = `${pctOntwikkeling}%`;
             if (bNiet) bNiet.style.width = `${pctNietGestart}%`;
             if (pCounts) pCounts.innerText = `${geborgdCount} van de ${total} kerndoelen geborgd (${pctGeborgd}%)`;
-            if (pSec) pSec.innerText = effectiveSection || "Algemeen";
+            if (pSubj) pSubj.innerText = subjectName;
+            if (pSec) pSec.innerText = isAdminMode() ? "Schoolbreed" : effectiveSection;
         }
 
         // =========================================================================
@@ -2714,7 +2908,7 @@
                     Object.keys(sectionsForSubj).forEach(sectie => {
                         activeSectionsSet.add(sectie);
                         const goalData = sectionsForSubj[sectie][kd.id];
-                        const effSt = getEffectiveStatus(goalData);
+                        const effSt = getEffectiveGoalStatus(goalData, kd);
                         if (effSt === 'geborgd') isGeborgdInAnySection = true;
                         if (effSt === 'in-ontwikkeling') isInOntwikkelingInAnySection = true;
                     });
@@ -2739,7 +2933,10 @@
                 Object.keys(secties).forEach(secName => {
                     const cleanName = secName.trim();
                     if (cleanName.toLowerCase() !== 'algemeen' && cleanName.toLowerCase() !== 'standaard sectie') {
-                        const hasData = Object.values(secties[secName]).some(g => getEffectiveStatus(g) !== 'niet-gestart');
+                        const hasData = Object.keys(secties[secName]).some(kdId => {
+                            const kdDef = KERNDOELEN_DATA.find(k => k.id === kdId);
+                            return getEffectiveGoalStatus(secties[secName][kdId], kdDef) !== 'niet-gestart';
+                        });
                         if (hasData) {
                             uniqueSections.add(cleanName);
                         }
@@ -2823,7 +3020,7 @@
                     let isGeborgd = false;
                     let isOntwikkeling = false;
                     Object.keys(sections).forEach(s => {
-                        const st = getEffectiveStatus(sections[s][kd.id]);
+                        const st = getEffectiveGoalStatus(sections[s][kd.id], kd);
                         if (st === 'geborgd') isGeborgd = true;
                         if (st === 'in-ontwikkeling') isOntwikkeling = true;
                     });
@@ -2843,7 +3040,7 @@
                     const sections = appState.inventory[subj] || {};
                     let isCovered = false;
                     Object.keys(sections).forEach(s => {
-                        const st = getEffectiveStatus(sections[s]?.[kd.id]);
+                        const st = getEffectiveGoalStatus(sections[s]?.[kd.id], kd);
                         if (st !== 'niet-gestart') isCovered = true;
                     });
                     if (isCovered) transverseCount++;
@@ -2984,17 +3181,30 @@
                                                 ${kd.kernzin}
                                             </td>
                                             ${sections.map(s => {
-                                                const d = appState.inventory[subjectName][s][kd.id];
-                                                const st = getEffectiveStatus(d);
+                                                const d = appState.inventory[subjectName]?.[s]?.[kd.id];
+                                                const st = getEffectiveGoalStatus(d, kd);
                                                 let badge = '<span class="text-slate-400 font-normal">⚪ Niet gestart</span>';
                                                 if (st === 'geborgd') badge = '<span class="text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">🟢 Geborgd</span>';
                                                 if (st === 'in-ontwikkeling') badge = '<span class="text-amber-800 font-semibold bg-amber-50 px-2 py-0.5 rounded border border-amber-200">🟡 In ontw.</span>';
 
+                                                let subNotes = [];
+                                                if (d && d.subdoelen) {
+                                                    Object.keys(d.subdoelen).forEach(c => {
+                                                        const sd = d.subdoelen[c];
+                                                        const sSt = getEffectiveStatus(sd);
+                                                        if (sSt !== 'niet-gestart' || sd.opdrachten || sd.bewijslast) {
+                                                            subNotes.push(`<strong>${c}:</strong> ${sSt === 'geborgd' ? '🟢' : '🟡'} ${sd.opdrachten ? sd.opdrachten : ''}`);
+                                                        }
+                                                    });
+                                                } else if (d && (d.opdrachten || d.bewijslast)) {
+                                                    if (d.opdrachten) subNotes.push(`<strong>Opdrachten:</strong> ${d.opdrachten}`);
+                                                    if (d.bewijslast) subNotes.push(`<strong>Bewijslast:</strong> ${d.bewijslast}`);
+                                                }
+
                                                 return `
                                                     <td class="p-3 border-l border-slate-200 align-top space-y-1">
                                                         <div>${badge}</div>
-                                                        ${d && d.opdrachten ? `<p class="text-[11px] text-slate-600"><strong>Opdrachten:</strong> ${d.opdrachten}</p>` : ''}
-                                                        ${d && d.bewijslast ? `<p class="text-[11px] text-slate-500"><strong>Bewijslast:</strong> ${d.bewijslast}</p>` : ''}
+                                                        ${subNotes.map(n => `<p class="text-[11px] text-slate-600">${n}</p>`).join('')}
                                                     </td>
                                                 `;
                                             }).join('')}
@@ -3050,7 +3260,7 @@
                                         const sections = appState.inventory[subj] || {};
                                         const sectionEntries = Object.keys(sections).map(s => {
                                             const goalData = sections[s][kd.id];
-                                            const effSt = getEffectiveStatus(goalData);
+                                            const effSt = getEffectiveGoalStatus(goalData, kd);
                                             return { sectieName: s, data: goalData, status: effSt };
                                         }).filter(e => e.status !== 'niet-gestart');
 
@@ -3068,7 +3278,6 @@
                                                         <span class="${e.status === 'geborgd' ? 'text-emerald-700 font-bold' : 'text-amber-700 font-bold'}">
                                                             ${e.status === 'geborgd' ? '🟢 Geborgd' : '🟡 In ontw.'}
                                                         </span>
-                                                        ${e.data && e.data.opdrachten ? `<p class="text-[10px] text-slate-600 mt-0.5">${e.data.opdrachten}</p>` : ''}
                                                     </div>
                                                 `).join('')}
                                             </div>
@@ -3098,12 +3307,13 @@
                     const cleanName = secName.trim();
                     if (cleanName.toLowerCase() === 'algemeen' || cleanName.toLowerCase() === 'standaard sectie') return;
 
-                    const goalEntries = Object.values(secties[secName]);
                     let geborgd = 0;
                     let inOntw = 0;
 
-                    goalEntries.forEach(g => {
-                        const st = getEffectiveStatus(g);
+                    Object.keys(secties[secName]).forEach(kdId => {
+                        const g = secties[secName][kdId];
+                        const kdDef = KERNDOELEN_DATA.find(k => k.id === kdId);
+                        const st = getEffectiveGoalStatus(g, kdDef);
                         if (st === 'geborgd') geborgd++;
                         else if (st === 'in-ontwikkeling') inOntw++;
                     });
