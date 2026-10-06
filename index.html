@@ -369,1655 +369,411 @@
         // 1. KERNDOELEN DATASET (VOLLEDIGE 45 KERNDOELEN 3E DRUK 2026)
         // =========================================================================
         const KERNDOELEN_DATA = [
-          // ==========================================
-          // 1. NEDERLANDS (Kerndoelen 1 t/m 9)
-          // ==========================================
+          // 1. NEDERLANDS (1 t/m 9)
           {
             id: "kd_1", nummer: 1, leergebied: "Nederlands", domein: "Overkoepelend",
             kernzin: "De school stimuleert de taalcompetentie van leerlingen.",
             subdoelen: [
-              {
-                code: "1A", isHavoVwoExtra: false,
-                doelzin: "De school zorgt voor een rijke taal- en leesomgeving.",
-                hetGaatHierbijOm: [
-                  "aanbieden van taalactiviteiten in betekenisvolle contexten",
-                  "aanbieden van een veelzijdig en actueel aanbod van jeugd- en young adult-literatuur binnen een vaste leesroutine",
-                  "aanbieden van kennis en vaardigheden uit het leergebied Nederlands in onderlinge samenhang",
-                  "stimuleren van de leesmotivatie en de durf om te spreken en te schrijven",
-                  "ruimte bieden aan verschillende talen en taalvariëteiten van leerlingen"
-                ]
-              },
-              {
-                code: "1B", isHavoVwoExtra: false,
-                doelzin: "De school stimuleert de taalontwikkeling van de leerling in alle leergebieden.",
-                hetGaatHierbijOm: [
-                  "stimuleren van betekenisvolle activiteiten waarin school- en vaktaal en vakspecifieke taalvaardigheden verworven kunnen worden",
-                  "stimuleren van het gebruiken van rijke teksten over inhoudelijke thema's in alle leergebieden",
-                  "stimuleren van taalproductie en interactie in alle leergebieden",
-                  "stimuleren van aandacht voor taalverzorging en taalgebruik in alle leergebieden",
-                  "aanbieden van een schoolbrede set van aanpakken en flexibel inzetbare strategieën bij het ondersteunen van taalactiviteiten in de andere leergebieden"
-                ]
-              }
+              { code: "1A", isHavoVwoExtra: false, doelzin: "De school zorgt voor een rijke taal- en leesomgeving.", hetGaatHierbijOm: ["aanbieden van taalactiviteiten in betekenisvolle contexten", "aanbieden van een veelzijdig en actueel aanbod van jeugd- en young adult-literatuur binnen een vaste leesroutine", "aanbieden van kennis en vaardigheden uit het leergebied Nederlands in onderlinge samenhang", "stimuleren van de leesmotivatie en de durf om te spreken en te schrijven", "ruimte bieden aan verschillende talen en taalvariëteiten van leerlingen"] },
+              { code: "1B", isHavoVwoExtra: false, doelzin: "De school stimuleert de taalontwikkeling van de leerling in alle leergebieden.", hetGaatHierbijOm: ["stimuleren van betekenisvolle activiteiten waarin school- en vaktaal en vakspecifieke taalvaardigheden verworven kunnen worden", "stimuleren van het gebruiken van rijke teksten over inhoudelijke thema's in alle leergebieden", "stimuleren van taalproductie en interactie in alle leergebieden", "stimuleren van aandacht voor taalverzorging en taalgebruik in alle leergebieden", "aanbieden van een schoolbrede set van aanpakken en flexibel inzetbare strategieën bij het ondersteunen van taalactiviteiten in de andere leergebieden"] }
             ]
           },
           {
             id: "kd_2", nummer: 2, leergebied: "Nederlands", domein: "Communicatie",
             kernzin: "De leerling begrijpt teksten.",
             subdoelen: [
-              {
-                code: "2A", isHavoVwoExtra: false,
-                doelzin: "De leerling toont begrip van zakelijke en literaire teksten.",
-                hetGaatHierbijOm: [
-                  "aandachtig luisteren, kijken of aandachtig vloeiend lezen",
-                  "inzetten en uitbreiden van woordenschat, kennis over taal en kennis van de wereld",
-                  "inzetten en uitbreiden van kennis over de vorm van teksten: tekstsoorten, tekststructuren, literaire genres, verteltechnieken",
-                  "beschrijven van perspectieven, communicatieve doelen, publiek, context",
-                  "in eigen woorden weergeven van de hoofd- en bijzaken, de hoofdgedachte en betekenis van een tekst, passend bij het lees- of luisterdoel",
-                  "flexibel toepassen van verschillende aanpakken en begripsverhogende strategieën"
-                ]
-              },
-              {
-                code: "2B", isHavoVwoExtra: false,
-                doelzin: "De leerling evalueert en reflecteert op zakelijke en literaire teksten.",
-                hetGaatHierbijOm: [
-                  "benoemen van inhoudelijke relaties binnen en tussen verschillende teksten",
-                  "benoemen van verschillen en overeenkomsten in feiten, meningen, argumentatie en perspectieven",
-                  "benoemen van tegenstrijdige en overeenkomstige inhoud en framing binnen en tussen teksten",
-                  "evalueren van bruikbaarheid van teksten",
-                  "reflecteren op de waarde, inhoud en vorm van teksten"
-                ]
-              },
-              {
-                code: "2C", isHavoVwoExtra: false,
-                doelzin: "De leerling verkent de betrouwbaarheid van verschillende bronnen.",
-                hetGaatHierbijOm: [
-                  "benoemen van kenmerken van aangereikte bronnen: maker, tekstsoort en verschijningsdatum",
-                  "benoemen van inhouds- en vormelementen die misleidend zijn of vragen oproepen",
-                  "vergelijkend beoordelen en selecteren van bronnen op basis van hun betrouwbaarheid"
-                ]
-              }
+              { code: "2A", isHavoVwoExtra: false, doelzin: "De leerling toont begrip van zakelijke en literaire teksten.", hetGaatHierbijOm: ["aandachtig luisteren, kijken of aandachtig vloeiend lezen", "inzetten en uitbreiden van woordenschat, kennis over taal en kennis van de wereld", "inzetten en uitbreiden van kennis over de vorm van teksten: tekstsoorten, tekststructuren, literaire genres, verteltechnieken", "beschrijven van perspectieven, communicatieve doelen, publiek, context", "in eigen woorden weergeven van de hoofd- en bijzaken, de hoofdgedachte en betekenis van een tekst, passend bij het lees- of luisterdoel", "flexibel toepassen van verschillende aanpakken en begripsverhogende strategieën"] },
+              { code: "2B", isHavoVwoExtra: false, doelzin: "De leerling evalueert en reflecteert op zakelijke en literaire teksten.", hetGaatHierbijOm: ["benoemen van inhoudelijke relaties binnen en tussen verschillende teksten", "benoemen van verschillen en overeenkomsten in feiten, meningen, argumentatie en perspectieven", "benoemen van tegenstrijdige en overeenkomstige inhoud en framing binnen en tussen teksten", "evalueren van bruikbaarheid van teksten", "reflecteren op de waarde, inhoud en vorm van teksten"] },
+              { code: "2C", isHavoVwoExtra: false, doelzin: "De leerling verkent de betrouwbaarheid van verschillende bronnen.", hetGaatHierbijOm: ["benoemen van kenmerken van aangereikte bronnen: maker, tekstsoort en verschijningsdatum", "benoemen van inhouds- en vormelementen die misleidend zijn of vragen oproepen", "vergelijkend beoordelen en selecteren van bronnen op basis van hun betrouwbaarheid"] }
             ]
           },
           {
             id: "kd_3", nummer: 3, leergebied: "Nederlands", domein: "Communicatie",
             kernzin: "De leerling produceert teksten.",
             subdoelen: [
-              {
-                code: "3A", isHavoVwoExtra: false,
-                doelzin: "De leerling spreekt en schrijft afgestemd op doel, publiek en context.",
-                hetGaatHierbijOm: [
-                  "hanteren van een passende aanpak",
-                  "in eigen woorden verwerken van informatie uit verschillende bronnen tot een gestructureerde tekst met bronvermelding",
-                  "inzetten en uitbreiden van kennis over de vorm van teksten: tekstsoorten, tekststructuren, verteltechnieken",
-                  "schrijven op letter-, schrift- en tekstniveau met een leesbaar handschrift en typschrift, en verstaanbaar spreken",
-                  "reviseren van de tekst met het oog op doelgerichte communicatie: taalgebruik en taalverzorging"
-                ]
-              },
-              {
-                code: "3B", isHavoVwoExtra: false,
-                doelzin: "De leerling gebruikt taal op een creatieve manier.",
-                hetGaatHierbijOm: [
-                  "verkennen van creatief taalgebruik van anderen in literaire en zakelijke teksten",
-                  "verwoorden van eigen gedachten, ervaringen, gevoelens en fantasieën",
-                  "experimenteren met klanken, woorden, zinnen, literaire genres, taalregels, taalconventies en visuele vormen",
-                  "verkennen van kenmerken van de ontluikende eigen stijl en het talige repertoire",
-                  "waarderen van creatief taalgebruik"
-                ]
-              },
-              {
-                code: "3C", isHavoVwoExtra: false,
-                doelzin: "De leerling schrijft om tot kennisopbouw of begrip te komen.",
-                hetGaatHierbijOm: [
-                  "weergeven van hoofd- en bijzaken, indrukken en vragen bij gelezen, bekeken of beluisterde inhoud",
-                  "samenvatten van gelezen inhoud",
-                  "verwoorden, onderbouwen en ordenen van gedachten, verworven inzichten en kennis in een tekst of schema",
-                  "inzetten en uitbreiden van school- en vaktaal",
-                  "schrijven op letter-, schrift- en tekstniveau met een leesbaar handschrift en typschrift"
-                ]
-              }
+              { code: "3A", isHavoVwoExtra: false, doelzin: "De leerling spreekt en schrijft afgestemd op doel, publiek en context.", hetGaatHierbijOm: ["hanteren van een passende aanpak", "in eigen woorden verwerken van informatie uit verschillende bronnen tot een gestructureerde tekst met bronvermelding", "inzetten en uitbreiden van kennis over de vorm van teksten: tekstsoorten, tekststructuren, verteltechnieken", "schrijven op letter-, schrift- en tekstniveau met een leesbaar handschrift en typschrift, en verstaanbaar spreken", "reviseren van de tekst met het oog op doelgerichte communicatie: taalgebruik en taalverzorging"] },
+              { code: "3B", isHavoVwoExtra: false, doelzin: "De leerling gebruikt taal op een creatieve manier.", hetGaatHierbijOm: ["verkennen van creatief taalgebruik van anderen in literaire en zakelijke teksten", "verwoorden van eigen gedachten, ervaringen, gevoelens en fantasieën", "experimenteren met klanken, woorden, zinnen, literaire genres, taalregels, taalconventies en visuele vormen", "verkennen van kenmerken van de ontluikende eigen stijl en het talige repertoire", "waarderen van creatief taalgebruik"] },
+              { code: "3C", isHavoVwoExtra: false, doelzin: "De leerling schrijft om tot kennisopbouw of begrip te komen.", hetGaatHierbijOm: ["weergeven van hoofd- en bijzaken, indrukken en vragen bij gelezen, bekeken of beluisterde inhoud", "samenvatten van gelezen inhoud", "verwoorden, onderbouwen en ordenen van gedachten, verworven inzichten en kennis in een tekst of schema", "inzetten en uitbreiden van school- en vaktaal", "schrijven op letter-, schrift- en tekstniveau met een leesbaar handschrift en typschrift"] }
             ]
           },
           {
             id: "kd_4", nummer: 4, leergebied: "Nederlands", domein: "Communicatie",
             kernzin: "De leerling voert gesprekken.",
             subdoelen: [
-              {
-                code: "4A", isHavoVwoExtra: false,
-                doelzin: "De leerling voert gesprekken afgestemd op doel, gesprekspartner(s) en context.",
-                hetGaatHierbijOm: [
-                  "inzetten en uitbreiden van vaardigheden om gesprekken constructief te laten verlopen: luisteren, herkennen van signalen en passend reageren op de gesprekspartner(s)",
-                  "actief deelnemen aan gesprekken",
-                  "afstemmen van taalgebruik, stemgebruik en non-verbale communicatie op communicatief doel en on- en offline context",
-                  "verwerven en gebruiken van informatie afgestemd op kennis, achtergrond, standpunt en perspectief van de gesprekspartner(s)",
-                  "toepassen van gespreks- en taalconventies, passend bij de gespreksvorm"
-                ]
-              },
-              {
-                code: "4B", isHavoVwoExtra: false,
-                doelzin: "De leerling voert gesprekken om tot kennisopbouw, begrip of een aanpak te komen.",
-                hetGaatHierbijOm: [
-                  "verwoorden van kennis, ideeën en standpunten met onderbouwing",
-                  "vragen om toelichting, verklaring of bevestiging",
-                  "luisteren naar, doorvragen op en ter discussie stellen van de ideeën en perspectieven van gesprekspartners",
-                  "accepteren of verwerpen van andermans ideeën met argumenten",
-                  "samenvatten van inzichten, verwoorden van oplossingen en trekken van conclusies"
-                ]
-              }
+              { code: "4A", isHavoVwoExtra: false, doelzin: "De leerling voert gesprekken afgestemd op doel, gesprekspartner(s) en context.", hetGaatHierbijOm: ["inzetten en uitbreiden van vaardigheden om gesprekken constructief te laten verlopen", "actief deelnemen aan gesprekken", "afstemmen van taalgebruik en stemgebruik", "verwerven en gebruiken van informatie", "toepassen van gespreksconventies"] },
+              { code: "4B", isHavoVwoExtra: false, doelzin: "De leerling voert gesprekken om tot kennisopbouw, begrip of een aanpak te komen.", hetGaatHierbijOm: ["verwoorden van kennis en ideeën", "vragen om toelichting", "luisteren naar en doorvragen op perspectieven", "accepteren of verwerpen van ideeën", "samenvatten van inzichten"] }
             ]
           },
           {
             id: "kd_5", nummer: 5, leergebied: "Nederlands", domein: "Communicatie",
             kernzin: "De leerling ontwikkelt zich als bewuste taalgebruiker.",
             subdoelen: [
-              {
-                code: "5A", isHavoVwoExtra: false,
-                doelzin: "De leerling reflecteert op het proces en evalueert het product van een taalactiviteit.",
-                hetGaatHierbijOm: [
-                  "ontvangen en geven van feedback",
-                  "reflecteren op het proces: de gemaakte keuzes in aanpak en strategieën tijdens en na de uitvoering van een taalactiviteit",
-                  "beoordelen van het product van de taalactiviteit aan de hand van aangereikte criteria",
-                  "formuleren van leerdoelen voor proces en product bij toekomstige taalactiviteiten"
-                ]
-              }
+              { code: "5A", isHavoVwoExtra: false, doelzin: "De leerling reflecteert op het proces en evalueert het product van een taalactiviteit.", hetGaatHierbijOm: ["ontvangen en geven van feedback", "reflecteren op keuzes in aanpak", "beoordelen van het product", "formuleren van leerdoelen"] }
             ]
           },
           {
             id: "kd_6", nummer: 6, leergebied: "Nederlands", domein: "Taal",
             kernzin: "De leerling toont inzicht in taal als systeem.",
             subdoelen: [
-              {
-                code: "6A", isHavoVwoExtra: false,
-                doelzin: "De leerling beschouwt de relatie tussen vorm en betekenis van taal.",
-                hetGaatHierbijOm: [
-                  "verkennen hoe letterklanken, klemtoon, intonatie en ritme samenhangen met de betekenis van taal",
-                  "inzicht tonen in de opbouw van complexe woorden om de betekenis af te leiden",
-                  "beschrijven hoe de betekenis in complexe zinnen bepaald wordt door de woordvolgorde en de zinsdelen",
-                  "verkennen hoe register, stijlmiddelen en opbouw van teksten een relatie hebben met het communicatieve doel",
-                  "functioneel gebruiken van taalkundige begrippen en taalbeschouwingsstrategieën bij het redeneren over de spelling en grammatica"
-                ]
-              },
-              {
-                code: "6B", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in regels en procedures voor spelling, formulering en interpunctie.",
-                hetGaatHierbijOm: [
-                  "correct formuleren op woord-, zins- en tekstniveau",
-                  "verbinden van vorm en betekenis om de correcte spelling te achterhalen",
-                  "ontwikkelen van spellingbewustzijn en spellinggeweten",
-                  "reflecteren op gemaakte keuzes in woorden en zinnen",
-                  "inzetten van hulpmiddelen en bronnen om regels en procedures correct toe te passen en teksten te redigeren"
-                ]
-              },
-              {
-                code: "6C", isHavoVwoExtra: true,
-                doelzin: "De leerling toont inzicht in zakelijke genres.",
-                hetGaatHierbijOm: [
-                  "benoemen van kenmerken met betrekking tot context, doel, inhoud en vorm, passend bij een genre",
-                  "herkennen van genrespecifieke kenmerken van taalgebruik",
-                  "reflecteren op gebruik van genrekenmerken in relatie tot het communicatieve doel"
-                ]
-              },
-              {
-                code: "6D", isHavoVwoExtra: true,
-                doelzin: "De leerling verkent de overtuigingskracht van teksten.",
-                hetGaatHierbijOm: [
-                  "herkennen van standpunt en argumenten in teksten",
-                  "herkennen van de context waarin de argumentatie plaatsvindt",
-                  "verkennen van de geloofwaardigheid van de spreker of schrijver",
-                  "beschrijven hoe gevoelens worden opgeroepen bij het publiek"
-                ]
-              }
+              { code: "6A", isHavoVwoExtra: false, doelzin: "De leerling beschouwt de relatie tussen vorm en betekenis van taal.", hetGaatHierbijOm: ["letterklanken en ritme", "opbouw van complexe woorden", "betekenis in complexe zinnen", "register en stijlmiddelen", "taalkundige begrippen"] },
+              { code: "6B", isHavoVwoExtra: false, doelzin: "De leerling toont inzicht in regels en procedures voor spelling, formulering en interpunctie.", hetGaatHierbijOm: ["correct formuleren", "spellingbewustzijn", "reflecteren op gemaakte keuzes", "inzetten van hulpmiddelen"] },
+              { code: "6C", isHavoVwoExtra: true, doelzin: "De leerling toont inzicht in zakelijke genres.", hetGaatHierbijOm: ["kenmerken van context en doel", "genrespecifiek taalgebruik", "reflecteren op genrekenmerken"] },
+              { code: "6D", isHavoVwoExtra: true, doelzin: "De leerling verkent de overtuigingskracht van teksten.", hetGaatHierbijOm: ["standpunt en argumenten herkennen", "geloofwaardigheid verkennen", "gevoelens oproepen bij publiek"] }
             ]
           },
           {
             id: "kd_7", nummer: 7, leergebied: "Nederlands", domein: "Taal",
             kernzin: "De leerling verkent het gebruik van taal.",
             subdoelen: [
-              {
-                code: "7A", isHavoVwoExtra: false,
-                doelzin: "De leerling verkent hoe je met taal uiting geeft aan identiteit.",
-                hetGaatHierbijOm: [
-                  "verkennen van het eigen talige repertoire in relatie tot hoe je wilt overkomen en tot welke groepen je wilt behoren: talen en taalvariëteiten, gebaren, lichaamstaal",
-                  "experimenteren met het eigen talige repertoire in relatie tot publiek, doel en context",
-                  "reflecteren op hoe je overkomt op anderen op basis van bewuste keuzes in het eigen talige repertoire",
-                  "reflecteren op hoe andere mensen hun talige repertoire benutten om uiting te geven aan hun identiteit",
-                  "waarderen van het eigen talige repertoire"
-                ]
-              },
-              {
-                code: "7B", isHavoVwoExtra: false,
-                doelzin: "De leerling verkent taalvariatie en taalverandering in het Nederlandse taalgebied.",
-                hetGaatHierbijOm: [
-                  "verkennen van verschillende taalvariëteiten van het Nederlands: school- en vaktaal, groeps- en streektalen en talen in beroepscontexten",
-                  "vergelijken van de contexten waarin verschillende talen en taalvariëteiten worden gebruikt",
-                  "benoemen van overeenkomsten en verschillen tussen het Nederlands en andere talen en taalvariëteiten op klank-, woord- en zinsniveau",
-                  "reflecteren op overtuigingen over verschillende talen en taalvariëteiten",
-                  "verkennen van veranderingen in taalgebruik onder invloed van tijd, media en maatschappelijke ontwikkelingen"
-                ]
-              }
+              { code: "7A", isHavoVwoExtra: false, doelzin: "De leerling verkent hoe je met taal uiting geeft aan identiteit.", hetGaatHierbijOm: ["eigen talige repertoire verkennen", "experimenteren met repertoire", "reflecteren op hoe je overkomt", "waarderen van eigen repertoire"] },
+              { code: "7B", isHavoVwoExtra: false, doelzin: "De leerling verkent taalvariatie en taalverandering in het Nederlandse taalgebied.", hetGaatHierbijOm: ["taalvariëteiten van het Nederlands", "contexten vergelijken", "overeenkomsten en verschillen", "veranderingen onderzoeken"] }
             ]
           },
           {
             id: "kd_8", nummer: 8, leergebied: "Nederlands", domein: "Literatuur",
             kernzin: "De leerling doet ervaring op met literatuur.",
             subdoelen: [
-              {
-                code: "8A", isHavoVwoExtra: false,
-                doelzin: "De leerling ontwikkelt een eigen leesvoorkeur.",
-                hetGaatHierbijOm: [
-                  "lezen en beluisteren van boeken en teksten, van verschillende schrijvers en literaire genres",
-                  "geven van een waardeoordeel over gelezen of beluisterde boeken en teksten op basis van literaire genres, eigen interesse en belevingswereld",
-                  "aangaan van nieuwe leesuitdagingen op basis van eerdere lees-, luister- en kijkervaringen",
-                  "beargumenteren van persoonlijke voorkeur op basis van reflectie op ervaringen met literatuur"
-                ]
-              },
-              {
-                code: "8B", isHavoVwoExtra: false,
-                doelzin: "De leerling verkent de waarde van literatuur.",
-                hetGaatHierbijOm: [
-                  "verwoorden van persoonlijke leeservaring en -beleving na het lezen van literatuur",
-                  "verwoorden van opgedane inzichten en kennis over zichzelf op basis van literatuur",
-                  "verwoorden van opgedane inzichten en kennis over anderen op basis van literatuur",
-                  "verwoorden van opgedane inzichten en kennis over de wereld en culturen op basis van literatuur"
-                ]
-              }
+              { code: "8A", isHavoVwoExtra: false, doelzin: "De leerling ontwikkelt een eigen leesvoorkeur.", hetGaatHierbijOm: ["lezen en beluisteren van boeken", "waardeoordeel geven", "nieuwe leesuitdagingen aangaan", "beargumenteren van voorkeur"] },
+              { code: "8B", isHavoVwoExtra: false, doelzin: "De leerling verkent de waarde van literatuur.", hetGaatHierbijOm: ["persoonlijke leeservaring verwoorden", "inzichten over zichzelf opdoen", "inzichten over anderen en de wereld"] }
             ]
           },
           {
             id: "kd_9", nummer: 9, leergebied: "Nederlands", domein: "Literatuur",
             kernzin: "De leerling toont inzicht in literatuur.",
             subdoelen: [
-              {
-                code: "9A", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in verhalende teksten.",
-                hetGaatHierbijOm: [
-                  "beschrijven welk probleem of welke wens van een hoofdpersoon de motor van het verhaal is en hoe het verhaal zich ontwikkelt",
-                  "beschrijven van de verschillende rollen van personages, hun karakter en ontwikkeling",
-                  "beschrijven hoe een schrijver verschillende verteltechnieken gebruikt om bepaalde effecten te bereiken",
-                  "beschrijven hoe tijd, plaats en omstandigheden het verhaal beïnvloeden"
-                ]
-              },
-              {
-                code: "9B", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in genrekenmerken van literatuur.",
-                hetGaatHierbijOm: [
-                  "onderscheiden van poëzie, proza- en dramateksten op basis van genrekenmerken",
-                  "benoemen van het effect op de leesbeleving van verschillende genrekenmerken",
-                  "analyseren van kenmerkend taalgebruik in literaire genres: figuurlijk taalgebruik, stijlfiguren, rijm en ritme",
-                  "analyseren van kenmerkende visuele elementen in literaire genres: illustraties, vormgeving, typografie"
-                ]
-              },
-              {
-                code: "9C", isHavoVwoExtra: false,
-                doelzin: "De leerling verkent literatuur die geschreven is in verschillende periodes en contexten.",
-                hetGaatHierbijOm: [
-                  "lezen, bekijken of beluisteren van literatuur uit verschillende tijden",
-                  "verkennen van de tijd en context waarin het verhaal geschreven is",
-                  "verwoorden van verschillen en overeenkomsten tussen historische teksten en de eigen tijd, leef- en belevingswereld",
-                  "verwoorden van universele thema's in literatuur door de tijd heen"
-                ]
-              },
-              {
-                code: "9D", isHavoVwoExtra: true,
-                doelzin: "De leerling legt verbanden tussen de inhoud van literatuur en de periode en context waarin deze is geschreven.",
-                hetGaatHierbijOm: [
-                  "beschrijven van verschillen en overeenkomsten tussen oudere en hedendaagse literatuur",
-                  "beschrijven van verschillen en overeenkomsten tussen versies van literaire teksten",
-                  "beschrijven van relaties tussen de periode en context waarin de tekst is geschreven en het wereldbeeld van de schrijver",
-                  "beschrijven van opgedane inzichten over historische tijdvakken",
-                  "herkennen van literair-culturele sporen in literatuur uit heden en verleden"
-                ]
-              }
+              { code: "9A", isHavoVwoExtra: false, doelzin: "De leerling toont inzicht in verhalende teksten.", hetGaatHierbijOm: ["probleem van hoofdpersoon", "rollen en karakters van personages", "verteltechnieken", "tijd en plaats"] },
+              { code: "9B", isHavoVwoExtra: false, doelzin: "De leerling toont inzicht in genrekenmerken van literatuur.", hetGaatHierbijOm: ["poëzie, proza en drama onderscheiden", "effect op leesbeleving", "kenmerkend taalgebruik analyseren"] },
+              { code: "9C", isHavoVwoExtra: false, doelzin: "De leerling verkent literatuur die geschreven is in verschillende periodes en contexten.", hetGaatHierbijOm: ["literatuur uit verschillende tijden", "tijd en context verkennen", "universele thema's"] },
+              { code: "9D", isHavoVwoExtra: true, doelzin: "De leerling legt verbanden tussen de inhoud van literatuur en de periode en context waarin deze is geschreven.", hetGaatHierbijOm: ["oudere en hedendaagse literatuur vergelijken", "wereldbeeld van de schrijver", "historische tijdvakken"] }
             ]
           },
 
-          // ==========================================
-          // 2. REKENEN EN WISKUNDE (Kerndoelen 10 t/m 17)
-          // ==========================================
+          // 2. REKENEN EN WISKUNDE (10 t/m 17)
           {
             id: "kd_10", nummer: 10, leergebied: "Rekenen en wiskunde", domein: "Wiskundige concepten",
             kernzin: "De leerling redeneert en rekent met getallen, grootheden en vergelijkingen.",
             subdoelen: [
-              {
-                code: "10A", isHavoVwoExtra: false,
-                doelzin: "De leerling redeneert en rekent met getallen en grootheden.",
-                hetGaatHierbijOm: [
-                  "optellen, aftrekken, vermenigvuldigen, delen, machtsverheffen en worteltrekken",
-                  "wendbaar en met inzicht gebruiken van getallen en hun eigenschappen, en enkelvoudige en samengestelde grootheden en eenheden",
-                  "wendbaar en met inzicht gebruiken van en rekenen met verhoudingen",
-                  "relaties leggen tussen grootheden en eenheden, tussen grootheden onderling en tussen eenheden onderling",
-                  "bepalen van afmetingen en inhoud van meetkundige figuren"
-                ]
-              },
-              {
-                code: "10A-extra", isHavoVwoExtra: true,
-                doelzin: "Algebra: De leerling redeneert en rekent met getallen, grootheden, variabelen en algebraïsche uitdrukkingen.",
-                hetGaatHierbijOm: [
-                  "rekenen met standaardprocedures en eigenschappen van bewerkingen",
-                  "herleiden van algebraïsche uitdrukkingen",
-                  "gebruiken van de wetenschappelijke notatie van grote en kleine getallen",
-                  "meten van grootheden en daarbij meet(on)nauwkeurigheid en effecten daarvan bepalen"
-                ]
-              },
-              {
-                code: "10B", isHavoVwoExtra: false,
-                doelzin: "De leerling gebruikt wiskundige vergelijkingen.",
-                hetGaatHierbijOm: [
-                  "interpreteren van wiskundige vergelijkingen en gevonden oplossingen",
-                  "opstellen van vergelijkingen bij situaties",
-                  "relaties leggen tussen gegeven vergelijkingen en situaties",
-                  "oplossen van lineaire vergelijkingen",
-                  "oplossen van lineaire, kwadratische en machtsvergelijkingen (havo-vwo)",
-                  "oplossen van een stelsel lineaire vergelijkingen (havo-vwo)",
-                  "oplossen van ongelijkheden (havo-vwo)"
-                ]
-              }
+              { code: "10A", isHavoVwoExtra: false, doelzin: "De leerling redeneert en rekent met getallen en grootheden.", hetGaatHierbijOm: ["basisbewerkingen en worteltrekken", "getallen en eigenschappen", "rekenen met verhoudingen", "afmetingen en inhoud bepalen"] },
+              { code: "10A-extra", isHavoVwoExtra: true, doelzin: "Algebra: De leerling redeneert en rekent met variabelen en algebraïsche uitdrukkingen.", hetGaatHierbijOm: ["standaardprocedures", "herleiden van uitdrukkingen", "wetenschappelijke notatie", "meetonnauwkeurigheid"] },
+              { code: "10B", isHavoVwoExtra: false, doelzin: "De leerling gebruikt wiskundige vergelijkingen.", hetGaatHierbijOm: ["interpreteren van vergelijkingen", "opstellen bij situaties", "lineaire en kwadratische vergelijkingen oplossen"] }
             ]
           },
           {
             id: "kd_11", nummer: 11, leergebied: "Rekenen en wiskunde", domein: "Wiskundige concepten",
             kernzin: "De leerling interpreteert data en kansen.",
             subdoelen: [
-              {
-                code: "11A", isHavoVwoExtra: false,
-                doelzin: "De leerling interpreteert, representeert en analyseert data.",
-                hetGaatHierbijOm: [
-                  "opstellen van tabellen bij data",
-                  "beredeneerd kiezen, berekenen en interpreteren van gemiddelde, modus en mediaan en berekenen en interpreteren van spreidingsbreedte",
-                  "maken van grafische representaties van data en daaruit conclusies trekken",
-                  "beredeneerd kiezen van representaties",
-                  "interpreteren van grafische representaties en beredeneren of daarbij gepresenteerde conclusies wel, niet of deels kloppen",
-                  "grafische representaties: diagrammen, grafieken en infographics",
-                  "analyseren van univariate en bivariate datasets (havo-vwo)",
-                  "beredeneerd kiezen en gebruiken van meetniveaus: nominaal, ordinaal, interval en ratio (havo-vwo)",
-                  "beredeneerd kiezen, berekenen en interpreteren van spreidingsbreedte en interkwartielafstand (havo-vwo)",
-                  "vergelijken van twee datasets (havo-vwo)",
-                  "onderscheiden van correlatie en causaliteit (havo-vwo)"
-                ]
-              },
-              {
-                code: "11B", isHavoVwoExtra: false,
-                doelzin: "De leerling redeneert en rekent met kansen.",
-                hetGaatHierbijOm: [
-                  "kansen weergeven als breuk, verhouding, percentage en decimaal getal",
-                  "op basis van kansen inschatten hoe waarschijnlijk het is dat gebeurtenissen plaatsvinden",
-                  "berekenen van verwachtingswaardes",
-                  "berekenen van kansen met behulp van kansregels en combinatoriek (havo-vwo)",
-                  "interpreteren van empirische en theoretische kansen (havo-vwo)"
-                ]
-              }
+              { code: "11A", isHavoVwoExtra: false, doelzin: "De leerling interpreteert, representeert en analyseert data.", hetGaatHierbijOm: ["tabellen opstellen", "gemiddelde, modus en mediaan", "grafische representaties", "datasets analyseren"] },
+              { code: "11B", isHavoVwoExtra: false, doelzin: "De leerling redeneert en rekent met kansen.", hetGaatHierbijOm: ["kansen weergeven als breuk of percentage", "waarschijnlijkheid inschatten", "verwachtingswaardes berekenen"] }
             ]
           },
           {
             id: "kd_12", nummer: 12, leergebied: "Rekenen en wiskunde", domein: "Wiskundige concepten",
             kernzin: "De leerling toont inzicht in patronen en verbanden.",
             subdoelen: [
-              {
-                code: "12A", isHavoVwoExtra: false,
-                doelzin: "De leerling analyseert en redeneert over patronen en verbanden.",
-                hetGaatHierbijOm: [
-                  "herkennen, beschrijven en voortzetten van patronen in rijen getallen en figuren",
-                  "identificeren van patronen en verbanden in datasets",
-                  "identificeren en beschrijven van verbanden tussen grootheden",
-                  "weergeven van patronen en verbanden in een beschrijving, tabel, grafiek en formule, en deze weergaven in elkaar omzetten",
-                  "beschrijven en interpreteren van standaardverbanden in verschillende representaties",
-                  "beschrijven van een patroon in een rij getallen met een formule (havo-vwo)",
-                  "uitleggen wanneer een verband een functie is (havo-vwo)",
-                  "beschrijven van het veranderingsgedrag van een functie (havo-vwo)",
-                  "herkennen en beschrijven van standaardverbanden in verschillende representaties (havo-vwo)",
-                  "gebruiken van de eigenschappen van standaardverbanden (havo-vwo)"
-                ]
-              }
+              { code: "12A", isHavoVwoExtra: false, doelzin: "De leerling analyseert en redeneert over patronen en verbanden.", hetGaatHierbijOm: ["patronen herkennen en voortzetten", "verbanden tussen grootheden beschrijven", "tabellen, grafieken en formules koppelen"] }
             ]
           },
           {
             id: "kd_13", nummer: 13, leergebied: "Rekenen en wiskunde", domein: "Wiskundige concepten",
             kernzin: "De leerling toont inzicht bij meetkundig handelen.",
             subdoelen: [
-              {
-                code: "13A", isHavoVwoExtra: false,
-                doelzin: "De leerling analyseert en redeneert over de twee- en driedimensionale ruimte.",
-                hetGaatHierbijOm: [
-                  "redeneren met en over eigenschappen van meetkundige figuren en begrippen en deze eigenschappen gebruiken in berekeningen en constructies",
-                  "redeneren met kijklijnen",
-                  "construeren en interpreteren van tweedimensionale representaties van driedimensionale figuren en relaties leggen tussen twee- en driedimensionale representaties van figuren",
-                  "meetkundige transformaties: verschuiven, draaien, spiegelen, vergroten en verkleinen van figuren",
-                  "redeneren met hoeken en eigenschappen van hoeken in meetkundige figuren (havo-vwo)",
-                  "berekenen van hoeken en afmetingen van rechthoekige driehoeken met goniometrische verhoudingen (havo-vwo)"
-                ]
-              }
+              { code: "13A", isHavoVwoExtra: false, doelzin: "De leerling analyseert en redeneert over de twee- en driedimensionale ruimte.", hetGaatHierbijOm: ["eigenschappen van meetkundige figuren", "kijklijnen", "2D en 3D representaties", "goniometrische verhoudingen"] }
             ]
           },
           {
             id: "kd_14", nummer: 14, leergebied: "Rekenen en wiskunde", domein: "Wiskundige denk-werkwijzen",
             kernzin: "De leerling gebruikt wiskundige denk-werkwijzen.",
             subdoelen: [
-              {
-                code: "14A", isHavoVwoExtra: false,
-                doelzin: "De leerling lost wiskundige problemen en toepassingsproblemen op.",
-                hetGaatHierbijOm: [
-                  "analyseren hoe een probleem met wiskunde kan worden opgelost",
-                  "bedenken en uitvoeren van een aanpak voor een niet-routinematig oplosbaar probleem",
-                  "gebruiken van heuristieken",
-                  "bewerken van de uitkomsten van berekeningen tot een oplossing van een probleem",
-                  "reflecteren op aanpak, uitvoering en oplossing"
-                ]
-              },
-              {
-                code: "14B", isHavoVwoExtra: false,
-                doelzin: "De leerling maakt en gebruikt wiskundige modellen.",
-                hetGaatHierbijOm: [
-                  "weergeven van een situatie, ook met gebruik van ICT",
-                  "selecteren van relevante kenmerken en weglaten van niet relevante kenmerken",
-                  "beredeneerd kiezen van een geschikt model en evalueren van deze keuze",
-                  "gebruiken van abstracte modellen om rekenaanpakken te laten zien, situaties te interpreteren en problemen op te lossen",
-                  "wiskundig modelleren volgens een modelleercyclus (havo-vwo)"
-                ]
-              },
-              {
-                code: "14C", isHavoVwoExtra: false,
-                doelzin: "De leerling toont de juistheid van wiskundige beweringen en redeneringen aan.",
-                hetGaatHierbijOm: [
-                  "formuleren van vermoedens en beweringen",
-                  "gebruiken van logische redeneerprincipes en daarmee conclusies trekken",
-                  "gebruiken van wiskundetaal en wiskundige representaties bij het formuleren en onderbouwen van een redenering",
-                  "kritisch evalueren van eigen en andermans wiskundige redeneringen",
-                  "wiskundig bewijzen van een bewering (havo-vwo)",
-                  "verantwoorden van een redeneeraanpak in formele stappen (havo-vwo)"
-                ]
-              },
-              {
-                code: "14D", isHavoVwoExtra: false,
-                doelzin: "De leerling bedenkt en beschrijft algoritmes.",
-                hetGaatHierbijOm: [
-                  "algoritmes met een beperkt aantal stappen",
-                  "beschrijven hoe een algoritme tot een vast resultaat leidt",
-                  "beoordelen van het resultaat van een doorlopen algoritme",
-                  "bedenken van een algoritme voor de aanpak van een probleem",
-                  "beschrijven van mogelijkheden en beperkingen in de bruikbaarheid van algoritmes",
-                  "verbeteren van een algoritme door een aanpassing te bedenken (havo-vwo)",
-                  "schematisch beschrijven van een algoritme (havo-vwo)"
-                ]
-              }
+              { code: "14A", isHavoVwoExtra: false, doelzin: "De leerling lost wiskundige problemen en toepassingsproblemen op.", hetGaatHierbijOm: ["probleemanalyse", "heuristieken gebruiken", "reflecteren op oplossing"] },
+              { code: "14B", isHavoVwoExtra: false, doelzin: "De leerling maakt en gebruikt wiskundige modellen.", hetGaatHierbijOm: ["situatie modelleren", "geschikt model kiezen", "modelleercyclus doorlopen"] },
+              { code: "14C", isHavoVwoExtra: false, doelzin: "De leerling toont de juistheid van wiskundige beweringen en redeneringen aan.", hetGaatHierbijOm: ["vermoedens formuleren", "logisch redeneren", "wiskundig bewijzen"] },
+              { code: "14D", isHavoVwoExtra: false, doelzin: "De leerling bedenkt en beschrijft algoritmes.", hetGaatHierbijOm: ["algoritmes beschrijven", "resultaat beoordelen", "algoritme ontwerpen en verbeteren"] }
             ]
           },
           {
             id: "kd_15", nummer: 15, leergebied: "Rekenen en wiskunde", domein: "Wiskundige denk-werkwijzen",
             kernzin: "De leerling gebruikt wiskundetaal en wiskundig gereedschap.",
             subdoelen: [
-              {
-                code: "15A", isHavoVwoExtra: false,
-                doelzin: "De leerling gebruikt wiskundetaal en wiskundige representaties.",
-                hetGaatHierbijOm: [
-                  "gebruiken van wiskundige symbolen, notaties en begrippen",
-                  "leesbaar weergeven van berekeningen en probleemaanpakken",
-                  "kiezen en bedenken van representaties om berekeningen en wiskundige redeneringen weer te geven en uit te wisselen",
-                  "kritisch beoordelen van een representatie",
-                  "relaties leggen tussen verschillende representaties van een wiskundig concept"
-                ]
-              },
-              {
-                code: "15B", isHavoVwoExtra: false,
-                doelzin: "De leerling gebruikt meetinstrumenten en andere wiskundige instrumenten.",
-                hetGaatHierbijOm: [
-                  "beredeneerd kiezen voor gebruik van een instrument op basis van de mogelijkheden, beperkingen en meetnauwkeurigheid",
-                  "vooraf schatten van meetresultaten en uitkomsten",
-                  "gebruiken van een instrument en de bijbehorende wiskundetaal",
-                  "bepalen, interpreteren en beoordelen van het resultaat",
-                  "uitvoeren van berekeningen met een digitaal instrument, en aangeven van de mate van nauwkeurigheid van de verkregen uitkomst (havo-vwo)"
-                ]
-              }
+              { code: "15A", isHavoVwoExtra: false, doelzin: "De leerling gebruikt wiskundetaal en wiskundige representaties.", hetGaatHierbijOm: ["symbolen en notaties", "berekeningen weergeven", "representaties kritisch beoordelen"] },
+              { code: "15B", isHavoVwoExtra: false, doelzin: "De leerling gebruikt meetinstrumenten en andere wiskundige instrumenten.", hetGaatHierbijOm: ["geschikt instrument kiezen", "vooraf schatten", "nauwkeurigheid beoordelen"] }
             ]
           },
           {
             id: "kd_16", nummer: 16, leergebied: "Rekenen en wiskunde", domein: "Wiskunde en de wereld",
             kernzin: "De leerling ontwikkelt een wiskundige attitude.",
             subdoelen: [
-              {
-                code: "16A", isHavoVwoExtra: false,
-                doelzin: "De school stimuleert de ontwikkeling van een wiskundige attitude bij leerlingen.",
-                hetGaatHierbijOm: [
-                  "laten zien van het nut en de kracht van wiskunde in uiteenlopende toepassingen",
-                  "stimuleren van een onderzoekende en kritische houding ten aanzien van getallen en andere wiskundige informatie",
-                  "laten reflecteren op eigen en andermans rekenwijze en overig wiskundig handelen",
-                  "inzicht bieden in hoe leerlingen wiskunde kunnen inzetten in de bovenbouw en het verdere leven"
-                ]
-              }
+              { code: "16A", isHavoVwoExtra: false, doelzin: "De school stimuleert de ontwikkeling van een wiskundige attitude bij leerlingen.", hetGaatHierbijOm: ["nut en kracht van wiskunde", "kritische houding stimuleren", "reflectie op rekenwijze"] }
             ]
           },
           {
             id: "kd_17", nummer: 17, leergebied: "Rekenen en wiskunde", domein: "Wiskunde en de wereld",
             kernzin: "De leerling past wiskunde toe in bekende en nieuwe situaties.",
             subdoelen: [
-              {
-                code: "17A", isHavoVwoExtra: false,
-                doelzin: "De leerling herkent en gebruikt wiskunde in alledaagse, maatschappelijke en beroepsmatige situaties.",
-                hetGaatHierbijOm: [
-                  "gebruiken van getallen en andere wiskundige concepten in concrete, voor de leerling relevante dagelijkse en beroepsmatige situaties",
-                  "gebruiken van wiskundige instrumenten bij meten en andere praktische handelingen",
-                  "wiskunde gebruiken bij het nemen van beslissingen en het oplossen van problemen",
-                  "herkennen en beschrijven dat met grafische representaties een bepaalde boodschap wordt overgebracht of benadrukt",
-                  "gebruiken en beoordelen van wiskundige informatie uit de samenleving en de media bij het vormen van een mening",
-                  "herkennen en beschrijven hoe wiskunde in allerlei beroepen op uiteenlopende manieren een rol speelt"
-                ]
-              },
-              {
-                code: "17B", isHavoVwoExtra: false,
-                doelzin: "De school ondersteunt het gebruik van wiskunde in verschillende leergebieden.",
-                hetGaatHierbijOm: [
-                  "aanbieden van wiskundige concepten en denk-werkwijzen in onderlinge samenhang",
-                  "laten zien hoe verschillende leergebieden wiskundetaal en wiskundige representaties gebruiken",
-                  "afstemmen hoe rekenaanpakken en andere wiskundige aanpakken bij verschillende leergebieden worden uitgevoerd",
-                  "laten gebruiken van wiskundige modellen, wiskundige instrumenten, algoritmes en formules in verschillende leergebieden"
-                ]
-              }
+              { code: "17A", isHavoVwoExtra: false, doelzin: "De leerling herkent en gebruikt wiskunde in alledaagse, maatschappelijke en beroepsmatige situaties.", hetGaatHierbijOm: ["wiskunde in de praktijk", "beslissingen onderbouwen", "grafische misleiding doorzien"] },
+              { code: "17B", isHavoVwoExtra: false, doelzin: "De school ondersteunt het gebruik van wiskunde in verschillende leergebieden.", hetGaatHierbijOm: ["wiskunde in samenhang aanbieden", "vakoverschrijdende rekenaanpakken"] }
             ]
           },
 
-          // ==========================================
-          // 3. BURGERSCHAP (Kerndoelen 18 t/m 20) - TRANSVERSAAL (BLOK C)
-          // ==========================================
+          // 3. BURGERSCHAP (18 t/m 20)
           {
             id: "kd_18", nummer: 18, leergebied: "Burgerschap", isCrossCurricular: true, domein: "Democratische oefenplaats",
             kernzin: "De school geeft vorm aan de democratische oefenplaats.",
             subdoelen: [
-              {
-                code: "18A", isHavoVwoExtra: false,
-                doelzin: "De school stimuleert sociale en maatschappelijke competenties van leerlingen.",
-                hetGaatHierbijOm: [
-                  "aanbieden van kennis en vaardigheden ten aanzien van basiswaarden van de democratische rechtsstaat en de diverse samenleving, gericht op respectvolle omgang",
-                  "stimuleren van sociale vaardigheden en kritische denkvaardigheden",
-                  "stimuleren van respectvolle communicatie, offline en online",
-                  "aanbieden van activiteiten die sociale cohesie en actief burgerschap stimuleren"
-                ]
-              }
+              { code: "18A", isHavoVwoExtra: false, doelzin: "De school stimuleert sociale en maatschappelijke competenties van leerlingen.", hetGaatHierbijOm: ["basiswaarden van de rechtsstaat", "kritisch denken", "respectvolle communicatie offline en online", "sociale cohesie versterken"] }
             ]
           },
           {
             id: "kd_19", nummer: 19, leergebied: "Burgerschap", isCrossCurricular: true, domein: "Samenleven in een democratische rechtsstaat",
             kernzin: "De leerling leert over samenleven in een democratische rechtsstaat.",
             subdoelen: [
-              {
-                code: "19A", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in het belang van basiswaarden van de democratische rechtsstaat.",
-                hetGaatHierbijOm: [
-                  "beschrijven van de betekenis van basiswaarden van de democratische rechtsstaat: vrijheid, gelijkwaardigheid en solidariteit",
-                  "inzicht tonen in hoe de Grondwet, kinder- en mensenrechten en internationale verdragen basiswaarden van de democratische rechtsstaat mogelijk maken en beschermen",
-                  "redeneren over hoe basiswaarden van de democratische rechtsstaat en vrijheden, zoals vastgelegd in de Grondwet, met elkaar op gespannen voet kunnen staan",
-                  "ervaringen opdoen met het voeren van dialogen, omgaan met conflicten, gelijkwaardige behandeling en ethische oordeelsvorming",
-                  "reflecteren op het belang van basiswaarden van de democratische rechtsstaat voor de samenleving en het eigen leven"
-                ]
-              },
-              {
-                code: "19B", isHavoVwoExtra: false,
-                doelzin: "De leerling verkent en reflecteert op hoe die kan omgaan met diversiteit in de samenleving.",
-                hetGaatHierbijOm: [
-                  "beschrijven van aspecten van diversiteit: godsdienst, levensovertuiging, politieke gezindheid, afkomst, geslacht, handicap en seksuele gerichtheid",
-                  "reflecteren op de eigen identiteit in relatie tot aspecten van diversiteit",
-                  "herkennen en benoemen van processen van stereotypering, discriminatie en uitsluiting",
-                  "beargumenteren van het belang dat mensen elkaar gelijkwaardig behandelen",
-                  "reflecteren op ervaringen met openstaan voor perspectieven en ervaringen van anderen, overeenkomsten en verschillen benoemen, oordeel uitstellen, omgaan met mogelijkheden en gedrag van anderen"
-                ]
-              }
+              { code: "19A", isHavoVwoExtra: false, doelzin: "De leerling toont inzicht in het belang van basiswaarden van de democratische rechtsstaat.", hetGaatHierbijOm: ["vrijheid, gelijkwaardigheid en solidariteit", "Grondwet en mensenrechten", "schurende grondrechten", "ethische oordeelsvorming"] },
+              { code: "19B", isHavoVwoExtra: false, doelzin: "De leerling verkent en reflecteert op hoe die kan omgaan met diversiteit in de samenleving.", hetGaatHierbijOm: ["aspecten van diversiteit verkennen", "stereotypering en discriminatie herkennen", "gelijkwaardige behandeling onderbouwen"] }
             ]
           },
           {
             id: "kd_20", nummer: 20, leergebied: "Burgerschap", isCrossCurricular: true, domein: "Vormgeven aan democratische en maatschappelijke betrokkenheid",
             kernzin: "De leerling doet ervaringen op met democratische en maatschappelijke betrokkenheid.",
             subdoelen: [
-              {
-                code: "20A", isHavoVwoExtra: false,
-                doelzin: "De leerling verkent en reflecteert op mogelijkheden om democratisch te handelen.",
-                hetGaatHierbijOm: [
-                  "beschrijven van onderdelen van de democratische rechtsstaat: machtenscheiding, onafhankelijke rechtspraak en hoe de Grondwet individuen en groepen beschermt",
-                  "inzicht tonen in processen van inspraak en besluitvorming en welke regels en afspraken daarbij van belang zijn",
-                  "ervaringen opdoen met het uitwisselen van standpunten, compromissen sluiten en omgaan met meerderheids- en minderheidsstandpunten",
-                  "reflecteren op eigen ervaringen met inspraak en besluitvorming en met het besluitvormingsproces",
-                  "inzicht tonen in de waarde van democratisch handelen in het eigen leven"
-                ]
-              },
-              {
-                code: "20B", isHavoVwoExtra: false,
-                doelzin: "De leerling verkent en reflecteert op mogelijkheden om bij te dragen aan de samenleving.",
-                hetGaatHierbijOm: [
-                  "beschrijven hoe burgers met taken, rollen, rechten en plichten bijdragen aan de samenleving",
-                  "onderzoeken van de rol en de impact van maatschappelijke initiatieven, bewegingen en organisaties en de middelen die zij aanwenden om bij te dragen aan de samenleving of veranderingen in de samenleving teweeg te brengen",
-                  "verkennen van actuele, maatschappelijke en duurzaamheidsvraagstukken",
-                  "ervaringen opdoen met verantwoordelijkheid nemen voor en bijdragen aan het welzijn van anderen",
-                  "reflecteren op mogelijkheden om vanuit eigen idealen of overtuigingen bij te dragen aan de samenleving, nu en in de toekomst"
-                ]
-              }
+              { code: "20A", isHavoVwoExtra: false, doelzin: "De leerling verkent en reflecteert op mogelijkheden om democratisch te handelen.", hetGaatHierbijOm: ["machtenscheiding en onafhankelijke rechtspraak", "inspraak en besluitvorming", "compromissen sluiten"] },
+              { code: "20B", isHavoVwoExtra: false, doelzin: "De leerling verkent en reflecteert op mogelijkheden om bij te dragen aan de samenleving.", hetGaatHierbijOm: ["taken, rollen en plichten van burgers", "maatschappelijke initiatieven onderzoeken", "duurzaamheidsvraagstukken verkennen"] }
             ]
           },
 
-          // ==========================================
-          // 4. DIGITALE GELETTERDHEID (Kerndoelen 21 t/m 23) - TRANSVERSAAL (BLOK B)
-          // ==========================================
+          // 4. DIGITALE GELETTERDHEID (21 t/m 23)
           {
             id: "kd_21", nummer: 21, leergebied: "Digitale geletterdheid", isCrossCurricular: true, domein: "Praktische kennis en vaardigheden",
             kernzin: "De leerling zet digitale technologie en digitale media in.",
             subdoelen: [
-              {
-                code: "21A", isHavoVwoExtra: false,
-                doelzin: "De leerling zet digitale systemen functioneel in.",
-                hetGaatHierbijOm: [
-                  "beschrijven van wat technisch nodig is om digitale systemen te laten werken en in een netwerk te laten samenwerken",
-                  "beschrijven van de werking van internet en de plaats van slimme apparatuur daarin",
-                  "gebruiken van geavanceerde mogelijkheden van software voor communicatie, samenwerken en het creëren en bewerken van verschillende typen bestanden",
-                  "herkennen van digitale systemen die in bedrijven, in de wereld van de media en door de overheid gebruikt worden bij het uitvoeren van taken of het oplossen van problemen",
-                  "bijhouden van nieuwe technologische ontwikkelingen, hun mogelijkheden en beperkingen"
-                ]
-              },
-              {
-                code: "21B", isHavoVwoExtra: false,
-                doelzin: "De leerling navigeert doelgericht in het digitale media- en informatielandschap voor het verwerven en verwerken van informatie.",
-                hetGaatHierbijOm: [
-                  "combineren van geschikte zoekhulpmiddelen, zoekopdrachten en zoekstrategieën",
-                  "beoordelen van aangeboden en gevonden informatie op betrouwbaarheid en bruikbaarheid, rekening houdend met eigenschappen van bronnen, zoekhulpmiddelen en gebruikte media",
-                  "reflecteren op de geschiktheid van gebruikte zoekstrategieën, zoekhulpmiddelen en zoekopdrachten voor het verkrijgen van het gewenste resultaat",
-                  "beschrijven hoe sociale media werken en hoe ze de aandacht van gebruikers trekken, vasthouden en beïnvloeden",
-                  "reflecteren op welke wijze eigen kennis, opvattingen en voorkeuren de interpretatie van digitale informatie beïnvloeden",
-                  "gebruikmaken van vakspecifieke zoekstrategieën, zoekhulpmiddelen en zoekopdrachten (havo-vwo)"
-                ]
-              },
-              {
-                code: "21C", isHavoVwoExtra: false,
-                doelzin: "De leerling verkent het gebruik van data en dataverwerking.",
-                hetGaatHierbijOm: [
-                  "redeneren over hoe een dataset een beperkt beeld geeft van de werkelijkheid",
-                  "uitvoeren van onderzoek met een dataset om een vraag te beantwoorden, een taak uit te voeren of een probleem op te lossen",
-                  "beschrijven van het gebruik van data door bedrijven, instellingen en overheden",
-                  "beschrijven van de toenemende mogelijkheden om datagestuurd te werken",
-                  "reflecteren hoe AI nieuwe manieren om data te verwerken mogelijk maakt",
-                  "gebruiken van open data om een probleem op te lossen of een onderzoek uit te voeren (havo-vwo)"
-                ]
-              },
-              {
-                code: "21D", isHavoVwoExtra: false,
-                doelzin: "De leerling verkent mogelijkheden en beperkingen van AI.",
-                hetGaatHierbijOm: [
-                  "beschrijven van de rol en invloed van de kwaliteit en eigenschappen van data voor de werking en resultaten van AI-systemen",
-                  "herkennen van veelvoorkomende AI-systemen en hun toepassingen door bedrijven, instellingen en overheden",
-                  "beschrijven van verschillen tussen op regels gebaseerde digitale systemen en op statistiek gebaseerde AI-systemen",
-                  "doelgericht, verantwoord en kritisch interacteren met een AI-systeem",
-                  "experimenteren met het trainen van AI-systemen",
-                  "beschrijven van machine learning, expertsystemen en gangbare manieren om AI-systemen te trainen (havo-vwo)",
-                  "reflecteren op de mogelijkheden en beperkingen van AI-systemen (havo-vwo)"
-                ]
-              }
+              { code: "21A", isHavoVwoExtra: false, doelzin: "De leerling zet digitale systemen functioneel in.", hetGaatHierbijOm: ["werking van netwerken en hardware", "software doelgericht inzetten", "nieuwe technologieën bijhouden"] },
+              { code: "21B", isHavoVwoExtra: false, doelzin: "De leerling navigeert doelgericht in het digitale media- en informatielandschap.", hetGaatHierbijOm: ["zoekstrategieën combineren", "bronnen kritisch beoordelen", "werking en invloed van sociale media"] },
+              { code: "21C", isHavoVwoExtra: false, doelzin: "De leerling verkent het gebruik van data en dataverwerking.", hetGaatHierbijOm: ["onderzoek met datasets", "datagestuurd werken", "open data gebruiken"] },
+              { code: "21D", isHavoVwoExtra: false, doelzin: "De leerling verkent mogelijkheden en beperkingen van AI.", hetGaatHierbijOm: ["invloed van datakwaliteit op AI", "kritisch interacteren met AI", "mogelijkheden en grenzen van machine learning"] }
             ]
           },
           {
             id: "kd_22", nummer: 22, leergebied: "Digitale geletterdheid", isCrossCurricular: true, domein: "Ontwerpen en maken",
             kernzin: "De leerling creëert digitale producten.",
             subdoelen: [
-              {
-                code: "22A", isHavoVwoExtra: false,
-                doelzin: "De leerling gebruikt passende werkwijzen bij het creëren en gebruiken van verschillende typen digitale producten.",
-                hetGaatHierbijOm: [
-                  "experimenteren met ontwikkel- en bewerkingssoftware om gedachten, ideeën of gevoelens uit te drukken",
-                  "ontwikkelen en delen van een digitaal product gericht op het informeren, overtuigen of beïnvloeden",
-                  "afwegen met behulp van computationele denkstrategieën in hoeverre het doel met een digitaal product bereikt kan worden",
-                  "ontwerpen en realiseren van een product aan de hand van ontwerpeisen in een iteratief proces, inclusief reflectie op product en proces",
-                  "rekening houden met auteursrechten, licenties en bron- en naamsvermelding bij het creëren van digitale producten",
-                  "oplossen van een probleem of uitvoeren van een taak in een ander vak met behulp van computationele denkstrategieën (havo-vwo)"
-                ]
-              },
-              {
-                code: "22B", isHavoVwoExtra: false,
-                doelzin: "De leerling programmeert een computerprogramma met behulp van computationele denkstrategieën.",
-                hetGaatHierbijOm: [
-                  "beschrijven van de taak en het doel van een computerprogramma",
-                  "ontwerpen en schematisch weergeven van het algoritme behorende bij een taak",
-                  "gebruikmaken van programmeerconcepten: events, datastructuren en combinaties van logische operatoren",
-                  "documenteren, testen en bijstellen van een eigen computerprogramma of een computerprogramma van anderen",
-                  "aanpakken van een probleem of taak zodanig, dat programmeren gebruikt kan worden om het op te lossen"
-                ]
-              }
+              { code: "22A", isHavoVwoExtra: false, doelzin: "De leerling gebruikt passende werkwijzen bij het creëren van verschillende typen digitale producten.", hetGaatHierbijOm: ["digitale content ontwerpen en bewerken", "computationeel denken toepassen", "auteursrechten en privacy"] },
+              { code: "22B", isHavoVwoExtra: false, doelzin: "De leerling programmeert een computerprogramma met behulp van computationele denkstrategieën.", hetGaatHierbijOm: ["algoritme schematisch weergeven", "programmeerconcepten inzetten", "testen en debuggen"] }
             ]
           },
           {
             id: "kd_23", nummer: 23, leergebied: "Digitale geletterdheid", isCrossCurricular: true, domein: "De gedigitaliseerde wereld",
             kernzin: "De leerling participeert in de gedigitaliseerde wereld.",
             subdoelen: [
-              {
-                code: "23A", isHavoVwoExtra: false,
-                doelzin: "De leerling gaat veilig om met digitale systemen, data en de privacy van zichzelf en anderen.",
-                hetGaatHierbijOm: [
-                  "kennis hebben van rechten en plichten van individuen en instellingen ten aanzien van de bescherming van persoonsgegevens, data en privacy",
-                  "herkennen van veiligheidsrisico's bij het gebruik van digitale systemen van bedrijven, instellingen en overheden",
-                  "beschermen tegen zwakke plekken in gebruikte digitale systemen en netwerken",
-                  "herkennen hoe anderen omgaan met privacy en de veiligheid van door hen verzamelde of bewaarde data",
-                  "adequaat omgaan met ongepaste content, ongepast gedrag en veiligheidsrisico's in digitale omgevingen",
-                  "beschrijven van malware en andere bedreigingen (havo-vwo)"
-                ]
-              },
-              {
-                code: "23B", isHavoVwoExtra: false,
-                doelzin: "De leerling maakt weloverwogen keuzes bij het gebruik van digitale technologie en digitale media.",
-                hetGaatHierbijOm: [
-                  "online communiceren en handelen op respectvolle en verantwoorde wijze",
-                  "evalueren van de invloed van digitale technologie en digitale media op eigen denken, eigen gedrag en de interactie met anderen",
-                  "rekening houden met eigen fysieke en mentale gezondheid en die van anderen in relatie tot het gebruik van digitale technologie en digitale media",
-                  "reflecteren op en vormgeven van de eigen online identiteit in relatie met anderen",
-                  "verkennen van de eigen interesse in digitale technologie en digitale media in relatie tot studies en beroepen"
-                ]
-              },
-              {
-                code: "23C", isHavoVwoExtra: false,
-                doelzin: "De leerling analyseert hoe digitale technologie, digitale media en de samenleving elkaar wederzijds beïnvloeden.",
-                hetGaatHierbijOm: [
-                  "verkennen van mogelijkheden om digitale technologie en digitale media te benutten bij het vormgeven van maatschappelijke betrokkenheid",
-                  "verkennen van mogelijkheden om de ontwikkeling van digitale technologie en digitale media te sturen en te reguleren en daarmee menselijke en democratische waarden te beschermen",
-                  "redeneren over kansen en risico's van het gebruik van digitale technologie in de samenleving vanuit ethisch, sociaal, economisch en ecologisch perspectief",
-                  "analyseren hoe samenlevingen afhankelijk zijn van digitale technologie en van grote technologiebedrijven",
-                  "beschrijven van ethische dilemma's bij het maken van keuzes voor de toekomst die gerelateerd zijn aan ontwikkelingen van digitale technologie en digitale media"
-                ]
-              }
+              { code: "23A", isHavoVwoExtra: false, doelzin: "De leerling gaat veilig om met digitale systemen, data en de privacy van zichzelf en anderen.", hetGaatHierbijOm: ["persoonsgegevens en privacy beschermen", "veiligheidsrisico's en malware herkennen", "ongepaste content afweren"] },
+              { code: "23B", isHavoVwoExtra: false, doelzin: "De leerling maakt weloverwogen keuzes bij het gebruik van digitale technologie en media.", hetGaatHierbijOm: ["respectvol online communiceren", "mentale en fysieke balans bewaken", "online identiteit vormgeven"] },
+              { code: "23C", isHavoVwoExtra: false, doelzin: "De leerling analyseert hoe digitale technologie, digitale media en de samenleving elkaar wederzijds beïnvloeden.", hetGaatHierbijOm: ["regulering van technologie", "ethische dilemma's rondom AI en data", "afhankelijkheid van grote techbedrijven"] }
             ]
           },
 
-          // ==========================================
-          // 5. MENS EN MAATSCHAPPIJ (Kerndoelen 24 t/m 28)
-          // ==========================================
+          // 5. MENS EN MAATSCHAPPIJ (24 t/m 28)
           {
             id: "kd_24", nummer: 24, leergebied: "Mens en maatschappij", domein: "Vraagstukken en perspectieven",
             kernzin: "De leerling onderzoekt vraagstukken over mens en samenleving.",
             subdoelen: [
-              {
-                code: "24A", isHavoVwoExtra: false,
-                doelzin: "De leerling analyseert maatschappelijke verschijnselen en ontwikkelingen en weegt waarden en belangen af.",
-                hetGaatHierbijOm: [
-                  "analyseren aan de hand van overeenkomsten en verschillen, continuïteit en verandering, en oorzaken en gevolgen, actoren en structuren",
-                  "benoemen van contexten waarin en schaalniveaus waarop verschijnselen zich voordoen",
-                  "beschrijven van perspectieven van personen en groepen en van geografische, historische en economische invalshoeken",
-                  "afwegen van waarden en belangen van mensen, groepen en instituties",
-                  "redeneren over de samenleving van de toekomst aan de hand van maatschappelijke ontwikkelingen",
-                  "beschrijven hoe kennis over maatschappelijke verschijnselen en ontwikkelingen tot stand komt (havo-vwo)"
-                ]
-              },
-              {
-                code: "24B", isHavoVwoExtra: false,
-                doelzin: "De leerling onderzoekt maatschappelijke vraagstukken en evalueert mogelijke oplossingen.",
-                hetGaatHierbijOm: [
-                  "vraagstukken: duurzame ontwikkeling, historische representatie, rechtvaardige verdeling, en participatie en inclusie",
-                  "analyseren van vraagstukken vanuit geografische, historische en economische invalshoeken en perspectieven van belanghebbenden",
-                  "combineren van informatie uit verschillende relevante bronnen: kaart- en beeldmateriaal, teksten, tabellen en grafieken",
-                  "onderbouwen van mogelijke oplossingen en beschrijven van hun sociale en morele implicaties",
-                  "presenteren en waarderen van mogelijke oplossingen, met gebruik van vaktaal"
-                ]
-              },
-              {
-                code: "24C", isHavoVwoExtra: false,
-                doelzin: "De leerling beschrijft de omgeving van de school vanuit geografische, historische, economische en sociale invalshoeken.",
-                hetGaatHierbijOm: [
-                  "karteren van ruimtegebruik",
-                  "leggen van verbanden tussen lokale geschiedenis en erfgoed in de omgeving van de school",
-                  "inventariseren van economische activiteiten, werkgelegenheid en sociale voorzieningen",
-                  "benoemen welke aspecten van diversiteit zichtbaar zijn",
-                  "beschrijven hoe digitale technologie de omgeving van de school beïnvloedt en vergroot"
-                ]
-              }
+              { code: "24A", isHavoVwoExtra: false, doelzin: "De leerling analyseert maatschappelijke verschijnselen en weegt waarden en belangen af.", hetGaatHierbijOm: ["oorzaak en gevolg relaties", "schaalniveaus benoemen", "perspectieven van groepen", "toekomstscenario's"] },
+              { code: "24B", isHavoVwoExtra: false, doelzin: "De leerling onderzoekt maatschappelijke vraagstukken en evalueert mogelijke oplossingen.", hetGaatHierbijOm: ["duurzaamheid en rechtvaardigheid", "multidisciplinair brononderzoek", "morele implicaties afwegen"] },
+              { code: "24C", isHavoVwoExtra: false, doelzin: "De leerling beschrijft de omgeving van de school vanuit geografische, historische en economische invalshoeken.", hetGaatHierbijOm: ["ruimtegebruik karteren", "lokale geschiedenis verbinden", "sociale voorzieningen inventariseren"] }
             ]
           },
           {
             id: "kd_25", nummer: 25, leergebied: "Mens en maatschappij", domein: "Mens en ruimte",
             kernzin: "De leerling onderzoekt geografische verschijnselen.",
             subdoelen: [
-              {
-                code: "25A", isHavoVwoExtra: false,
-                doelzin: "De leerling analyseert de wereld vanuit geografische kenmerken en verkent haar vanuit verschillende perspectieven.",
-                hetGaatHierbijOm: [
-                  "analyseren van ruimtelijke patronen aan de hand van fysisch-geografische, sociaalgeografische en topografische kenmerken",
-                  "vergelijken van demografische ontwikkelingen in natuurlijke bevolkingsgroei en migratie, verstedelijking en mobiliteit binnen en tussen gebieden",
-                  "beschrijven van de invloed van globalisering en migratie op culturen",
-                  "verklaren van ruimtelijke patronen die ontstaan door geopolitieke en economische ontwikkelingen: conflicten, internationale samenwerking, (de)globalisering",
-                  "verkennen van betekenissen die personen en groepen aan plaatsen geven"
-                ]
-              },
-              {
-                code: "25B", isHavoVwoExtra: false,
-                doelzin: "De leerling analyseert hoe menselijk handelen en de leefomgeving elkaar beïnvloeden en evalueert hoe mensen omgaan met de gevolgen.",
-                hetGaatHierbijOm: [
-                  "beschrijven van de gevolgen die water- en grondstofwinning en productie van (consumptie)goederen hebben voor klimaat en leefomgeving",
-                  "verbanden leggen tussen veranderingen in voedselproductie en de gevolgen voor de leefomgeving",
-                  "verkennen van mitigatie- en adaptatiemaatregelen bij gevolgen van klimaatverandering",
-                  "evalueren van perspectieven op de relatie tussen de mens en de natuur in de leefomgeving",
-                  "evalueren van de mogelijkheden en beperkingen van verschillende regio's om met de gevolgen van klimaatverandering om te gaan"
-                ]
-              },
-              {
-                code: "25C", isHavoVwoExtra: false,
-                doelzin: "De leerling evalueert toekomstscenario's voor ruimtelijke inrichting van Nederland.",
-                hetGaatHierbijOm: [
-                  "beschrijven van claims van verschillende actoren op de in Nederland beschikbare ruimte voor wonen, natuur, landbouw, werk, infrastructuur, watermanagement en energie",
-                  "afwegen van waarden en belangen bij de ruimtelijke inrichting",
-                  "vergelijken van toekomstscenario's voor zowel landelijke als stedelijke gebieden",
-                  "evalueren van mogelijke gevolgen van toekomstscenario's"
-                ]
-              }
+              { code: "25A", isHavoVwoExtra: false, doelzin: "De leerling analyseert de wereld vanuit geografische kenmerken en verkent haar vanuit verschillende perspectieven.", hetGaatHierbijOm: ["ruimtelijke patronen analyseren", "demografie en migratie", "globalisering en geopolitiek"] },
+              { code: "25B", isHavoVwoExtra: false, doelzin: "De leerling analyseert hoe menselijk handelen en de leefomgeving elkaar beïnvloeden.", hetGaatHierbijOm: ["grondstoffenwinning en productie", "klimaatadaptatie en mitigatie", "duurzaam landgebruik"] },
+              { code: "25C", isHavoVwoExtra: false, doelzin: "De leerling evalueert toekomstscenario's voor ruimtelijke inrichting van Nederland.", hetGaatHierbijOm: ["ruimteclaims wonen en natuur", "watermanagement en energie", "toekomstscenario's vergelijken"] }
             ]
           },
           {
             id: "kd_26", nummer: 26, leergebied: "Mens en maatschappij", domein: "Mens en tijd",
             kernzin: "De leerling onderzoekt historische verschijnselen.",
             subdoelen: [
-              {
-                code: "26A", isHavoVwoExtra: false,
-                doelzin: "De leerling beschrijft historische ontwikkelingen aan de hand van gebeurtenissen, personen en voorwerpen.",
-                hetGaatHierbijOm: [
-                  "ontwikkelingen uit de prehistorie: ontstaan van landbouw en landbouwsamenlevingen",
-                  "ontwikkelingen uit de oudheid: ontstaan van wetenschappelijk denken en ideeën over burgerschap, verspreiding van antieke culturen, verspreiding van de monotheïstische godsdiensten: jodendom, christendom en islam",
-                  "ontwikkelingen uit de middeleeuwen: ontstaan van een standensamenleving, groei van handelsnetwerken en steden, begin van staatsvorming en centralisatie, veranderend mens- en wereldbeeld",
-                  "ontwikkelingen uit de vroegmoderne tijd: de Nederlandse Opstand en het ontstaan van de Republiek, Europese kolonisatie en mensenhandel tussen werelddelen, verstedelijking en culturele bloei in de Republiek, groeiende belangstelling voor wetenschap en uitvinding van nieuwe technieken, de Verlichting en het streven naar vrijheid en gelijkheid",
-                  "ontwikkelingen uit de moderne tijd: industriële revolutie, opkomst van emancipatiebewegingen en ontstaan van parlementaire democratie, opkomst van nationalisme en modern imperialisme, opkomst en toepassing van totalitaire ideologieën, ontstaan van totale oorlog en genocide, dekolonisatie, blokvorming en samenwerking rond wereldproblemen, toename van diversiteit en verschillen in welvaart, ontstaan van een informatiesamenleving"
-                ]
-              },
-              {
-                code: "26B", isHavoVwoExtra: false,
-                doelzin: "De leerling redeneert over historische ontwikkelingen met gebruik van tijdsaanduidingen en bronnen.",
-                hetGaatHierbijOm: [
-                  "ordenen van historische gebeurtenissen en ontwikkelingen met behulp van tijdsaanduidingen, een tijdlijn en geografische kaarten",
-                  "beoordelen van de bruikbaarheid van bronnen in relatie tot de vraagstelling en op basis van de context waarin de bron is ontstaan",
-                  "combineren van informatie uit en over verschillende bronnen tot een consistent verhaal over historische gebeurtenissen en ontwikkelingen",
-                  "verbanden leggen tussen perspectieven van mensen en de keuze voor bepaalde naamgeving en periodisering (havo-vwo)"
-                ]
-              },
-              {
-                code: "26C", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in verbanden tussen historische ontwikkelingen en ontwikkelingen in het heden en redeneert over betekenissen die mensen en groepen geven aan het verleden.",
-                hetGaatHierbijOm: [
-                  "beschrijven hoe slavernijverleden en koloniale verhoudingen, Tweede Wereldoorlog, Holocaust en migratie doorwerken in het heden",
-                  "beschrijven van de wording en werking van de constitutionele monarchie, parlementaire democratie en rechtsstaat van het Koninkrijk der Nederlanden",
-                  "vergelijken van betekenissen die mensen en groepen geven aan het verleden en aan erfgoed",
-                  "redeneren over wat bewaard, en wat herdacht moet worden vanuit verschillende perspectieven en invalshoeken",
-                  "redeneren over de invloed van het verleden op het eigen leven en de eigen geschiedenis",
-                  "reflecteren op de mogelijkheid oorzakelijke verbanden te leggen tussen historische ontwikkelingen en gebeurtenissen en die uit het heden (havo-vwo)"
-                ]
-              }
+              { code: "26A", isHavoVwoExtra: false, doelzin: "De leerling beschrijft historische ontwikkelingen aan de hand van gebeurtenissen, personen en voorwerpen.", hetGaatHierbijOm: ["prehistorie tot moderne tijd", "democratisering en industriële revolutie", "oorlogen en dekolonisatie"] },
+              { code: "26B", isHavoVwoExtra: false, doelzin: "De leerling redeneert over historische ontwikkelingen met tijdsaanduidingen en bronnen.", hetGaatHierbijOm: ["tijdlijnen opstellen", "bronnenkritiek", "historisch verhaal construeren"] },
+              { code: "26C", isHavoVwoExtra: false, doelzin: "De leerling toont inzicht in verbanden tussen het verleden en heden.", hetGaatHierbijOm: ["slavernijverleden en Tweede Wereldoorlog", "ontstaan rechtsstaat", "erfgoed en herdenken"] }
             ]
           },
           {
             id: "kd_27", nummer: 27, leergebied: "Mens en maatschappij", domein: "Mens en welvaart",
             kernzin: "De leerling onderzoekt economische verschijnselen.",
             subdoelen: [
-              {
-                code: "27A", isHavoVwoExtra: false,
-                doelzin: "De leerling toont begrip van de structuur en de werking van het Nederlandse economische systeem.",
-                hetGaatHierbijOm: [
-                  "beschrijven van de verschillende sectoren en hun bijdrage aan de Nederlandse economie",
-                  "vergelijken van markten en marktvormen",
-                  "beschrijven hoe organisatievormen, wet- en regelgeving en contracten de Nederlandse economie reguleren",
-                  "beschrijven van de invloed van de Europese Unie en internationale handel op de Nederlandse economie",
-                  "beschrijven hoe fiscale maatregelen, wet- en regelgeving en publieke voorzieningen invloed hebben op huishoudens en bedrijven",
-                  "gebruiken van modellen om onderdelen van en processen binnen de Nederlandse economie te verklaren (havo-vwo)"
-                ]
-              },
-              {
-                code: "27B", isHavoVwoExtra: false,
-                doelzin: "De leerling toont begrip van economische keuzes en beschrijft hun mogelijke gevolgen.",
-                hetGaatHierbijOm: [
-                  "inventariseren hoe beperkte middelen en rationele en niet-rationele factoren keuzes ten aanzien van levensonderhoud, samenwerking en welvaart beïnvloeden",
-                  "beschrijven hoe economische keuzes voortkomen uit afwegingen tussen individueel en algemeen belang",
-                  "begrip tonen van gevolgen en risico's van keuzes ten aanzien van ontvangsten, uitgaven, bezittingen en schulden binnen huishoudens",
-                  "beschrijven hoe keuzes voor vormen van samenwerking welzijn en welvaart beïnvloeden",
-                  "beschrijven van gevolgen van consumptie en productie voor de samenleving en de leefomgeving, hier en nu, op andere plaatsen en in de toekomst",
-                  "inventariseren van financiële feiten van een onderneming en verwerken tot financiële overzichten om onderbouwde keuzes te kunnen maken (havo-vwo)"
-                ]
-              }
+              { code: "27A", isHavoVwoExtra: false, doelzin: "De leerling toont begrip van het economische systeem.", hetGaatHierbijOm: ["sectoren en marktvormen", "wet- en regelgeving", "internationale handel en EU"] },
+              { code: "27B", isHavoVwoExtra: false, doelzin: "De leerling toont begrip van economische keuzes en beschrijft hun gevolgen.", hetGaatHierbijOm: ["beperkte middelen en afwegingen", "huishoudbudget en schulden", "duurzaam consumeren en produceren"] }
             ]
           },
           {
             id: "kd_28", nummer: 28, leergebied: "Mens en maatschappij", domein: "Mens en samenleving",
             kernzin: "De leerling onderzoekt hoe mensen samenleven.",
             subdoelen: [
-              {
-                code: "28A", isHavoVwoExtra: false,
-                doelzin: "De leerling beschrijft de samenleving als sociaal systeem.",
-                hetGaatHierbijOm: [
-                  "beschrijven welke vormen van interactie tussen individuen, groepen en instituties de samenleving in stand kunnen houden",
-                  "beschrijven hoe tegengestelde waarden en belangen kunnen leiden tot spanning, conflict en verandering",
-                  "beschrijven hoe overheden en instituties op verschillende schaalniveaus gericht zijn op het in stand houden van de samenleving",
-                  "inventariseren hoe groepen verschillend kunnen omgaan met maatschappelijke vraagstukken"
-                ]
-              },
-              {
-                code: "28B", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in de werking en de gevolgen van invloed en macht in de samenleving.",
-                hetGaatHierbijOm: [
-                  "analyseren hoe macht binnen verschillende staatsvormen wordt uitgeoefend en welke invloed burgers uitoefenen op besluitvorming",
-                  "beschrijven hoe overheden in het Koninkrijk der Nederlanden en de Europese Unie besluiten nemen, uitvoeren en er toezicht op houden",
-                  "analyseren hoe bedrijven en (sociale) media de meningen en het gedrag van mensen beïnvloeden",
-                  "beschrijven hoe culturele waarden en rolpatronen het gedrag van mensen beïnvloeden",
-                  "beschrijven hoe macht kan leiden tot onderdrukking van mensen en groepen en hoe mensen en groepen zich hiertegen kunnen verzetten"
-                ]
-              },
-              {
-                code: "28C", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in hoe mensen omgaan met diversiteit in de samenleving.",
-                hetGaatHierbijOm: [
-                  "analyseren van diversiteit in de samenleving op het gebied van godsdienst, levensovertuiging, politieke gezindheid, afkomst, geslacht, handicap en seksuele gerichtheid",
-                  "analyseren van diversiteit in de samenleving op het gebied van lichamelijke en cognitieve mogelijkheden, sociaaleconomische status, cultuur en taal",
-                  "verbanden leggen tussen de zichtbaarheid en de mate van acceptatie van diversiteit in de leefomgeving",
-                  "verklaren waarom tolerantie mogelijkheden biedt om met diversiteit om te gaan",
-                  "beschrijven hoe stereotypering, vooroordelen, racisme en discriminatie leiden tot uitsluiting van mensen en groepen",
-                  "beschrijven hoe mensen inclusie vormgeven"
-                ]
-              },
-              {
-                code: "28D", isHavoVwoExtra: false,
-                doelzin: "De school draagt bij aan de sociale en emotionele ontwikkeling van leerlingen en bevordert respectvolle omgang met anderen.",
-                hetGaatHierbijOm: [
-                  "aandacht schenken aan emoties en het omgaan met emoties",
-                  "bespreekbaar maken van wensen, grenzen, mogelijkheden en beperkingen",
-                  "stimuleren van veilige sociale omgang, weerbaarheid, samenwerking en conflicthantering",
-                  "aandacht schenken aan relationele en seksuele ontwikkeling",
-                  "bevorderen van respectvolle omgang met seksualiteit en seksuele diversiteit"
-                ]
-              }
+              { code: "28A", isHavoVwoExtra: false, doelzin: "De leerling beschrijft de samenleving als sociaal systeem.", hetGaatHierbijOm: ["interactie tussen groepen", "waarden en belangenconflicten", "instituties en maatschappelijke cohesie"] },
+              { code: "28B", isHavoVwoExtra: false, doelzin: "De leerling toont inzicht in de werking en gevolgen van macht in de samenleving.", hetGaatHierbijOm: ["macht in staatsvormen", "media en beïnvloeding", "verzet tegen onderdrukking"] },
+              { code: "28C", isHavoVwoExtra: false, doelzin: "De leerling toont inzicht in diversiteit in de samenleving.", hetGaatHierbijOm: ["vormen van diversiteit analyseren", "vooroordelen en discriminatie", "inclusie vormgeven"] },
+              { code: "28D", isHavoVwoExtra: false, doelzin: "De school draagt bij aan de sociale en emotionele ontwikkeling en respectvolle omgang.", hetGaatHierbijOm: ["omgaan met emoties", "weerbaarheid en grenzen", "relationele en seksuele vorming"] }
             ]
           },
 
-          // ==========================================
-          // 6. MENS EN NATUUR (Kerndoelen 29 t/m 33)
-          // ==========================================
+          // 6. MENS EN NATUUR (29 t/m 33)
           {
             id: "kd_29", nummer: 29, leergebied: "Mens en natuur", domein: "Natuurwetenschappen en technologie",
             kernzin: "De leerling verkent en verklaart de wereld vanuit een natuurwetenschappelijk en technologisch perspectief.",
             subdoelen: [
-              {
-                code: "29A", isHavoVwoExtra: false,
-                doelzin: "De leerling verkent de leefomgeving en onderzoekt vraagstukken uit de wereld.",
-                hetGaatHierbijOm: [
-                  "ervaringen in de leefomgeving opdoen met het waarnemen en waarderen van natuur en technologie",
-                  "onderzoeken van vraagstukken over natuurwetenschappelijke verschijnselen, technische systemen, gezondheid, natuurbeheer, veiligheid, duurzaamheid en ruimtelijke inrichting",
-                  "onderscheiden van verschillende perspectieven op en mogelijke oplossingen voor een vraagstuk",
-                  "reflecteren op de waarde en geldigheid van een oplossing en de impact ervan op de omgeving en samenleving",
-                  "oriënteren op profielen, studies en beroepen met beroepsbeelden en rolmodellen vanuit de eigen interesses, ambities en capaciteiten"
-                ]
-              },
-              {
-                code: "29B", isHavoVwoExtra: false,
-                doelzin: "De leerling gebruikt natuurwetenschappelijke en technologische denkwijzen bij het ontdekken en verklaren van de wereld.",
-                hetGaatHierbijOm: [
-                  "redeneren met patronen en oorzaak-gevolgrelaties",
-                  "redeneren met structuur, vorm, eigenschap en functie",
-                  "redeneren met schaal, verhoudingen en hoeveelheden",
-                  "redeneren met systemen en modellen",
-                  "redeneren met behoudswetten, kringlopen en transport",
-                  "analyseren van aspecten van een systeem met een model (havo-vwo)",
-                  "beschrijven dat keuzes bij het opstellen van een model, beperken waarover het model wel of niet een uitspraak kan doen (havo-vwo)",
-                  "beschrijven dat modellen het gedrag van een systeem kunnen voorspellen (havo-vwo)",
-                  "beschrijven dat aannames en randvoorwaarden van modellen de geldigheid van voorspellingen beperken (havo-vwo)"
-                ]
-              },
-              {
-                code: "29C", isHavoVwoExtra: false,
-                doelzin: "De leerling gebruikt natuurwetenschappelijke en technologische werkwijzen bij het ontdekken en verklaren van de wereld.",
-                hetGaatHierbijOm: [
-                  "toepassen van onderzoeks- en ontwerpstappen op een systematische en iteratieve wijze",
-                  "veilig, doelmatig en duurzaam gebruiken van digitale en analoge instrumenten, gereedschappen, stoffen en materialen",
-                  "interpreteren van kwalitatieve en kwantitatieve metingen en waarnemingen",
-                  "onderbouwen van conclusies en oplossingen met argumenten en afwegingen, met gebruik van vaktaal",
-                  "gebruiken van modellen die verschijnselen en systemen beschrijven",
-                  "voorspellen van situaties en systemen met modellen (havo-vwo)",
-                  "benoemen van overeenkomsten en verschillen tussen model en werkelijkheid (havo-vwo)",
-                  "aanpassen van parameters in een bestaand model (havo-vwo)",
-                  "relaties leggen tussen variabelen met een model (havo-vwo)",
-                  "evalueren of uitkomsten aannemelijk zijn (havo-vwo)"
-                ]
-              },
-              {
-                code: "29D", isHavoVwoExtra: false,
-                doelzin: "De leerling verkent de aard van natuurwetenschappen en technologie.",
-                hetGaatHierbijOm: [
-                  "oriënteren op het systematisch werken waarmee wetenschappers en technologen tot betrouwbare kennis en optimale oplossingen komen",
-                  "verkennen hoe wetenschappers en technologen eerlijk, onafhankelijk, transparant, verantwoordelijk en zorgvuldig werken",
-                  "discussiëren over wat het betekent dat wetenschappelijke kennis bestaat uit modellen, en waar de grens van die modellen ligt",
-                  "reflecteren of alles mag wat kan: maakbaarheid en ethische grenzen",
-                  "betekenis geven aan de toegevoegde waarde van wetenschappelijke kennis en technologische oplossingen voor de samenleving",
-                  "verkennen dat nieuwe technologieën en inzichten leiden tot ontwikkeling van modellen met andere verklaringen (havo-vwo)",
-                  "verkennen hoe vanuit verschillende perspectieven naar eenzelfde model kan worden gekeken (havo-vwo)",
-                  "verkennen hoe wetenschap continu in ontwikkeling is, en dat inzichten kunnen veranderen (havo-vwo)"
-                ]
-              },
-              {
-                code: "29E", isHavoVwoExtra: false,
-                doelzin: "De leerling toont begrip van gevaren van fysische, geologische, chemische en biologische verschijnselen, mogelijke voorzorgsmaatregelen en hoe te handelen in geval van nood.",
-                hetGaatHierbijOm: [
-                  "statische en bewegende elektrische lading, geluid, onweer, straling, zonlicht",
-                  "extreem weer, diep en stromend water, ijs, extreme kou en hitte",
-                  "CO, brand, rook en chemicaliën: toxiciteit, dosis en effect",
-                  "wilde dieren, giftig voedsel, allergische reacties, ernstige bloedingen en hartstilstand",
-                  "aardbevingen, overstromingen en vulkaanuitbarstingen"
-                ]
-              }
+              { code: "29A", isHavoVwoExtra: false, doelzin: "De leerling verkent de leefomgeving en onderzoekt vraagstukken.", hetGaatHierbijOm: ["waarnemen van natuur en techniek", "onderzoek naar duurzaamheid en gezondheid", "beroepenoriëntatie"] },
+              { code: "29B", isHavoVwoExtra: false, doelzin: "De leerling gebruikt wetenschappelijke denkwijzen.", hetGaatHierbijOm: ["patronen en oorzaak-gevolg", "structuur en functie", "schaal en modellen"] },
+              { code: "29C", isHavoVwoExtra: false, doelzin: "De leerling gebruikt wetenschappelijke werkwijzen.", hetGaatHierbijOm: ["onderzoek en ontwerpen", "veilig experimenteren", "data interpreteren"] },
+              { code: "29D", isHavoVwoExtra: false, doelzin: "De leerling verkent de aard van natuurwetenschappen en techniek.", hetGaatHierbijOm: ["betrouwbaarheid en transparantie", "ethische grenzen", "veranderende modellen"] },
+              { code: "29E", isHavoVwoExtra: false, doelzin: "De leerling toont begrip van gevaren en voorzorgsmaatregelen.", hetGaatHierbijOm: ["elektriciteit, straling en hitte", "chemicaliën en brand", "eerste hulp bij noodsituaties"] }
             ]
           },
           {
-            id: "kd_30", nummer: 30, leergebied: "Mens en natuur", domein: "Natuurkundige verschijnselen en technische systemen",
-            kernzin: "De leerling toont inzicht in en experimenteert met natuurkundige verschijnselen en technische systemen.",
+            id: "kd_30", nummer: 30, leergebied: "Mens en natuur", domein: "Natuurkundige verschijnselen",
+            kernzin: "De leerling toont inzicht in natuurkundige verschijnselen en technische systemen.",
             subdoelen: [
-              {
-                code: "30A", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in en experimenteert met voorwerpen en technische systemen.",
-                hetGaatHierbijOm: [
-                  "constructie-, energie-, communicatie-, meet-, regel-, productie- en transportsystemen",
-                  "verkennen hoe een voorwerp werkt en geconstrueerd is: functie, eigenschappen en onderliggende mechanismen",
-                  "maken van werkende analoge en digitale 2D- en 3D-modellen in een ontwerpproces",
-                  "toepassen van krachtenverdeling, bewegingsprincipes en overbrengingsprincipes",
-                  "experimenteren met ontwerpen, maken en repareren"
-                ]
-              },
-              {
-                code: "30B", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in en experimenteert met krachten en beweging.",
-                hetGaatHierbijOm: [
-                  "zwaartekracht, trekkracht, duwkracht en wrijvingskracht",
-                  "verbanden leggen tussen krachten op een voorwerp, en verandering in beweging en snelheid van dat voorwerp",
-                  "experimenteren met krachten in de constructie",
-                  "beschrijven hoe natuurlijke fenomenen krachten uitoefenen op constructies en welke effecten die krachten hebben op constructies",
-                  "rekenen aan eenparige bewegingen met de grootheden plaats, snelheid en tijd",
-                  "normaalkracht, magnetische kracht, elektrostatische kracht, en veerkracht (havo-vwo)"
-                ]
-              },
-              {
-                code: "30C", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in elektrische schakelingen en energiesystemen, en experimenteert met elektrische schakelingen.",
-                hetGaatHierbijOm: [
-                  "onderscheiden van verschillende energievormen in een systeem",
-                  "beschrijven hoe elektrische energie en warmte kunnen worden opgewekt, omgezet, getransporteerd en opgeslagen",
-                  "experimenteren met serie- en parallelschakelingen",
-                  "beschrijven van relaties tussen typen energiebronnen, -transport en -behoeften op het stroomnet",
-                  "rekenen met behulp van de grootheden stroomsterkte, spanning, weerstand, vermogen en tijd",
-                  "verbanden leggen tussen energieopwekking en -gebruik en de planetaire grenzen (havo-vwo)"
-                ]
-              },
-              {
-                code: "30D", isHavoVwoExtra: true,
-                doelzin: "De leerling verklaart optische verschijnselen vanuit eigenschappen van licht.",
-                hetGaatHierbijOm: [
-                  "toepassen van de eigenschap dat licht van richting verandert bij overgang van het ene naar het andere materiaal",
-                  "onderzoeken hoe beeldvorming met spiegels en lenzen tot stand komt",
-                  "schematisch weergeven van stralengang bij spiegels en lenzen",
-                  "toepassen van het gegeven dat licht van verschillende golflengtes bij verschillende materialen in verschillende mate wordt geabsorbeerd, gereflecteerd en doorgelaten",
-                  "beschrijven dat geometrische optica niet alle optische verschijnselen kan uitleggen"
-                ]
-              }
+              { code: "30A", isHavoVwoExtra: false, doelzin: "De leerling experimenteert met technische systemen.", hetGaatHierbijOm: ["constructie en overbrengingen", "2D en 3D modellen maken", "repareren en ontwerpen"] },
+              { code: "30B", isHavoVwoExtra: false, doelzin: "De leerling experimenteert met krachten en beweging.", hetGaatHierbijOm: ["zwaartekracht en wrijving", "krachten in evenwicht", "snelheid en versnelling berekenen"] },
+              { code: "30C", isHavoVwoExtra: false, doelzin: "De leerling toont inzicht in elektrische schakelingen en energiesystemen.", hetGaatHierbijOm: ["serie- en parallelschakelingen", "energieopwekking en transport", "stroom, spanning en weerstand"] },
+              { code: "30D", isHavoVwoExtra: true, doelzin: "De leerling verklaart optische verschijnselen vanuit eigenschappen van licht.", hetGaatHierbijOm: ["breking en spiegeling", "stralengang construeren", "spectra en golflengten"] }
             ]
           },
           {
             id: "kd_31", nummer: 31, leergebied: "Mens en natuur", domein: "Scheikundige verschijnselen",
-            kernzin: "De leerling toont inzicht in en experimenteert met materie, processen en circulaire productie.",
+            kernzin: "De leerling toont inzicht in materie, processen en circulaire productie.",
             subdoelen: [
-              {
-                code: "31A", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in deeltjes, faseovergangen, scheidingsmethoden en chemische reacties en experimenteert met deze verschijnselen en methoden.",
-                hetGaatHierbijOm: [
-                  "beschrijven dat deeltjes opgebouwd zijn uit atomen van één of meerdere atoomsoorten",
-                  "beschrijven van verschillen tussen zuivere stoffen en mengsels aan de hand van waardes van grootheden en het deeltjesmodel",
-                  "beschrijven van faseovergangen en chemische reacties met deeltjesmodellen",
-                  "toepassen van geschikte scheidingsmethodes bij het scheiden van een mengsel",
-                  "experimenteren met het versnellen en vertragen van fysische processen en chemische reacties: effect van temperatuur, oppervlakte, concentratie en katalysator",
-                  "beschrijven hoe atomen zijn opgebouwd: atoomkern en elektronenwolk (havo-vwo)",
-                  "analyseren van verschillen in bouw en eigenschappen van atoomsoorten (havo-vwo)",
-                  "beschrijven van de waarde en bruikbaarheid van modellen over de bouw van materie: de vier elementen, flogiston, Dalton, atoomkern en elektronenwolk (havo-vwo)"
-                ]
-              },
-              {
-                code: "31B", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in chemische processen en circulariteit en verkent de impact van processen op de omgeving.",
-                hetGaatHierbijOm: [
-                  "beschrijven van chemische reacties in chemische notatie of woorden",
-                  "onderzoeken hoe fysische en chemische processen gebruikt worden om grondstoffen om te zetten in producten",
-                  "beschrijven hoe productie circulair kan worden: drinkwater, blik, glas, plastics en kleding",
-                  "redeneren over de impact van grootschalige productie voor de samenleving",
-                  "beschrijven van chemische reacties met massa- en atoombehoud (havo-vwo)",
-                  "rekenen bij een chemische reactie met een gegeven massaverhouding (havo-vwo)",
-                  "verbanden leggen tussen de toename van kennis over chemische reacties en materie, en de ontwikkeling van nieuwe materialen en chemische processen (havo-vwo)"
-                ]
-              }
+              { code: "31A", isHavoVwoExtra: false, doelzin: "De leerling toont inzicht in deeltjes, faseovergangen en reacties.", hetGaatHierbijOm: ["zuivere stoffen en mengsels", "scheidingsmethoden", "deeltjesmodel en atomen", "reactiesnelheid"] },
+              { code: "31B", isHavoVwoExtra: false, doelzin: "De leerling toont inzicht in chemische processen en circulariteit.", hetGaatHierbijOm: ["chemische reactievergelijkingen", "grondstoffen omzetten", "circulaire kringlopen plastics en metalen"] }
             ]
           },
           {
             id: "kd_32", nummer: 32, leergebied: "Mens en natuur", domein: "Organismen en gezondheid",
             kernzin: "De leerling toont inzicht in organismen en hun gezondheid.",
             subdoelen: [
-              {
-                code: "32A", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in de bouw, werking en het gebruik van bacteriën, schimmels, planten en dieren en verkent de diversiteit aan organismen.",
-                hetGaatHierbijOm: [
-                  "beschrijven van de bouw en basale functie van cellen en de celorganellen: celkern, celmembraan, celwand, cytoplasma, bladgroenkorrel, vacuole en mitochondrium",
-                  "beschrijven van de bouw van plantaardige en dierlijke orgaanstelsels, organen en weefsels",
-                  "verklaren hoe samenwerking van organen leidt tot functionerende orgaanstelsels: skelet, voortplantingsstelsel, zenuwstelsel, ademhalingsstelsel, bloedvatenstelsel, afweersysteem, spijsverteringsstelsel, uitscheidingsstelsel, spierstelsel en hormoonstelsel",
-                  "redeneren hoe stofwisselingsprocessen en samenwerkende orgaanstelsels nodig zijn om planten en dieren in leven te houden",
-                  "onderzoeken hoe organismen worden gebruikt in de biotechnologie, landbouw en veeteelt"
-                ]
-              },
-              {
-                code: "32B", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in het voortbestaan van leven op aarde.",
-                hetGaatHierbijOm: [
-                  "beschrijven van de levenscyclus van organismen en de invloed van het milieu en genetica hierop",
-                  "beschrijven hoe geslachtelijke en ongeslachtelijke voortplanting verloopt",
-                  "verklaren van het ontstaan van biodiversiteit door evolutie: mutaties, natuurlijke selectie en soortvorming",
-                  "beschrijven van aanpassingen van erfelijke eigenschappen door de mens: veredeling, fokken en genetische modificatie",
-                  "beschrijven van de celdeling: mitose en meiose (havo-vwo)",
-                  "beschrijven dat DNA-moleculen informatie bevatten van erfelijke eigenschappen (havo-vwo)",
-                  "beschrijven hoe erfelijke eigenschappen worden doorgegeven aan een volgende generatie (havo-vwo)",
-                  "vergelijken van stambomen die zijn gemodelleerd op basis van fenotypische en genetische kenmerken (havo-vwo)",
-                  "beschrijven van grote stappen in de evolutie: RNA naar DNA, ontstaan van eukaryoten, van ongeslachtelijke naar geslachtelijke voortplanting en van protist naar meercellige (havo-vwo)"
-                ]
-              },
-              {
-                code: "32C", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in leefstijl, lichamelijke- en mentale gezondheid en reflecteert hierop.",
-                hetGaatHierbijOm: [
-                  "de leefstijlthema's: hygiëne, voeding, slaap, natuur, en beweging",
-                  "beschrijven van invloed van bacteriën, schimmels en virussen op gezond leven: beschrijven hoe ziektes ontstaan, voorkomen en behandeld kunnen worden",
-                  "beschrijven hoe technologie de gezondheid en kwaliteit van leven beïnvloedt",
-                  "reflecteren op de eigen leefstijl en gezondheid, de invloed van de leefomgeving, media en eigen keuzes hierin"
-                ]
-              },
-              {
-                code: "32D", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in relationele en seksuele gezondheid en draagt bij aan een veilige en respectvolle omgeving rondom gedrag, diversiteit en seksualiteit.",
-                hetGaatHierbijOm: [
-                  "reflecteren op de betekenis van seksualiteit, op seksuele ontwikkeling en diversiteit, op het aangaan van gewenste, plezierige relaties en op sociale veiligheid",
-                  "beschrijven van het belang van consent, respect voor wensen en grenzen van zichzelf en de ander en wat te doen bij grensoverschrijding, geweld en misbruik",
-                  "beschrijven hoe soa's, hiv en onbedoelde zwangerschap zijn te voorkomen",
-                  "benoemen van verschillende gezondheids- en welzijnsorganisaties voor hulp, mentale steun en preventie op het gebied van grensoverschrijdend gedrag, misbruik, vruchtbaarheid, anticonceptie, zwangerschap, abortus, ouderschap, soa's en seksualiteit",
-                  "reflecteren hoe bij te dragen aan een veilige en respectvolle online en offline omgeving, voor zichzelf en anderen, op het gebied van seksualiteit"
-                ]
-              }
+              { code: "32A", isHavoVwoExtra: false, doelzin: "De leerling toont inzicht in de bouw en werking van organismen.", hetGaatHierbijOm: ["cellen en organellen", "orgaanstelsels van mens en dier", "stofwisseling en ademhaling"] },
+              { code: "32B", isHavoVwoExtra: false, doelzin: "De leerling toont inzicht in het voortbestaan van leven op aarde.", hetGaatHierbijOm: ["voortplanting en levenscycli", "genetica en celdeling", "evolutie en biodiversiteit"] },
+              { code: "32C", isHavoVwoExtra: false, doelzin: "De leerling toont inzicht in leefstijl en gezondheid.", hetGaatHierbijOm: ["voeding, slaap en beweging", "infectieziekten voorkomen", "reflectie op eigen leefstijl"] },
+              { code: "32D", isHavoVwoExtra: false, doelzin: "De leerling toont inzicht in relationele en seksuele gezondheid.", hetGaatHierbijOm: ["consent en grenzen", "anticonceptie en soa's", "seksuele diversiteit respecteren"] }
             ]
           },
           {
             id: "kd_33", nummer: 33, leergebied: "Mens en natuur", domein: "Systeem aarde",
             kernzin: "De leerling toont inzicht in en verkent systeem aarde.",
             subdoelen: [
-              {
-                code: "33A", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in en verkent veranderingen in fysische omstandigheden op aarde op verschillende tijdschalen.",
-                hetGaatHierbijOm: [
-                  "fysische veranderingen in geosfeer, atmosfeer, hydrosfeer en biosfeer",
-                  "analyseren van kansen en risico's van endogene en exogene processen: plaattektoniek en verwering, erosie en sedimentatie",
-                  "beredeneren hoe menselijk handelen op verschillende tijd- en ruimtelijke schalen van invloed is op reliëf, rivieren, kusten, oceanen en vegetatie",
-                  "verkennen van verklaringsmodellen voor het ontstaan van reliëf, vulkanisme en aardbevingen (havo-vwo)"
-                ]
-              },
-              {
-                code: "33B", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in en verkent weer, klimaat en watersystemen en hun veranderingen.",
-                hetGaatHierbijOm: [
-                  "verklaren van de spreiding van klimaten aan de hand van geofactoren",
-                  "beschrijven van endogene en exogene processen die leiden tot klimaatveranderingen op geologische tijdschaal",
-                  "verbanden leggen tussen veranderingen in het watersysteem door weer en klimaat: kwaliteit en beschikbaarheid van water in een gebied",
-                  "analyseren van het broeikaseffect en de invloed van het menselijk handelen daarop: natuurlijk broeikaseffect, versterkt broeikaseffect",
-                  "verkennen van mogelijke, gewenste en waarschijnlijke scenario's voor zeespiegelstijging en klimaatverandering (havo-vwo)",
-                  "beschrijven welke aannames van klimaatmodellen leiden tot verschillende scenario's (havo-vwo)"
-                ]
-              },
-              {
-                code: "33C", isHavoVwoExtra: false,
-                doelzin: "De leerling toont inzicht in ecosystemen en verkent de relatie tussen mens en ecosysteem.",
-                hetGaatHierbijOm: [
-                  "analyseren van interacties tussen biotische en abiotische factoren in een ecosysteem",
-                  "verbanden leggen tussen kringlopen, voedselketens, voedselwebben en hun onderlinge samenhang in een ecosysteem",
-                  "beschrijven van kringlopen en verstoringen daarvan",
-                  "beschrijven van het dynamisch evenwicht in een ecosysteem en successie",
-                  "analyseren van de menselijke afhankelijkheid van ecosystemen"
-                ]
-              }
+              { code: "33A", isHavoVwoExtra: false, doelzin: "De leerling verkent veranderingen in fysische omstandigheden op aarde.", hetGaatHierbijOm: ["geosfeer en atmosfeer", "plaattektoniek en vulkanisme", "verwering en erosie"] },
+              { code: "33B", isHavoVwoExtra: false, doelzin: "De leerling toont inzicht in weer, klimaat en watersystemen.", hetGaatHierbijOm: ["klimaatfactoren", "broeikaseffect en opwarming", "watersystemen en zeespiegelstijging"] },
+              { code: "33C", isHavoVwoExtra: false, doelzin: "De leerling toont inzicht in ecosystemen.", hetGaatHierbijOm: ["biotische en abiotische factoren", "voedselketens en kringlopen", "menselijke afhankelijkheid van natuur"] }
             ]
           },
 
-          // ==========================================
-          // 7. MODERNE VREEMDE TALEN (Kerndoelen 34 t/m 39)
-          // ==========================================
+          // 7. MODERNE VREEMDE TALEN (34 t/m 39)
           {
             id: "kd_34", nummer: 34, leergebied: "Moderne vreemde talen", domein: "Communicatie Engels",
-            kernzin: "De leerling gebruikt de Engelse taal in rijke en betekenisvolle contexten.",
+            kernzin: "De leerling gebruikt de Engelse taal in rijke contexten.",
             subdoelen: [
-              {
-                code: "34A", isHavoVwoExtra: false,
-                doelzin: "De leerling doet ervaring op met een rijk aanbod aan bronnen in de Engelse taal op een passend beheersingsniveau.",
-                hetGaatHierbijOm: [
-                  "lezen van, kijken naar en luisteren naar fictie- en non-fictieteksten over uiteenlopende thema's en onderwerpen",
-                  "verschillende taalvariëteiten en taalniveaus van het Engels en contexten waarin het Engels als lingua franca wordt gebruikt"
-                ]
-              },
-              {
-                code: "34B", isHavoVwoExtra: false,
-                doelzin: "De leerling gebruikt de Engelse taal op een creatieve manier.",
-                hetGaatHierbijOm: [
-                  "verkennen van creatief taalgebruik in fictie",
-                  "gebruiken van creatieve voorbeelden om zelf een creatief schriftelijk of mondeling product te maken",
-                  "experimenteren met klanken, woorden en zinnen",
-                  "verwoorden van gedachten, ervaringen, gevoelens en fantasieën",
-                  "reflecteren op het eigen creatieve product en dat van anderen",
-                  "creëren van korte teksten met zinnen, illustraties en eenvoudig figuurlijk taalgebruik (havo-vwo)"
-                ]
-              },
-              {
-                code: "34C", isHavoVwoExtra: false,
-                doelzin: "De leerling verwerkt Engelstalige teksten mondeling en schriftelijk om tot kennisopbouw en begrip te komen.",
-                hetGaatHierbijOm: [
-                  "samenvatten van de gelezen en beluisterde inhoud",
-                  "vergelijken van de inhoud van teksten",
-                  "ordenen van informatie in een schema",
-                  "verwoorden van ideeën en meningen naar aanleiding van teksten",
-                  "gebruiken van school- en vaktaal",
-                  "onderbouwen van meningen, verworven inzichten en standpunten (havo-vwo)"
-                ]
-              }
+              { code: "34A", isHavoVwoExtra: false, doelzin: "Ervaring opdoen met een rijk aanbod aan Engelse bronnen.", hetGaatHierbijOm: ["lezen en luisteren naar fictie en non-fictie", "Engels als lingua franca"] },
+              { code: "34B", isHavoVwoExtra: false, doelzin: "Engelse taal creatief inzetten.", hetGaatHierbijOm: ["creatief schrijven en spreken", "experimenteren met zinnen en stijl"] },
+              { code: "34C", isHavoVwoExtra: false, doelzin: "Engelstalige teksten verwerken voor kennisopbouw.", hetGaatHierbijOm: ["samenvatten", "schema's opstellen", "mening onderbouwen"] }
             ]
           },
           {
             id: "kd_35", nummer: 35, leergebied: "Moderne vreemde talen", domein: "Communicatie Engels",
             kernzin: "De leerling communiceert in het Engels.",
             subdoelen: [
-              {
-                code: "35A", isHavoVwoExtra: false,
-                doelzin: "De leerling toont begrip van auditieve en audiovisuele Engelstalige teksten.",
-                hetGaatHierbijOm: [
-                  "langzaam en duidelijk uitgesproken geïllustreerde fictie- en non-fictieteksten over voorspelbare en alledaagse zaken in heldere standaardtaal en een vertrouwde taalvariëteit",
-                  "onderscheiden van de klanken van het Engels en van verschillende Engelse taalvariëteiten",
-                  "inzetten en uitbreiden van woordenschat, kennis over taal en kennis van de wereld",
-                  "onderscheiden van relevante informatie uit auditieve en audiovisuele teksten",
-                  "gebruiken van passende kijk- en luisterstrategieën",
-                  "duidelijk gestructureerde en helder uitgesproken fictie- en non-fictieteksten over bekende onderwerpen, eventueel verhelderd door beeld en opmaak (havo-vwo)",
-                  "onderscheiden van tekstsoorten en tekstkenmerken (havo-vwo)"
-                ]
-              },
-              {
-                code: "35B", isHavoVwoExtra: false,
-                doelzin: "De leerling toont begrip van schriftelijke Engelstalige teksten.",
-                hetGaatHierbijOm: [
-                  "geïllustreerde fictie- en non-fictieteksten over voorspelbare en alledaagse zaken in heldere standaardtaal en een vertrouwde taalvariëteit",
-                  "inzetten en uitbreiden van woordenschat, kennis over taal en kennis van de wereld",
-                  "onderscheiden van relevante informatie uit schriftelijke teksten",
-                  "gebruiken van passende leesstrategieën",
-                  "duidelijk gestructureerde fictie- en non-fictieteksten over bekende onderwerpen, eventueel verhelderd door beeld en opmaak (havo-vwo)",
-                  "onderscheiden van tekstsoorten en tekstkenmerken (havo-vwo)"
-                ]
-              },
-              {
-                code: "35C", isHavoVwoExtra: false,
-                doelzin: "De leerling spreekt en voert gesprekken in de Engelse taal, afgestemd op doel, publiek en context.",
-                hetGaatHierbijOm: [
-                  "overbrengen van vertrouwde en alledaagse informatie, gevoelens en interesses",
-                  "actief deelnemen aan eenvoudige gesprekken over vertrouwde, feitelijke en alledaagse onderwerpen",
-                  "inzetten en uitbreiden van eenvoudige, veelgebruikte en alledaagse woordenschat, woordcombinaties, uitdrukkingen, zinnen en taalstructuren",
-                  "gebruiken van passende spreek- en gespreksbevorderende strategieën",
-                  "overbrengen van feitelijke informatie in korte informele en formele sociale interacties (havo-vwo)",
-                  "doelgericht gesprekken voeren om het uitvoeren van een gezamenlijke taak te bevorderen (havo-vwo)"
-                ]
-              },
-              {
-                code: "35D", isHavoVwoExtra: false,
-                doelzin: "De leerling schrijft in de Engelse taal, afgestemd op doel, publiek en context.",
-                hetGaatHierbijOm: [
-                  "eenvoudige teksten over vertrouwde en alledaagse informatie, gevoelens en interesses",
-                  "deelnemen aan schriftelijke interacties over eenvoudige, feitelijke onderwerpen",
-                  "inzetten en uitbreiden van eenvoudige, veelgebruikte en alledaagse woordenschat, woordcombinaties, uitdrukkingen, zinnen en taalstructuren",
-                  "inzetten van digitale hulpmiddelen ter bevordering van het schrijfproces",
-                  "gebruiken van passende schrijfstrategieën",
-                  "overbrengen van feitelijke informatie in korte informele en formele schriftelijke interacties (havo-vwo)"
-                ]
-              }
+              { code: "35A", isHavoVwoExtra: false, doelzin: "Begrip van auditieve en audiovisuele teksten.", hetGaatHierbijOm: ["luistervaardigheid", "hoofdzaken onderscheiden", "kijk- en luisterstrategieën"] },
+              { code: "35B", isHavoVwoExtra: false, doelzin: "Begrip van schriftelijke teksten.", hetGaatHierbijOm: ["leesvaardigheid", "informatie selecteren", "leesstrategieën toepassen"] },
+              { code: "35C", isHavoVwoExtra: false, doelzin: "Spreken en gesprekken voeren.", hetGaatHierbijOm: ["sociale interactie", "mening en feiten delen", "gespreksstrategieën"] },
+              { code: "35D", isHavoVwoExtra: false, doelzin: "Schrijven in het Engels.", hetGaatHierbijOm: ["teksten afstemmen op doel en publiek", "digitale hulpmiddelen benutten"] }
             ]
           },
           {
             id: "kd_36", nummer: 36, leergebied: "Moderne vreemde talen", domein: "Taal- en cultuurbewustzijn Engels",
-            kernzin: "De leerling ontwikkelt zich als taal- en cultuurbewuste gebruiker van de Engelse taal.",
+            kernzin: "De leerling ontwikkelt zich als taal- en cultuurbewuste gebruiker van het Engels.",
             subdoelen: [
-              {
-                code: "36A", isHavoVwoExtra: false,
-                doelzin: "De leerling kiest passende aanpakken voor het leren van Engels.",
-                hetGaatHierbijOm: [
-                  "onderzoeken van de eigen interesses en doelen voor het leren van en over het Engels: culturen, gebieden en sprekers",
-                  "onderzoeken wat werkt in het eigen taalleerproces",
-                  "verkennen van eigen taalleervoorkeuren",
-                  "inzetten van het eigen meertalige repertoire om Engels te leren: actieve en passieve beheersing van talen, taalvariëteiten, woorden en uitdrukkingen",
-                  "inzetten van passende digitale middelen"
-                ]
-              },
-              {
-                code: "36B", isHavoVwoExtra: false,
-                doelzin: "De leerling verkent culturele aspecten en culturele diversiteit in fictie en non-fictie.",
-                hetGaatHierbijOm: [
-                  "onderzoeken waar, door wie en in welke contexten het Engels wordt gebruikt",
-                  "beschrijven van culturele aspecten van doeltaalsprekers en doeltaalgebieden",
-                  "onderscheiden van overeenkomsten en verschillen binnen en tussen culturen waarin het Engels gesproken wordt",
-                  "herkennen van stereotypering",
-                  "vergelijken van doeltaalculturen met de eigen leefwereld",
-                  "evalueren van aannames met betrekking tot culturen van doeltaalsprekers en doeltaalgebieden (havo-vwo)"
-                ]
-              },
-              {
-                code: "36C", isHavoVwoExtra: false,
-                doelzin: "De leerling gebruikt culturele kennis in interculturele communicatieve situaties.",
-                hetGaatHierbijOm: [
-                  "deelnemen aan fictieve interculturele communicatieve situaties",
-                  "herkennen van de rol van cultuur in het communiceren met sprekers van het Engels",
-                  "reflecteren op de rol van cultuur in de eigen fictieve interculturele communicatieve ervaringen"
-                ]
-              }
+              { code: "36A", isHavoVwoExtra: false, doelzin: "Passende aanpakken kiezen voor het leren van Engels.", hetGaatHierbijOm: ["leerstrategieën onderzoeken", "meertalig repertoire inzetten"] },
+              { code: "36B", isHavoVwoExtra: false, doelzin: "Culturele diversiteit en aspecten verkennen.", hetGaatHierbijOm: ["doeltaalculturen vergelijken met eigen leefwereld", "stereotypering herkennen"] },
+              { code: "36C", isHavoVwoExtra: false, doelzin: "Culturele kennis gebruiken in communicatie.", hetGaatHierbijOm: ["interculturele communicatie", "reflectie op culturele verschillen"] }
             ]
           },
           {
-            id: "kd_37", nummer: 37, leergebied: "Moderne vreemde talen", domein: "Communicatie Duits, Frans, Italiaans en Spaans",
-            kernzin: "De leerling gebruikt de [...] taal in rijke en betekenisvolle contexten.",
+            id: "kd_37", nummer: 37, leergebied: "Moderne vreemde talen", domein: "Communicatie MVT",
+            kernzin: "De leerling gebruikt de doeltaal (Duits/Frans/Spaans) in rijke contexten.",
             subdoelen: [
-              {
-                code: "37A", isHavoVwoExtra: false,
-                doelzin: "De leerling doet ervaring op met een rijk aanbod aan bronnen in de [...] taal op een passend beheersingsniveau.",
-                hetGaatHierbijOm: [
-                  "lezen van, kijken naar en luisteren naar fictie- en non-fictieteksten over uiteenlopende thema's en onderwerpen",
-                  "verschillende taalvariëteiten en taalniveaus van de [...] taal en contexten waarin de [...] taal als lingua franca wordt gebruikt"
-                ]
-              },
-              {
-                code: "37B", isHavoVwoExtra: false,
-                doelzin: "De leerling gebruikt de [...] taal op een creatieve manier.",
-                hetGaatHierbijOm: [
-                  "verkennen van creatief taalgebruik in fictie",
-                  "gebruiken van creatieve voorbeelden om zelf een creatief schriftelijk of mondeling product te maken",
-                  "experimenteren met klanken, woorden en zinnen",
-                  "verwoorden van gedachten, ervaringen, gevoelens en fantasieën",
-                  "reflecteren op het eigen creatieve product en dat van anderen",
-                  "creëren van korte teksten met zinnen, illustraties en eenvoudig figuurlijk taalgebruik (havo-vwo)"
-                ]
-              },
-              {
-                code: "37C", isHavoVwoExtra: true,
-                doelzin: "De leerling verwerkt [...]talige teksten mondeling en schriftelijk om tot kennisopbouw en begrip te komen.",
-                hetGaatHierbijOm: [
-                  "samenvatten van de gelezen en beluisterde inhoud",
-                  "vergelijken van de inhoud van teksten",
-                  "ordenen van informatie in een schema",
-                  "verwoorden van ideeën en meningen naar aanleiding van teksten",
-                  "gebruiken van school- en vaktaal"
-                ]
-              }
+              { code: "37A", isHavoVwoExtra: false, doelzin: "Ervaring opdoen met een gevarieerd bronaanbod in de doeltaal.", hetGaatHierbijOm: ["doeltaalbronnen raadplegen", "authentieke materialen verkennen"] },
+              { code: "37B", isHavoVwoExtra: false, doelzin: "De doeltaal creatief gebruiken.", hetGaatHierbijOm: ["creatieve uitingen in de taal", "experimenteren met uitspraak en expressie"] },
+              { code: "37C", isHavoVwoExtra: true, doelzin: "Doeltaalteksten verwerken om kennis op te bouwen.", hetGaatHierbijOm: ["informatie samenvatten in de doeltaal"] }
             ]
           },
           {
-            id: "kd_38", nummer: 38, leergebied: "Moderne vreemde talen", domein: "Communicatie Duits, Frans, Italiaans en Spaans",
-            kernzin: "De leerling communiceert in de [...] taal.",
+            id: "kd_38", nummer: 38, leergebied: "Moderne vreemde talen", domein: "Communicatie MVT",
+            kernzin: "De leerling communiceert in de doeltaal.",
             subdoelen: [
-              {
-                code: "38A", isHavoVwoExtra: false,
-                doelzin: "De leerling toont begrip van auditieve en audiovisuele [...]talige teksten.",
-                hetGaatHierbijOm: [
-                  "langzaam en duidelijk uitgesproken geïllustreerde fictie- en non-fictieteksten over voorspelbare en alledaagse zaken in heldere standaardtaal en een vertrouwde taalvariëteit",
-                  "onderscheiden van de klanken van de [...] taal",
-                  "inzetten en uitbreiden van woordenschat, kennis over taal en kennis van de wereld",
-                  "onderscheiden van relevante informatie uit auditieve en audiovisuele teksten",
-                  "gebruiken van passende kijk- en luisterstrategieën"
-                ]
-              },
-              {
-                code: "38B", isHavoVwoExtra: false,
-                doelzin: "De leerling toont begrip van schriftelijke [...]talige teksten.",
-                hetGaatHierbijOm: [
-                  "geïllustreerde fictie- en non-fictieteksten over voorspelbare en alledaagse zaken in heldere standaardtaal en een vertrouwde taalvariëteit",
-                  "inzetten en uitbreiden van woordenschat, kennis over taal en kennis van de wereld",
-                  "onderscheiden van relevante informatie uit schriftelijke teksten",
-                  "gebruiken van passende leesstrategieën"
-                ]
-              },
-              {
-                code: "38C", isHavoVwoExtra: false,
-                doelzin: "De leerling spreekt en voert gesprekken in de [...] taal, afgestemd op doel, publiek en context.",
-                hetGaatHierbijOm: [
-                  "overbrengen van vertrouwde en alledaagse informatie, gevoelens en interesses",
-                  "actief deelnemen aan eenvoudige gesprekken over vertrouwde en alledaagse onderwerpen",
-                  "inzetten en uitbreiden van eenvoudige en vertrouwde woordenschat, woordcombinaties, uitdrukkingen, zinnen en taalstructuren",
-                  "gebruiken van passende spreek- en gespreksbevorderende strategieën",
-                  "actief deelnemen aan eenvoudige gesprekken over vertrouwde, feitelijke en alledaagse onderwerpen (havo-vwo)",
-                  "inzetten en uitbreiden van eenvoudige, veelgebruikte en alledaagse, vertrouwde woordenschat, woordcombinaties, uitdrukkingen, zinnen en taalstructuren (havo-vwo)"
-                ]
-              },
-              {
-                code: "38D", isHavoVwoExtra: false,
-                doelzin: "De leerling schrijft in de [...] taal.",
-                hetGaatHierbijOm: [
-                  "eenvoudige teksten over vertrouwde en alledaagse informatie, gevoelens en interesses",
-                  "deelnemen aan eenvoudige schriftelijke interacties",
-                  "inzetten en uitbreiden van eenvoudige en vertrouwde woordenschat, woordcombinaties, uitdrukkingen, zinnen en taalstructuren",
-                  "inzetten van digitale hulpmiddelen ter bevordering van het schrijfproces",
-                  "gebruiken van passende schrijfstrategieën",
-                  "deelnemen aan schriftelijke interacties over eenvoudige, feitelijke onderwerpen (havo-vwo)",
-                  "inzetten en uitbreiden van eenvoudige en veelgebruikte, alledaagse woordenschat, woordcombinaties, uitdrukkingen, zinnen en taalstructuren (havo-vwo)"
-                ]
-              }
+              { code: "38A", isHavoVwoExtra: false, doelzin: "Begrip van auditieve en audiovisuele teksten.", hetGaatHierbijOm: ["gesproken taal begrijpen", "kernboodschap afleiden"] },
+              { code: "38B", isHavoVwoExtra: false, doelzin: "Begrip van schriftelijke teksten.", hetGaatHierbijOm: ["eenvoudige teksten begrijpen", "informatie vinden"] },
+              { code: "38C", isHavoVwoExtra: false, doelzin: "Spreken en eenvoudige gesprekken voeren.", hetGaatHierbijOm: ["alledaagse gesprekken voeren", "vragen stellen en beantwoorden"] },
+              { code: "38D", isHavoVwoExtra: false, doelzin: "Korte teksten schrijven.", hetGaatHierbijOm: ["korte berichten opstellen", "digitale tools gebruiken"] }
             ]
           },
           {
-            id: "kd_39", nummer: 39, leergebied: "Moderne vreemde talen", domein: "Taal- en cultuurbewustzijn Duits, Frans, Italiaans en Spaans",
-            kernzin: "De leerling ontwikkelt zich als taal- en cultuurbewuste gebruiker van de [...] taal.",
+            id: "kd_39", nummer: 39, leergebied: "Moderne vreemde talen", domein: "Taal- en cultuurbewustzijn MVT",
+            kernzin: "De leerling ontwikkelt taal- en cultuurbewustzijn in de doeltaal.",
             subdoelen: [
-              {
-                code: "39A", isHavoVwoExtra: false,
-                doelzin: "De leerling kiest passende aanpakken voor het leren van de doeltaal.",
-                hetGaatHierbijOm: [
-                  "onderzoeken van de eigen interesses en doelen voor het leren van en over de doeltaal: culturen, gebieden en sprekers",
-                  "onderzoeken wat werkt in het eigen taalleerproces",
-                  "verkennen van eigen taalleervoorkeuren",
-                  "inzetten van het eigen meertalige repertoire om de doeltaal te leren: actieve en passieve beheersing van talen, taalvariëteiten, woorden en uitdrukkingen",
-                  "inzetten van passende digitale middelen"
-                ]
-              },
-              {
-                code: "39B", isHavoVwoExtra: false,
-                doelzin: "De leerling verkent culturele aspecten en culturele diversiteit in fictie en non-fictie.",
-                hetGaatHierbijOm: [
-                  "onderzoeken waar, door wie en in welke contexten de doeltaal wordt gebruikt",
-                  "beschrijven van culturele aspecten van doeltaalsprekers en doeltaalgebieden",
-                  "onderscheiden van overeenkomsten en verschillen binnen en tussen culturen waarin de doeltaal gesproken wordt",
-                  "herkennen van stereotypering",
-                  "vergelijken van doeltaalculturen met de eigen leefwereld",
-                  "evalueren van aannames met betrekking tot culturen van doeltaalsprekers en doeltaalgebieden (havo-vwo)"
-                ]
-              },
-              {
-                code: "39C", isHavoVwoExtra: false,
-                doelzin: "De leerling gebruikt culturele kennis in interculturele communicatieve situaties.",
-                hetGaatHierbijOm: [
-                  "deelnemen aan fictieve interculturele communicatieve situaties",
-                  "herkennen van de rol van cultuur in het communiceren met sprekers van de doeltaal",
-                  "reflecteren op de rol van cultuur in de eigen fictieve interculturele communicatieve ervaringen"
-                ]
-              }
+              { code: "39A", isHavoVwoExtra: false, doelzin: "Aanpakken kiezen voor het leren van de taal.", hetGaatHierbijOm: ["woordenschatstrategieën", "eigen leervoorkeuren ontdekken"] },
+              { code: "39B", isHavoVwoExtra: false, doelzin: "Culturele aspecten verkennen.", hetGaatHierbijOm: ["gebruiken in het taalgebied", "overeenkomsten en verschillen"] },
+              { code: "39C", isHavoVwoExtra: false, doelzin: "Culturele kennis toepassen in situaties.", hetGaatHierbijOm: ["beleefdheidsvormen en omgangsvormen"] }
             ]
           },
 
-          // ==========================================
-          // 8. KUNST EN CULTUUR (Kerndoelen 40 t/m 42)
-          // ==========================================
+          // 8. KUNST EN CULTUUR (40 t/m 42)
           {
-            id: "kd_40", nummer: 40, leergebied: "Kunst en cultuur", domein: "Artistiek creatief vermogen",
+            id: "kd_40", nummer: 40, leergebied: "Kunst en cultuur", domein: "Artistiek vermogen",
             kernzin: "De leerling ontwikkelt artistiek creatief vermogen.",
             subdoelen: [
-              {
-                code: "40A", isHavoVwoExtra: false,
-                doelzin: "De leerling gebruikt creatieve maak- en denkstrategieën in een iteratief kunstzinnig proces en reflecteert op gemaakte keuzes.",
-                hetGaatHierbijOm: [
-                  "omgaan met speelruimte en selecteren van creatieve strategieën bij het maken en meemaken",
-                  "onderzoeken van verschillende ideeën, mogelijkheden en oplossingen bij het maken van eigen en gezamenlijke kunstzinnige uitingen",
-                  "gebruiken van ideeën, perspectieven en inzichten van andere makers als inspiratie voor eigen en gezamenlijke kunstzinnige uitingen",
-                  "selecteren en gebruiken van bronnen als inspiratie voor eigen en gezamenlijke kunstzinnige uitingen",
-                  "evalueren en bijstellen van het maakproces"
-                ]
-              },
-              {
-                code: "40B", isHavoVwoExtra: false,
-                doelzin: "De leerling onderzoekt het eigen artistiek creatief vermogen.",
-                hetGaatHierbijOm: [
-                  "onderzoeken van artistieke voorkeuren: technieken, materialen, middelen, thema's, stijlen, genres",
-                  "maken van keuzes in relatie tot het proces en het product",
-                  "bespreken van getoonde eigen of gezamenlijke kunstzinnige uitingen",
-                  "verwoorden van een mening over eigen en gezamenlijke kunstzinnige uitingen",
-                  "verwoorden van eigen artistieke voorkeuren en vermogens tijdens het maakproces"
-                ]
-              },
-              {
-                code: "40C", isHavoVwoExtra: false,
-                doelzin: "De leerling onderzoekt betekenissen van kunst en cultuur tijdens het maken en meemaken.",
-                hetGaatHierbijOm: [
-                  "beschouwen en beschrijven van uitingen van kunst en cultuur van uiteenlopende makers en perspectieven",
-                  "beschrijven van vormgevingselementen",
-                  "gebruiken van bronnen over makers, het werk en de context",
-                  "interpreteren van eigen en gezamenlijke uitingen van kunst en cultuur",
-                  "onderbouwen van een mening met gebruik van vaktaal over uitingen van kunst en cultuur"
-                ]
-              }
+              { code: "40A", isHavoVwoExtra: false, doelzin: "Creatieve maak- en denkstrategieën gebruiken in een proces.", hetGaatHierbijOm: ["speelruimte benutten", "experimenteren en keuzes herzien", "inspiratiebronnen inzetten"] },
+              { code: "40B", isHavoVwoExtra: false, doelzin: "Het eigen artistieke vermogen onderzoeken.", hetGaatHierbijOm: ["voorkeuren onderzoeken", "feedback ontvangen en verwoorden"] },
+              { code: "40C", isHavoVwoExtra: false, doelzin: "Betekenis van kunst en cultuur onderzoeken.", hetGaatHierbijOm: ["vormgevingselementen benoemen", "mening onderbouwen met vaktaal"] }
             ]
           },
           {
-            id: "kd_41", nummer: 41, leergebied: "Kunst en cultuur", domein: "Maken en betekenis geven",
+            id: "kd_41", nummer: 41, leergebied: "Kunst en cultuur", domein: "Maken",
             kernzin: "De leerling maakt kunstzinnige uitingen.",
             subdoelen: [
-              {
-                code: "41A", isHavoVwoExtra: false,
-                doelzin: "De leerling drukt zich individueel en samen met anderen uit in vormen van kunst.",
-                hetGaatHierbijOm: [
-                  "gebruiken van vormgevingselementen uit beeldende kunst en muziek, alsmede van dans of film of theater bij het maken van eigen werk",
-                  "verbeelden van verhalen, ideeën, gedachten, ervaringen en gevoelens",
-                  "maken van kunstzinnige uitingen als reactie op maatschappelijke vraagstukken en gebeurtenissen",
-                  "ontwerpen en realiseren van toegepaste vormen van kunst",
-                  "herinterpreteren van bestaand werk"
-                ]
-              },
-              {
-                code: "41B", isHavoVwoExtra: false,
-                doelzin: "De leerling kiest en gebruikt bekende en nieuwe technieken en vaardigheden bij het maken van individueel en gezamenlijk werk.",
-                hetGaatHierbijOm: [
-                  "beeldende materialen, technieken en gereedschappen",
-                  "muzikale technieken en instrumenten",
-                  "fotografische en filmische technieken of dansante technieken of spel- en acteertechnieken"
-                ]
-              }
+              { code: "41A", isHavoVwoExtra: false, doelzin: "Zich individueel en gezamenlijk uitdrukken in kunst.", hetGaatHierbijOm: ["beeld, muziek, dans of theater", "ervaringen en ideeën verbeelden"] },
+              { code: "41B", isHavoVwoExtra: false, doelzin: "Technieken en vaardigheden inzetten bij het maken.", hetGaatHierbijOm: ["materialen en gereedschappen", "technieken doelgericht toepassen"] }
             ]
           },
           {
-            id: "kd_42", nummer: 42, leergebied: "Kunst en cultuur", domein: "Meemaken en betekenis geven",
+            id: "kd_42", nummer: 42, leergebied: "Kunst en cultuur", domein: "Meemaken",
             kernzin: "De leerling maakt kunst en cultuur mee.",
             subdoelen: [
-              {
-                code: "42A", isHavoVwoExtra: false,
-                doelzin: "De leerling neemt deel aan diverse culturele en kunstzinnige activiteiten en toont inzicht in kunst en cultuuruitingen.",
-                hetGaatHierbijOm: [
-                  "omgaan met de gebruiken en gewoonten bij het actief meemaken van kunst en cultuur in uiteenlopende contexten",
-                  "uitwisselen van ervaringen in interactie met professionele makers",
-                  "beschrijven van het effect van de gebruikte technieken en vormgevingselementen op de ervaring",
-                  "vergelijken van interesses en voorkeuren voor kunstzinnige uitingsvormen",
-                  "maken van een kunstzinnige uiting als verwerking van een culturele en kunstzinnige ervaring"
-                ]
-              },
-              {
-                code: "42B", isHavoVwoExtra: false,
-                doelzin: "De leerling onderzoekt kunstzinnige en cultuurhistorische uitingen en de functie in de samenleving.",
-                hetGaatHierbijOm: [
-                  "vergelijken van diverse, actuele en historische uitingen van kunst en erfgoed in cultuur",
-                  "vragen stellen over de invloed van tijd en plaats op het werk van makers",
-                  "vragen stellen over de invloed van kunst op de samenleving",
-                  "verwoorden van een mening over de functie en betekenis van kunst en cultuur in het eigen leven"
-                ]
-              }
+              { code: "42A", isHavoVwoExtra: false, doelzin: "Deelnemen aan culturele activiteiten en inzicht tonen.", hetGaatHierbijOm: ["actief meemaken van kunstuitingen", "interactie met makers"] },
+              { code: "42B", isHavoVwoExtra: false, doelzin: "Cultuurhistorische uitingen en hun maatschappelijke functie onderzoeken.", hetGaatHierbijOm: ["erfgoed en actuele kunst vergelijken", "invloed van kunst op samenleving"] }
             ]
           },
 
-          // ==========================================
-          // 9. BEWEGEN EN SPORT (Kerndoelen 43 t/m 45)
-          // ==========================================
+          // 9. BEWEGEN EN SPORT (43 t/m 45)
           {
             id: "kd_43", nummer: 43, leergebied: "Bewegen en sport", domein: "Leren bewegen",
             kernzin: "De leerling ontwikkelt zich in het bewegen.",
             subdoelen: [
-              {
-                code: "43A", isHavoVwoExtra: false,
-                doelzin: "De leerling neemt deel aan beweegactiviteiten in uiteenlopende beweegthema's.",
-                hetGaatHierbijOm: [
-                  "balanceren, bewegen op muziek, doelspelen, draaien, hardlopen, intensief bewegen, jongleren, klimmen, springen, stoeien en treffen, terugslagspelen, tikspelen, wegspelen en mikken, zwaaien"
-                ]
-              },
-              {
-                code: "43B", isHavoVwoExtra: false,
-                doelzin: "De leerling verbetert de beweegvaardigheid.",
-                hetGaatHierbijOm: [
-                  "aangaan van beweeguitdagingen",
-                  "zoeken naar oplossingen wanneer het bewegen niet regelmatig lukt",
-                  "controle houden wanneer het bewegen regelmatig lukt",
-                  "experimenteren met complexere beweegactiviteiten",
-                  "inzicht tonen in de bedoeling en uitvoering van beweegactiviteiten"
-                ]
-              },
-              {
-                code: "43C", isHavoVwoExtra: false,
-                doelzin: "De leerling stemt beweegactiviteiten af op de eigen mogelijkheden.",
-                hetGaatHierbijOm: [
-                  "inschatten van de eigen mogelijkheden in relatie tot de complexiteit van de beweegactiviteit",
-                  "meebeslissen over de inrichting van de beweegactiviteit",
-                  "kiezen voor gepaste complexiteit van de opdracht binnen de beweegactiviteit",
-                  "aanpassen van de beweegactiviteit met betrekking tot ruimte, materiaal, regels en leerhulp"
-                ]
-              }
+              { code: "43A", isHavoVwoExtra: false, doelzin: "Deelnemen aan uiteenlopende beweegthema's.", hetGaatHierbijOm: ["balanceren, doelspelen, atletiek, turnen, zelfverdediging"] },
+              { code: "43B", isHavoVwoExtra: false, doelzin: "Beweegvaardigheid verbeteren.", hetGaatHierbijOm: ["uitdagingen aangaan", "techniek en tactiek beheersen"] },
+              { code: "43C", isHavoVwoExtra: false, doelzin: "Beweegactiviteiten afstemmen op eigen mogelijkheden.", hetGaatHierbijOm: ["eigen niveau inschatten", "hulpverlening en regels aanpassen"] }
             ]
           },
           {
             id: "kd_44", nummer: 44, leergebied: "Bewegen en sport", domein: "Samen bewegen",
             kernzin: "De leerling beweegt samen met anderen.",
             subdoelen: [
-              {
-                code: "44A", isHavoVwoExtra: false,
-                doelzin: "De leerling neemt verantwoordelijkheid voor het samen deelnemen aan beweegactiviteiten.",
-                hetGaatHierbijOm: [
-                  "bijdragen aan een sociaal en fysiek veilige leeromgeving",
-                  "constructief bijdragen aan sociale interacties in een groep of team",
-                  "omgaan met mogelijkheden, gedrag, opvattingen en beleving van de ander",
-                  "afstemmen van het eigen handelen op de beweegcontext",
-                  "accepteren van regels en uitkomsten"
-                ]
-              },
-              {
-                code: "44B", isHavoVwoExtra: false,
-                doelzin: "De leerling regelt beweegactiviteiten.",
-                hetGaatHierbijOm: [
-                  "arrangeren van de beweegomgeving: op- en afbouwen, herstellen en aanpassen",
-                  "assisteren bij beweegactiviteiten: verzorgen, beveiligen en coachen",
-                  "afspreken van regels: uitleggen, controleren en afstemmen"
-                ]
-              }
+              { code: "44A", isHavoVwoExtra: false, doelzin: "Verantwoordelijkheid nemen bij het samen sporten.", hetGaatHierbijOm: ["veiligheid bewaken", "fair play", "omgaan met winst en verlies"] },
+              { code: "44B", isHavoVwoExtra: false, doelzin: "Beweegactiviteiten regelen en organiseren.", hetGaatHierbijOm: ["materiaal klaarzetten", "scheidsrechteren en coachen"] }
             ]
           },
           {
             id: "kd_45", nummer: 45, leergebied: "Bewegen en sport", domein: "Betrokken bewegen",
             kernzin: "De leerling geeft betekenis aan bewegen.",
             subdoelen: [
-              {
-                code: "45A", isHavoVwoExtra: false,
-                doelzin: "De leerling oriënteert zich op beweegcontexten.",
-                hetGaatHierbijOm: [
-                  "herkennen van verschillende beweegactiviteiten",
-                  "verkennen van diverse beweegomgevingen en organisatievormen",
-                  "onderscheiden van verschillende doelgroepen aan beweegactiviteiten",
-                  "herkennen van verschillende motieven en doelen om deel te nemen aan bewegen en sporten",
-                  "verkennen van de relatie tussen bewegen en welbevinden"
-                ]
-              },
-              {
-                code: "45B", isHavoVwoExtra: false,
-                doelzin: "De leerling onderzoekt welke vormen van bewegen passen bij eigen voorkeuren.",
-                hetGaatHierbijOm: [
-                  "verwoorden welke ervaringen en welke beleving bewegen oproept",
-                  "vergelijken van eigen interesses, kwaliteiten en motieven met die van anderen",
-                  "uitleggen hoe ervaringen worden beïnvloed door de beweegcontext",
-                  "reflecteren op de eigen ontwikkeling in het bewegen",
-                  "kiezen van beweegactiviteiten in verschillende contexten"
-                ]
-              }
+              { code: "45A", isHavoVwoExtra: false, doelzin: "Zich oriënteren op beweegcontexten.", hetGaatHierbijOm: ["sport in de samenleving", "relatie tussen sport en welbevinden"] },
+              { code: "45B", isHavoVwoExtra: false, doelzin: "Onderzoeken welke vormen van bewegen passen bij eigen voorkeuren.", hetGaatHierbijOm: ["eigen sportmotieven verkennen", "duurzame sportdeelname"] }
             ]
           }
         ];
@@ -2046,19 +802,16 @@
         };
 
         let dashboardChartInstance = null;
+        let isSyncing = false;
+        let syncCloudTimeout = null;
 
         // =========================================================================
         // 3. INITIALIZATION & STORAGE
         // =========================================================================
         document.addEventListener("DOMContentLoaded", async () => {
-            // 1. Bouw direct de 8 navigatietabs op
             renderNavTabs();
-            
-            // 2. Laad de gegevens en synchroniseer
             await loadFromLocalStorage();
             syncHeaderControls();
-            
-            // 3. Bouw de actieve weergave op
             renderCurrentView();
             if (window.lucide) lucide.createIcons();
         });
@@ -2106,36 +859,58 @@
         }
 
         function mergeIncomingData(liveData) {
-            if (!liveData || typeof liveData !== "object") return;
-            
+            if (!liveData || typeof liveData !== "object") return false;
+            let hasChanges = false;
+
             Object.keys(liveData).forEach(subj => {
                 if (!appState.inventory[subj]) appState.inventory[subj] = {};
                 Object.keys(liveData[subj]).forEach(sec => {
                     if (!appState.inventory[subj][sec]) appState.inventory[subj][sec] = {};
                     Object.keys(liveData[subj][sec]).forEach(kdId => {
                         const incomingGoal = liveData[subj][sec][kdId];
+                        if (!incomingGoal) return;
+
                         if (!appState.inventory[subj][sec][kdId]) {
-                            appState.inventory[subj][sec][kdId] = incomingGoal;
+                            appState.inventory[subj][sec][kdId] = JSON.parse(JSON.stringify(incomingGoal));
+                            hasChanges = true;
                         } else {
-                            // Behoud lokale subdoelen als ze lokaal al gevuld zijn
-                            if (!appState.inventory[subj][sec][kdId].subdoelen) {
-                                appState.inventory[subj][sec][kdId].subdoelen = {};
-                            }
-                            if (incomingGoal && incomingGoal.subdoelen) {
+                            const localGoal = appState.inventory[subj][sec][kdId];
+                            if (!localGoal.subdoelen) localGoal.subdoelen = {};
+
+                            if (incomingGoal.subdoelen) {
                                 Object.keys(incomingGoal.subdoelen).forEach(subCode => {
                                     const incSub = incomingGoal.subdoelen[subCode];
-                                    const localSub = appState.inventory[subj][sec][kdId].subdoelen[subCode];
-                                    
-                                    // Overschrijf alleen als lokaal nog niet gestart is of leeg
-                                    if (!localSub || (localSub.status === 'niet-gestart' && (!localSub.checkedItems || localSub.checkedItems.length === 0))) {
-                                        appState.inventory[subj][sec][kdId].subdoelen[subCode] = incSub;
-                                    } else if (incSub && incSub.status !== 'niet-gestart') {
-                                        // Als inkomend gevuld is, merge checkedItems
-                                        const combined = Array.from(new Set([...(localSub.checkedItems || []), ...(incSub.checkedItems || [])]));
-                                        localSub.checkedItems = combined;
-                                        if (incSub.status === 'geborgd') localSub.status = 'geborgd';
-                                        if (incSub.opdrachten && !localSub.opdrachten) localSub.opdrachten = incSub.opdrachten;
-                                        if (incSub.bewijslast && !localSub.bewijslast) localSub.bewijslast = incSub.bewijslast;
+                                    const localSub = localGoal.subdoelen[subCode];
+
+                                    if (!localSub) {
+                                        localGoal.subdoelen[subCode] = JSON.parse(JSON.stringify(incSub));
+                                        hasChanges = true;
+                                    } else {
+                                        const incItems = Array.isArray(incSub.checkedItems) ? incSub.checkedItems : [];
+                                        const localItems = Array.isArray(localSub.checkedItems) ? localSub.checkedItems : [];
+                                        const mergedItems = Array.from(new Set([...localItems, ...incItems]));
+                                        
+                                        if (mergedItems.length !== localItems.length) {
+                                            localSub.checkedItems = mergedItems;
+                                            hasChanges = true;
+                                        }
+
+                                        if (incSub.status === 'geborgd' && localSub.status !== 'geborgd') {
+                                            localSub.status = 'geborgd';
+                                            hasChanges = true;
+                                        } else if (incSub.status === 'in-ontwikkeling' && localSub.status === 'niet-gestart') {
+                                            localSub.status = 'in-ontwikkeling';
+                                            hasChanges = true;
+                                        }
+
+                                        if (incSub.opdrachten && (!localSub.opdrachten || localSub.opdrachten.trim() === '')) {
+                                            localSub.opdrachten = incSub.opdrachten;
+                                            hasChanges = true;
+                                        }
+                                        if (incSub.bewijslast && (!localSub.bewijslast || localSub.bewijslast.trim() === '')) {
+                                            localSub.bewijslast = incSub.bewijslast;
+                                            hasChanges = true;
+                                        }
                                     }
                                 });
                             }
@@ -2143,9 +918,10 @@
                     });
                 });
             });
+
+            return hasChanges;
         }
 
-        // 1. Eerst lokaal laden voor directe weergave
         async function loadFromLocalStorage() {
             try {
                 const local = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -2160,7 +936,6 @@
                 console.warn("Fout bij lokaal laden:", e);
             }
 
-            // 2. Live data ophalen en diep samenvoegen
             if (GOOGLE_SCRIPT_URL) {
                 const ind = document.getElementById("savedIndicator");
                 try {
@@ -2170,7 +945,6 @@
                         if (window.lucide) lucide.createIcons();
                     }
 
-                    // Cache-busting parameter toevoegen zodat mobiele browsers geen oude HTTP-cache tonen
                     const cacheBusterUrl = GOOGLE_SCRIPT_URL + (GOOGLE_SCRIPT_URL.includes("?") ? "&" : "?") + "t=" + Date.now();
                     const res = await fetch(cacheBusterUrl);
                     const liveData = await res.json();
@@ -2201,11 +975,7 @@
             }
         }
 
-        let isSyncing = false;
-        let syncCloudTimeout = null;
-
         function saveToLocalStorage() {
-            // 1. Altijd eerst direct lokaal opslaan
             try {
                 localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({
                     inventory: appState.inventory,
@@ -2223,7 +993,6 @@
                 if (window.lucide) lucide.createIcons();
             }
 
-            // 2. Debounce cloud sync
             clearTimeout(syncCloudTimeout);
             syncCloudTimeout = setTimeout(async () => {
                 if (!GOOGLE_SCRIPT_URL) return;
@@ -2277,7 +1046,6 @@
             const dropdown = document.getElementById("sectieSelectDropdown");
             const badgeEl = document.getElementById("activeSectieBadge");
             
-            // Voorkom dat 'Algemeen' blijft hangen in de state
             if (!appState.currentSectie || appState.currentSectie.toLowerCase() === 'algemeen') {
                 appState.currentSectie = "aardrijkskunde";
             }
@@ -2340,21 +1108,29 @@
         }
 
         function getSubgoalData(subject, sectie, goalId, subCode) {
-            const gData = getGoalData(subject, sectie, goalId);
-            if (!gData.subdoelen[subCode]) {
-                gData.subdoelen[subCode] = {
+            return ensureSubgoalExists(subject, sectie, goalId, subCode);
+        }
+
+        function ensureSubgoalExists(subject, sectie, goalId, subCode) {
+            if (!appState.inventory[subject]) appState.inventory[subject] = {};
+            if (!appState.inventory[subject][sectie]) appState.inventory[subject][sectie] = {};
+            if (!appState.inventory[subject][sectie][goalId]) {
+                appState.inventory[subject][sectie][goalId] = { subdoelen: {} };
+            }
+            if (!appState.inventory[subject][sectie][goalId].subdoelen) {
+                appState.inventory[subject][sectie][goalId].subdoelen = {};
+            }
+            if (!appState.inventory[subject][sectie][goalId].subdoelen[subCode]) {
+                appState.inventory[subject][sectie][goalId].subdoelen[subCode] = {
                     status: 'niet-gestart',
                     checkedItems: [],
                     opdrachten: '',
                     bewijslast: ''
                 };
             }
-            return gData.subdoelen[subCode];
+            return appState.inventory[subject][sectie][goalId].subdoelen[subCode];
         }
 
-        // =========================================================================
-        // EFFECTIVE STATUS HELPERS (SUBDOEL & GEERFD KERNDOEL)
-        // =========================================================================
         function getEffectiveStatus(subData) {
             if (!subData) return 'niet-gestart';
             if (typeof subData === 'string') return subData;
@@ -2371,7 +1147,6 @@
         function getEffectiveGoalStatus(goalData, kdDef) {
             if (!goalData) return 'niet-gestart';
 
-            // Als er subdoelen bestaan (nieuwe formaat)
             if (goalData.subdoelen && typeof goalData.subdoelen === 'object' && Object.keys(goalData.subdoelen).length > 0) {
                 const subCodes = (kdDef && kdDef.subdoelen) ? kdDef.subdoelen.map(s => s.code) : Object.keys(goalData.subdoelen);
                 if (subCodes.length === 0) return 'niet-gestart';
@@ -2390,7 +1165,6 @@
                 return 'niet-gestart';
             }
 
-            // Fallback voor oude testdata (waarbij de status direct op het doelobject stond)
             return getEffectiveStatus(goalData);
         }
 
@@ -2431,26 +1205,7 @@
 
         function handleSubgoalItemToggle(subject, sectie, goalId, subCode, itemId, checked) {
             if (!subject || !sectie) return;
-            
-            // Zorg voor gegarandeerde initialisatie in de boomstructuur
-            if (!appState.inventory[subject]) appState.inventory[subject] = {};
-            if (!appState.inventory[subject][sectie]) appState.inventory[subject][sectie] = {};
-            if (!appState.inventory[subject][sectie][goalId]) {
-                appState.inventory[subject][sectie][goalId] = { subdoelen: {} };
-            }
-            if (!appState.inventory[subject][sectie][goalId].subdoelen) {
-                appState.inventory[subject][sectie][goalId].subdoelen = {};
-            }
-            if (!appState.inventory[subject][sectie][goalId].subdoelen[subCode]) {
-                appState.inventory[subject][sectie][goalId].subdoelen[subCode] = {
-                    status: 'niet-gestart',
-                    checkedItems: [],
-                    opdrachten: '',
-                    bewijslast: ''
-                };
-            }
-
-            const subData = appState.inventory[subject][sectie][goalId].subdoelen[subCode];
+            const subData = ensureSubgoalExists(subject, sectie, goalId, subCode);
             if (!Array.isArray(subData.checkedItems)) subData.checkedItems = [];
 
             if (checked) {
@@ -2480,7 +1235,7 @@
         }
 
         function handleSubgoalStatusChange(subject, sectie, goalId, subCode, statusValue) {
-            const subData = getSubgoalData(subject, sectie, goalId, subCode);
+            const subData = ensureSubgoalExists(subject, sectie, goalId, subCode);
             subData.status = statusValue;
 
             const effSt = getEffectiveStatus(subData);
@@ -2492,7 +1247,7 @@
         }
 
         function handleSubgoalTextChange(subject, sectie, goalId, subCode, field, value) {
-            const subData = getSubgoalData(subject, sectie, goalId, subCode);
+            const subData = ensureSubgoalExists(subject, sectie, goalId, subCode);
             subData[field] = value;
             if (value.trim().length > 0 && subData.status === 'niet-gestart') {
                 subData.status = 'in-ontwikkeling';
@@ -2515,22 +1270,27 @@
             const currentSectie = appState.currentSectie;
             const displaySectie = isAdminMode() ? "Admin (Schoolbreed overzicht)" : currentSectie;
 
-            // Update Header titles
+            // Bewaar welke accordeons op dit moment geopend zijn
+            const openCardIds = [];
+            document.querySelectorAll('[id^="body_kd_"]').forEach(el => {
+                if (!el.classList.contains("hidden")) {
+                    openCardIds.push(el.id.replace("body_", ""));
+                }
+            });
+
+            // Update Header titels
             document.getElementById("subjectTitle").innerHTML = `<i data-lucide="book-open" class="w-7 h-7 text-brand-600"></i> Kerndoelen ${subjectName}`;
             document.getElementById("subjectSubtitle").innerHTML = `Actieve sectie: <span id="activeSectieBadge" class="font-semibold text-brand-600 bg-brand-50 px-2 py-0.5 rounded border border-brand-200 capitalize">${displaySectie}</span>`;
             document.getElementById("exportSubjectBtn").innerHTML = `<i data-lucide="download" class="w-4 h-4"></i> Exporteer ${subjectName} (JSON)`;
             document.getElementById("progressSubjectName").innerText = subjectName;
             document.getElementById("progressSectieName").innerText = displaySectie;
 
-            // Collect goals for Block A, B, C
             const blockAGoals = KERNDOELEN_DATA.filter(kd => kd.leergebied === subjectName);
             const blockBGoals = KERNDOELEN_DATA.filter(kd => kd.leergebied === "Digitale geletterdheid");
             const blockCGoals = KERNDOELEN_DATA.filter(kd => kd.leergebied === "Burgerschap");
 
-            // Calculate progress bar for this subject & section
             updateSubjectProgressBar(subjectName, currentSectie);
 
-            // Render Accordion Sections
             const container = document.getElementById("subjectAccordionsContainer");
             container.innerHTML = `
                 <!-- BLOK A: VAKKERNDOELEN -->
@@ -2575,6 +1335,18 @@
                     </div>
                 </div>
             `;
+
+            // Heropen direct de kaartjes die al openstonden
+            openCardIds.forEach(id => {
+                const body = document.getElementById(`body_${id}`);
+                const chevron = document.getElementById(`chevron_${id}`);
+                if (body) {
+                    body.classList.remove("hidden");
+                    if (chevron) chevron.classList.add("rotate-180");
+                }
+            });
+
+            if (window.lucide) lucide.createIcons();
         }
 
         // =========================================================================
@@ -2602,7 +1374,6 @@
             if (effStatus === 'in-ontwikkeling') statusBadge = `<span id="statusBadge_${kd.id}" class="px-2.5 py-1 text-xs font-semibold bg-amber-100 text-amber-800 rounded-full border border-amber-300">🟡 In ontwikkeling ${inAdmin ? '(Schoolbreed)' : ''}</span>`;
 
             if (inAdmin) {
-                // ADMIN MODUS RENDER FOR CARD
                 return `
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-3" id="card_${kd.id}">
                         <button onclick="toggleAccordion('${kd.id}')" class="w-full text-left p-4 hover:bg-slate-50 flex items-center justify-between gap-4 transition select-none">
@@ -2617,7 +1388,6 @@
                         </button>
 
                         <div id="body_${kd.id}" class="hidden border-t border-slate-100 p-5 bg-indigo-50/30 space-y-5">
-                            <!-- Subdoelen weergave met sectie-bijdragen -->
                             <div class="space-y-4">
                                 ${kd.subdoelen.map(sub => `
                                     <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
@@ -2629,7 +1399,6 @@
                                             <span class="font-bold text-slate-800 text-xs">${sub.doelzin}</span>
                                         </div>
 
-                                        <!-- Sectie bijdragen voor dit subdoel -->
                                         <div class="space-y-2 pt-2 border-t border-slate-100">
                                             <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Sectie-invoer per vakteam:</span>
                                             ${sectionKeys.length === 0 ? `
@@ -2657,7 +1426,6 @@
                                 `).join('')}
                             </div>
 
-                            <!-- Admin Sectie Overzicht Switcher -->
                             <div class="bg-white p-4 rounded-xl border border-indigo-200 shadow-sm flex items-center justify-between flex-wrap gap-2">
                                 <h5 class="text-xs font-extrabold text-indigo-950 uppercase tracking-wider flex items-center gap-1.5">
                                     <i data-lucide="shield-check" class="w-4 h-4 text-indigo-600"></i>
@@ -2678,10 +1446,8 @@
                 `;
             }
 
-            // REGULAR SECTION MODE RENDER
             return `
                 <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-3" id="card_${kd.id}">
-                    <!-- Accordion Header -->
                     <button onclick="toggleAccordion('${kd.id}')" class="w-full text-left p-4 hover:bg-slate-50 flex items-center justify-between gap-4 transition select-none">
                         <div class="flex items-center gap-3 flex-wrap">
                             <span class="px-2.5 py-1 bg-slate-900 text-white font-bold text-xs rounded-md shadow-sm">Kerndoel ${kd.nummer}</span>
@@ -2693,7 +1459,6 @@
                         </div>
                     </button>
 
-                    <!-- Accordion Body -->
                     <div id="body_${kd.id}" class="hidden border-t border-slate-100 p-5 bg-slate-50/50 space-y-4">
                         ${kd.subdoelen.map(sub => {
                             const subData = getSubgoalData(activeSubject, currentSectie, kd.id, sub.code);
@@ -2714,7 +1479,6 @@
                                         </span>
                                     </div>
 
-                                    <!-- "Het gaat hierbij om" checkboxes -->
                                     <div class="bg-slate-50 p-3 rounded-lg border border-slate-200/80 space-y-2">
                                         <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Het gaat hierbij om:</span>
                                         ${sub.hetGaatHierbijOm.map((itemText, idx) => {
@@ -2729,7 +1493,6 @@
                                         }).join('')}
                                     </div>
 
-                                    <!-- Borgingsstatus per subdoel -->
                                     <div>
                                         <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-1.5">Borgingsstatus Subdoel ${sub.code}:</span>
                                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -2748,7 +1511,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Tekstvelden per subdoel -->
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
                                         <div>
                                             <label class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">Opdrachten & werkvormen (${sub.code})</label>
@@ -2803,56 +1565,6 @@
                     if (chevron) chevron.classList.remove("rotate-180");
                 }
             });
-        }
-
-        // =========================================================================
-        // AUTOMATISCHE STATUSBIJWERKING BIJ AANVINKEN EN TYPEN
-        // =========================================================================
-        function handleSubgoalToggle(subject, sectie, goalId, itemId, checked) {
-            const data = getGoalData(subject, sectie, goalId);
-            if (!data.checkedItems) data.checkedItems = [];
-            if (checked) {
-                if (!data.checkedItems.includes(itemId)) data.checkedItems.push(itemId);
-                // Automatisch naar 'in-ontwikkeling' als het nog niet gestart was
-                if (data.status === 'niet-gestart') {
-                    data.status = 'in-ontwikkeling';
-                    const radio = document.querySelector(`input[name="status_${goalId}"][value="in-ontwikkeling"]`);
-                    if (radio) radio.checked = true;
-                    updateStatusBadgeDOM(goalId, 'in-ontwikkeling');
-                }
-            } else {
-                data.checkedItems = data.checkedItems.filter(i => i !== itemId);
-                // Als alle vinkjes weg zijn en geen tekst, terug naar 'niet-gestart'
-                if (data.checkedItems.length === 0 && !data.opdrachten && !data.bewijslast && data.status === 'in-ontwikkeling') {
-                    data.status = 'niet-gestart';
-                    const radio = document.querySelector(`input[name="status_${goalId}"][value="niet-gestart"]`);
-                    if (radio) radio.checked = true;
-                    updateStatusBadgeDOM(goalId, 'niet-gestart');
-                }
-            }
-            saveToLocalStorage();
-            updateSubjectProgressBar(subject, sectie);
-        }
-
-        function handleTextareaChange(subject, sectie, goalId, field, value) {
-            const data = getGoalData(subject, sectie, goalId);
-            data[field] = value;
-            if (value.trim().length > 0 && data.status === 'niet-gestart') {
-                data.status = 'in-ontwikkeling';
-                const radio = document.querySelector(`input[name="status_${goalId}"][value="in-ontwikkeling"]`);
-                if (radio) radio.checked = true;
-                updateStatusBadgeDOM(goalId, 'in-ontwikkeling');
-            }
-            saveToLocalStorage();
-            updateSubjectProgressBar(subject, sectie);
-        }
-
-        function handleStatusChange(subject, sectie, goalId, statusValue) {
-            const data = getGoalData(subject, sectie, goalId);
-            data.status = statusValue;
-            saveToLocalStorage();
-            updateStatusBadgeDOM(goalId, statusValue);
-            updateSubjectProgressBar(subject, sectie);
         }
 
         function updateStatusBadgeDOM(goalId, statusValue) {
@@ -2987,8 +1699,6 @@
                     try {
                         const importedData = JSON.parse(e.target.result);
                         if (importedData && importedData.inventory) {
-                            
-                            // MERGE LOGIC SIDE-BY-SIDE WITHOUT OVERWRITING OTHER SECTIONS
                             Object.keys(importedData.inventory).forEach(subject => {
                                 if (!appState.inventory[subject]) appState.inventory[subject] = {};
                                 Object.keys(importedData.inventory[subject]).forEach(sectie => {
@@ -2996,7 +1706,6 @@
                                     importedSummary.push(`${subject} (${sectie})`);
                                 });
                             });
-
                         }
                     } catch (err) {
                         console.error("Fout bij importeren bestand:", file.name, err);
@@ -3008,7 +1717,7 @@
                         alert(`Succesvol ${importedSummary.length} sectie-inventarisatie(s) geïmporteerd:\n\n` + importedSummary.join('\n'));
                         renderCurrentView();
                         openImportedSectionsModal();
-                        event.target.value = ""; // Reset file input
+                        event.target.value = "";
                     }
                 };
                 reader.readAsText(file);
@@ -3016,30 +1725,41 @@
         }
 
         function resetAllData() {
-            if (confirm("Weet u zeker dat u alle ingevoerde gegevens en geïmporteerde secties wilt wissen? Dit kan niet ongedaan worden gemaakt.")) {
-                appState.inventory = {};
-                saveToLocalStorage();
-                renderCurrentView();
+            const cur = appState.currentSectie;
+            const inAdmin = isAdminMode();
+
+            if (inAdmin) {
+                if (confirm("WAARSCHUWING (Admin): Weet u zeker dat u de VOLLEDIGE inventarisatie van ALLE secties wilt wissen? Dit verwijdert alle data van de hele school.")) {
+                    appState.inventory = {};
+                    saveToLocalStorage();
+                    renderCurrentView();
+                }
+            } else {
+                if (confirm(`Weet u zeker dat u ALLE ingevoerde gegevens voor sectie "${cur}" wilt wissen? De invoer van andere vaksecties blijft onaangetast.`)) {
+                    Object.keys(appState.inventory).forEach(subj => {
+                        if (appState.inventory[subj] && appState.inventory[subj][cur]) {
+                            delete appState.inventory[subj][cur];
+                        }
+                    });
+                    saveToLocalStorage();
+                    renderCurrentView();
+                }
             }
         }
 
         // =========================================================================
-        // 7. DASHBOARD VIEW RENDER & DYNAMIC CALCULATIONS (MET getEffectiveStatus)
+        // 7. DASHBOARD VIEW RENDER & DYNAMIC CALCULATIONS
         // =========================================================================
         function renderDashboardView() {
             const subjects = NAV_TABS.filter(t => t.subject !== null).map(t => t.subject);
-
-            // DYNAMISCH AANTAL UNIEKE KERNDOELEN EN SUBDOELEN
-            const totalKerndoelenCount = KERNDOELEN_DATA.length; // 45 unieke kerndoelen
-            const totalSubdoelenCount = KERNDOELEN_DATA.reduce((sum, kd) => sum + kd.subdoelen.length, 0); // Totaal aantal subdoelen
+            const totalKerndoelenCount = KERNDOELEN_DATA.length;
+            const totalSubdoelenCount = KERNDOELEN_DATA.reduce((sum, kd) => sum + kd.subdoelen.length, 0);
 
             let schoolGeborgdCount = 0;
             let schoolOntwikkelingCount = 0;
             let schoolNietGestartCount = 0;
             let activeSectionsSet = new Set();
-
-            // Calculate aggregated status per kerndoel across all sections in the school using getEffectiveStatus
-            const aggregatedGoalStatus = {}; // goalId -> 'geborgd' | 'in-ontwikkeling' | 'niet-gestart'
+            const aggregatedGoalStatus = {};
 
             KERNDOELEN_DATA.forEach(kd => {
                 let isGeborgdInAnySection = false;
@@ -3068,7 +1788,6 @@
                 }
             });
 
-            // Unieke geïmporteerde secties (exclusief 'algemeen' en 'standaard sectie')
             const uniqueSections = new Set();
             Object.keys(appState.inventory).forEach(subj => {
                 const secties = appState.inventory[subj] || {};
@@ -3086,7 +1805,6 @@
                 });
             });
 
-            // 1. KPI Cards (Dynamisch berekend met totalKerndoelenCount & totalSubdoelenCount)
             const kpiContainer = document.getElementById("kpiCardsContainer");
             kpiContainer.innerHTML = `
                 <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
@@ -3134,7 +1852,6 @@
                 </div>
             `;
 
-            // 2. Special Theme Cards (DG & Burgerschap)
             const dgGoals = KERNDOELEN_DATA.filter(kd => kd.leergebied === "Digitale geletterdheid").map(kd => kd.id);
             const dgTotal = dgGoals.length;
             let dgGeborgd = dgGoals.filter(id => aggregatedGoalStatus[id] === 'geborgd').length;
@@ -3149,7 +1866,6 @@
             document.getElementById("burgerschapCoverageBadge").innerText = `${bPct}%`;
             document.getElementById("burgerschapProgressBar").style.width = `${bPct}%`;
 
-            // 3. Subject Grid Cards
             const gridContainer = document.getElementById("subjectGridContainer");
             gridContainer.innerHTML = subjects.map(subj => {
                 const subjGoals = KERNDOELEN_DATA.filter(kd => kd.leergebied === subj);
@@ -3197,7 +1913,6 @@
                             </div>
                             <p class="text-xs text-slate-500 mb-2 font-medium">${totalSubjGoals} vakkerndoelen &bull; <span class="text-emerald-700 font-semibold">${gCount} geborgd</span> &bull; <span class="text-amber-700 font-semibold">${oCount} in ontw.</span></p>
 
-                            <!-- Progress Bar -->
                             <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden flex mb-3">
                                 <div class="bg-emerald-500 h-full" style="width: ${pct}%"></div>
                                 <div class="bg-amber-400 h-full" style="width: ${totalSubjGoals ? Math.round((oCount/totalSubjGoals)*100) : 0}%"></div>
@@ -3210,7 +1925,6 @@
                                 </div>
                             ` : ''}
 
-                            <!-- Sections badges -->
                             <div class="mb-4">
                                 <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Actieve Sectie Invoer:</span>
                                 <div class="flex flex-wrap gap-1">
@@ -3229,7 +1943,6 @@
                 `;
             }).join('');
 
-            // 4. Render Chart.js
             renderDashboardChart(subjects);
         }
 
@@ -3286,7 +1999,7 @@
         }
 
         // =========================================================================
-        // 8. MODAL INTERACTIVE DRILLDOWNS (MET getEffectiveStatus)
+        // 8. MODAL INTERACTIVE DRILLDOWNS
         // =========================================================================
         function openSectionComparisonModal(subjectName) {
             const modal = document.getElementById("sectionModal");
@@ -3440,8 +2153,7 @@
             const modal = document.getElementById("importedSectionsModal");
             const container = document.getElementById("importedSectionsContent");
 
-            // Verzamel unieke secties over alle leergebieden heen (exclusief 'algemeen')
-            const sectionsSummary = {}; // sectieNaam -> { leergebieden: Set, geborgd: 0, inOntw: 0 }
+            const sectionsSummary = {};
 
             Object.keys(appState.inventory).forEach(subject => {
                 const secties = appState.inventory[subject] || {};
@@ -3460,7 +2172,6 @@
                         else if (st === 'in-ontwikkeling') inOntw++;
                     });
 
-                    // Alleen tonen als er daadwerkelijk iets in staat
                     if (geborgd > 0 || inOntw > 0) {
                         if (!sectionsSummary[cleanName]) {
                             sectionsSummary[cleanName] = {
@@ -3529,9 +2240,8 @@
             document.getElementById(modalId).classList.add("hidden");
         }
 
-        // Achtergrond synchronisatie elke 10 seconden
+        // Achtergrond synchronisatie elke 5 seconden zónder geopende vensters te verstoren
         setInterval(async () => {
-            // Alleen ophalen als de gebruiker niet net zelf aan het typen of klikken is
             if (GOOGLE_SCRIPT_URL && !isSyncing) {
                 try {
                     const cacheBusterUrl = GOOGLE_SCRIPT_URL + (GOOGLE_SCRIPT_URL.includes("?") ? "&" : "?") + "t=" + Date.now();
@@ -3539,21 +2249,25 @@
                     const liveData = await res.json();
 
                     if (liveData && typeof liveData === "object" && Object.keys(liveData).length > 0) {
-                        mergeIncomingData(liveData);
+                        const hadUpdates = mergeIncomingData(liveData);
 
-                        // Update de tellers en balken live
-                        const curTab = NAV_TABS.find(t => t.id === appState.activeTabId);
-                        if (appState.activeTabId === "dashboard") {
-                            renderDashboardView();
-                        } else if (curTab && curTab.subject) {
-                            updateSubjectProgressBar(curTab.subject, appState.currentSectie);
+                        if (hadUpdates) {
+                            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({
+                                inventory: appState.inventory,
+                                currentSectie: appState.currentSectie
+                            }));
+
+                            const curTab = NAV_TABS.find(t => t.id === appState.activeTabId);
+                            if (appState.activeTabId === "dashboard") {
+                                renderDashboardView();
+                            } else if (curTab && curTab.subject) {
+                                renderSubjectView(curTab.subject);
+                            }
                         }
                     }
-                } catch (e) {
-                    // Geruisloos negeren bij verbindingsdipjes
-                }
+                } catch (e) {}
             }
-        }, 10000);
+        }, 5000);
     </script>
 </body>
 </html>
