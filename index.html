@@ -2105,7 +2105,47 @@
             if (window.lucide) lucide.createIcons();
         }
 
-        // Laadt eerst snelle lokale data en haalt direct live data op uit Google Sheets
+        function mergeIncomingData(liveData) {
+            if (!liveData || typeof liveData !== "object") return;
+            
+            Object.keys(liveData).forEach(subj => {
+                if (!appState.inventory[subj]) appState.inventory[subj] = {};
+                Object.keys(liveData[subj]).forEach(sec => {
+                    if (!appState.inventory[subj][sec]) appState.inventory[subj][sec] = {};
+                    Object.keys(liveData[subj][sec]).forEach(kdId => {
+                        const incomingGoal = liveData[subj][sec][kdId];
+                        if (!appState.inventory[subj][sec][kdId]) {
+                            appState.inventory[subj][sec][kdId] = incomingGoal;
+                        } else {
+                            // Behoud lokale subdoelen als ze lokaal al gevuld zijn
+                            if (!appState.inventory[subj][sec][kdId].subdoelen) {
+                                appState.inventory[subj][sec][kdId].subdoelen = {};
+                            }
+                            if (incomingGoal && incomingGoal.subdoelen) {
+                                Object.keys(incomingGoal.subdoelen).forEach(subCode => {
+                                    const incSub = incomingGoal.subdoelen[subCode];
+                                    const localSub = appState.inventory[subj][sec][kdId].subdoelen[subCode];
+                                    
+                                    // Overschrijf alleen als lokaal nog niet gestart is of leeg
+                                    if (!localSub || (localSub.status === 'niet-gestart' && (!localSub.checkedItems || localSub.checkedItems.length === 0))) {
+                                        appState.inventory[subj][sec][kdId].subdoelen[subCode] = incSub;
+                                    } else if (incSub && incSub.status !== 'niet-gestart') {
+                                        // Als inkomend gevuld is, merge checkedItems
+                                        const combined = Array.from(new Set([...(localSub.checkedItems || []), ...(incSub.checkedItems || [])]));
+                                        localSub.checkedItems = combined;
+                                        if (incSub.status === 'geborgd') localSub.status = 'geborgd';
+                                        if (incSub.opdrachten && !localSub.opdrachten) localSub.opdrachten = incSub.opdrachten;
+                                        if (incSub.bewijslast && !localSub.bewijslast) localSub.bewijslast = incSub.bewijslast;
+                                    }
+                                });
+                            }
+                        }
+                    });
+                });
+            });
+        }
+
+        // 1. Eerst lokaal laden voor directe weergave
         async function loadFromLocalStorage() {
             try {
                 const local = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -2114,34 +2154,29 @@
                     if (parsed.inventory) appState.inventory = parsed.inventory;
                     if (parsed.currentSectie && parsed.currentSectie.toLowerCase() !== 'algemeen') {
                         appState.currentSectie = parsed.currentSectie;
-                    } else {
-                        appState.currentSectie = "aardrijkskunde";
                     }
                 }
             } catch (e) {
                 console.warn("Fout bij lokaal laden:", e);
             }
 
+            // 2. Live data ophalen en diep samenvoegen
             if (GOOGLE_SCRIPT_URL) {
                 const ind = document.getElementById("savedIndicator");
                 try {
                     if (ind) {
-                        ind.innerHTML = '<i data-lucide="refresh-cw" class="w-3.5 h-3.5 animate-spin"></i> Synchroniseren...';
+                        ind.innerHTML = '<i data-lucide="refresh-cw" class="w-3.5 h-3.5 animate-spin"></i> Ophalen cloud...';
                         ind.className = "text-xs text-amber-400 font-medium flex items-center gap-1 bg-amber-950/60 px-2.5 py-1 rounded-full border border-amber-800";
                         if (window.lucide) lucide.createIcons();
                     }
 
-                    const res = await fetch(GOOGLE_SCRIPT_URL);
+                    // Cache-busting parameter toevoegen zodat mobiele browsers geen oude HTTP-cache tonen
+                    const cacheBusterUrl = GOOGLE_SCRIPT_URL + (GOOGLE_SCRIPT_URL.includes("?") ? "&" : "?") + "t=" + Date.now();
+                    const res = await fetch(cacheBusterUrl);
                     const liveData = await res.json();
 
                     if (liveData && typeof liveData === "object" && Object.keys(liveData).length > 0) {
-                        // Deep merge: loop over alle leergebieden heen zodat niets wordt overschreven
-                        Object.keys(liveData).forEach(subj => {
-                            if (!appState.inventory[subj]) appState.inventory[subj] = {};
-                            Object.keys(liveData[subj]).forEach(sec => {
-                                appState.inventory[subj][sec] = liveData[subj][sec];
-                            });
-                        });
+                        mergeIncomingData(liveData);
 
                         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({
                             inventory: appState.inventory,
@@ -2157,16 +2192,25 @@
                     }
                 } catch (err) {
                     console.error("Live cloud sync kon data niet ophalen:", err);
+                    if (ind) {
+                        ind.innerHTML = '<i data-lucide="hard-drive" class="w-3.5 h-3.5"></i> Lokaal actief';
+                        ind.className = "text-xs text-slate-300 font-medium flex items-center gap-1 bg-slate-800 px-2.5 py-1 rounded-full border border-slate-700";
+                        if (window.lucide) lucide.createIcons();
+                    }
                 }
             }
         }
 
+        let isSyncing = false;
         let syncCloudTimeout = null;
+
         function saveToLocalStorage() {
+            // 1. Altijd eerst direct lokaal opslaan
             try {
                 localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({
                     inventory: appState.inventory,
-                    currentSectie: appState.currentSectie
+                    currentSectie: appState.currentSectie,
+                    lastSaved: Date.now()
                 }));
             } catch (e) {
                 console.error("Fout bij opslaan in LocalStorage:", e);
@@ -2174,38 +2218,44 @@
 
             const ind = document.getElementById("savedIndicator");
             if (ind) {
-                ind.innerHTML = '<i data-lucide="refresh-cw" class="w-3.5 h-3.5 animate-spin"></i> Cloud sync...';
+                ind.innerHTML = '<i data-lucide="refresh-cw" class="w-3.5 h-3.5 animate-spin"></i> Bezig met opslaan...';
                 ind.className = "text-xs text-amber-400 font-medium flex items-center gap-1 bg-amber-950/60 px-2.5 py-1 rounded-full border border-amber-800";
                 if (window.lucide) lucide.createIcons();
             }
 
+            // 2. Debounce cloud sync
             clearTimeout(syncCloudTimeout);
             syncCloudTimeout = setTimeout(async () => {
                 if (!GOOGLE_SCRIPT_URL) return;
 
                 try {
+                    isSyncing = true;
+                    const payload = JSON.stringify(appState.inventory);
+
                     await fetch(GOOGLE_SCRIPT_URL, {
                         method: "POST",
                         headers: {
                             "Content-Type": "text/plain;charset=utf-8"
                         },
-                        body: JSON.stringify(appState.inventory)
+                        body: payload
                     });
 
+                    isSyncing = false;
                     if (ind) {
                         ind.innerHTML = '<i data-lucide="cloud-check" class="w-3.5 h-3.5"></i> Live Cloud Sync';
                         ind.className = "text-xs text-emerald-400 font-medium flex items-center gap-1 bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-800";
                         if (window.lucide) lucide.createIcons();
                     }
                 } catch (err) {
+                    isSyncing = false;
                     console.error("Fout bij synchroniseren naar Google Sheets:", err);
                     if (ind) {
-                        ind.innerHTML = '<i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> Sync fout';
+                        ind.innerHTML = '<i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> Sync vertraagd';
                         ind.className = "text-xs text-rose-400 font-medium flex items-center gap-1 bg-rose-950/60 px-2.5 py-1 rounded-full border border-rose-800";
                         if (window.lucide) lucide.createIcons();
                     }
                 }
-            }, 400);
+            }, 300);
         }
 
         function isAdminMode() {
@@ -2214,7 +2264,13 @@
         }
 
         function setAdminMode() {
-            handleSectieChange("Admin (Schoolbreed)");
+            appState.currentSectie = "Admin (Schoolbreed)";
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({
+                inventory: appState.inventory,
+                currentSectie: appState.currentSectie
+            }));
+            syncHeaderControls();
+            renderCurrentView();
         }
 
         function syncHeaderControls() {
@@ -2240,7 +2296,10 @@
                 newSectie = "aardrijkskunde";
             }
             appState.currentSectie = newSectie;
-            saveToLocalStorage();
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({
+                inventory: appState.inventory,
+                currentSectie: appState.currentSectie
+            }));
             syncHeaderControls();
             renderCurrentView();
         }
@@ -2354,7 +2413,20 @@
             const kdDef = KERNDOELEN_DATA.find(k => k.id === goalId);
             const data = getGoalData(subject, sectie, goalId);
             const effStatus = getEffectiveGoalStatus(data, kdDef);
-            updateStatusBadgeDOM(goalId, effStatus);
+            
+            const badgeEl = document.getElementById(`statusBadge_${goalId}`);
+            if (badgeEl) {
+                if (effStatus === 'geborgd') {
+                    badgeEl.className = "px-2.5 py-1 text-xs font-semibold bg-emerald-100 text-emerald-800 rounded-full border border-emerald-300";
+                    badgeEl.innerHTML = "🟢 Geborgd";
+                } else if (effStatus === 'in-ontwikkeling') {
+                    badgeEl.className = "px-2.5 py-1 text-xs font-semibold bg-amber-100 text-amber-800 rounded-full border border-amber-300";
+                    badgeEl.innerHTML = "🟡 In ontwikkeling";
+                } else {
+                    badgeEl.className = "px-2.5 py-1 text-xs font-semibold bg-slate-100 text-slate-600 rounded-full border border-slate-300";
+                    badgeEl.innerHTML = "⚪ Niet gestart";
+                }
+            }
         }
 
         function handleSubgoalItemToggle(subject, sectie, goalId, subCode, itemId, checked) {
@@ -3456,6 +3528,32 @@
         function closeModal(modalId) {
             document.getElementById(modalId).classList.add("hidden");
         }
+
+        // Achtergrond synchronisatie elke 10 seconden
+        setInterval(async () => {
+            // Alleen ophalen als de gebruiker niet net zelf aan het typen of klikken is
+            if (GOOGLE_SCRIPT_URL && !isSyncing) {
+                try {
+                    const cacheBusterUrl = GOOGLE_SCRIPT_URL + (GOOGLE_SCRIPT_URL.includes("?") ? "&" : "?") + "t=" + Date.now();
+                    const res = await fetch(cacheBusterUrl);
+                    const liveData = await res.json();
+
+                    if (liveData && typeof liveData === "object" && Object.keys(liveData).length > 0) {
+                        mergeIncomingData(liveData);
+
+                        // Update de tellers en balken live
+                        const curTab = NAV_TABS.find(t => t.id === appState.activeTabId);
+                        if (appState.activeTabId === "dashboard") {
+                            renderDashboardView();
+                        } else if (curTab && curTab.subject) {
+                            updateSubjectProgressBar(curTab.subject, appState.currentSectie);
+                        }
+                    }
+                } catch (e) {
+                    // Geruisloos negeren bij verbindingsdipjes
+                }
+            }
+        }, 10000);
     </script>
 </body>
 </html>
