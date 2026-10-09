@@ -46,7 +46,7 @@
                         <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
                             SLO Kerndoelen VO 2026
                         </h1>
-                        <p class="text-xs text-slate-400">Interactief Curriculum Dashboard & Inventarisatietool (3e Druk, 2026)</p>
+                        <p class="text-xs text-slate-400">Interactief Curriculum Dashboard &amp; Inventarisatietool</p>
                     </div>
                 </div>
 
@@ -276,8 +276,15 @@
     <!-- FOOTER -->
     <footer class="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-2">
-            <p>SLO Kerndoelen VO Curriculum Dashboard (3e Druk 2026)</p>
-            <p class="text-slate-500">Volledig offline functioneel via LocalStorage &bull; Geschikt voor GitHub Pages & SharePoint MS Lists integratie</p>
+            <p class="font-semibold text-slate-300">SLO Kerndoelen VO Curriculum Dashboard</p>
+            <p class="text-slate-500">Volledig offline functioneel via LocalStorage &bull; Geschikt voor GitHub Pages &amp; SharePoint MS Lists integratie</p>
+            <p class="text-slate-500 pt-1 text-[11px] border-t border-slate-800/80 max-w-2xl mx-auto flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+                <span>&copy; 2026 Rens van der Lubben</span>
+                <span>&bull;</span>
+                <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white underline transition">Software gelicenseerd onder de MIT-licentie.</a>
+                <span>&bull;</span>
+                <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.nl" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white underline transition">Inhoud &amp; curriculum-inventarisatie onder CC BY-SA 4.0.</a>
+            </p>
         </div>
     </footer>
 
@@ -2597,15 +2604,28 @@ const KERNDOELEN_DATA = [
         // =========================================================================
         function renderAccordionCard(kd, activeSubject, currentSectie) {
             const inAdmin = isAdminMode();
-            const sectionsForSubj = appState.inventory[activeSubject] || {};
-            const sectionKeys = Object.keys(sectionsForSubj);
+
+            // Aggregate all sections across all subjects in appState.inventory
+            const allSectionsSet = new Set();
+            Object.keys(appState.inventory).forEach(subj => {
+                const sectionsObj = appState.inventory[subj] || {};
+                Object.keys(sectionsObj).forEach(s => {
+                    if (s && s.trim() !== '') {
+                        allSectionsSet.add(s);
+                    }
+                });
+            });
+            const sectionKeys = Array.from(allSectionsSet);
 
             let effStatus = 'niet-gestart';
             if (inAdmin) {
-                sectionKeys.forEach(s => {
-                    const st = getEffectiveGoalStatus(sectionsForSubj[s]?.[kd.id], kd);
-                    if (st === 'geborgd') effStatus = 'geborgd';
-                    else if (st === 'in-ontwikkeling' && effStatus !== 'geborgd') effStatus = 'in-ontwikkeling';
+                Object.keys(appState.inventory).forEach(subj => {
+                    const sectionsForSubj = appState.inventory[subj] || {};
+                    Object.keys(sectionsForSubj).forEach(s => {
+                        const st = getEffectiveGoalStatus(sectionsForSubj[s]?.[kd.id], kd);
+                        if (st === 'geborgd') effStatus = 'geborgd';
+                        else if (st === 'in-ontwikkeling' && effStatus !== 'geborgd') effStatus = 'in-ontwikkeling';
+                    });
                 });
             } else {
                 const data = getGoalData(activeSubject, currentSectie, kd.id);
@@ -2632,8 +2652,10 @@ const KERNDOELEN_DATA = [
 
                         <div id="body_${kd.id}" class="hidden border-t border-slate-100 p-5 bg-indigo-50/30 space-y-5">
                             <div class="space-y-4">
-                                ${kd.subdoelen.map(sub => `
-                                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                                ${kd.subdoelen.map(sub => {
+                                    const itemsList = sub.hetGaatHierbijOm || [];
+                                    return `
+                                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-4">
                                         <div class="flex items-center gap-2 flex-wrap">
                                             <span class="px-2.5 py-0.5 bg-indigo-100 text-indigo-800 font-black text-xs rounded border border-indigo-200">
                                                 Subdoel ${sub.code}
@@ -2642,23 +2664,89 @@ const KERNDOELEN_DATA = [
                                             <span class="font-bold text-slate-800 text-xs">${sub.doelzin}</span>
                                         </div>
 
+                                        <!-- Het gaat hierbij om: Items met Sectie-badges -->
+                                        ${itemsList.length > 0 ? `
+                                            <div class="space-y-2 pt-2 border-t border-slate-100">
+                                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Het gaat hierbij om (Aangevinkt door vakteams):</span>
+                                                <div class="space-y-1.5">
+                                                    ${itemsList.map((itemText, itemIdx) => {
+                                                        const itemId = `${sub.code}_item_${itemIdx}`;
+                                                        const checkingSections = [];
+                                                        Object.keys(appState.inventory).forEach(subj => {
+                                                            const sectionsObj = appState.inventory[subj] || {};
+                                                            Object.keys(sectionsObj).forEach(s => {
+                                                                const subData = sectionsObj[s]?.[kd.id]?.subdoelen?.[sub.code];
+                                                                if (subData && Array.isArray(subData.checkedItems)) {
+                                                                    const isChecked = subData.checkedItems.includes(itemId) ||
+                                                                                      subData.checkedItems.includes(itemIdx) ||
+                                                                                      subData.checkedItems.includes(String(itemIdx)) ||
+                                                                                      subData.checkedItems.includes(itemText);
+                                                                    if (isChecked && !checkingSections.includes(s)) {
+                                                                        checkingSections.push(s);
+                                                                    }
+                                                                }
+                                                            });
+                                                        });
+
+                                                        return `
+                                                            <div class="p-2.5 rounded-lg border text-xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 ${checkingSections.length > 0 ? 'bg-emerald-50/40 border-emerald-200' : 'bg-slate-50/60 border-slate-200'}">
+                                                                <div class="flex items-start gap-2">
+                                                                    <span class="font-bold ${checkingSections.length > 0 ? 'text-emerald-600' : 'text-slate-400'}">•</span>
+                                                                    <span class="text-slate-700 font-medium">${itemText}</span>
+                                                                </div>
+                                                                <div class="flex flex-wrap items-center gap-1 shrink-0">
+                                                                    ${checkingSections.length > 0 ? checkingSections.map(secName => `
+                                                                        <span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1">
+                                                                            <i data-lucide="check" class="w-3 h-3 text-emerald-600"></i> ${secName}
+                                                                        </span>
+                                                                    `).join('') : `
+                                                                        <span class="px-2 py-0.5 text-[10px] text-slate-400 italic bg-slate-100 rounded border border-slate-200">Nog niet aangevinkt</span>
+                                                                    `}
+                                                                </div>
+                                                            </div>
+                                                        `;
+                                                    }).join('')}
+                                                </div>
+                                            </div>
+                                        ` : ''}
+
+                                        <!-- Sectie-invoer per vakteam (Opdrachten & Bewijslast) -->
                                         <div class="space-y-2 pt-2 border-t border-slate-100">
-                                            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Sectie-invoer per vakteam:</span>
+                                            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Notities &amp; Bewijslast per vakteam:</span>
                                             ${sectionKeys.length === 0 ? `
                                                 <p class="text-xs italic text-slate-400">Nog geen data voor secties aanwezig.</p>
                                             ` : `
                                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                                     ${sectionKeys.map(s => {
-                                                        const sData = sectionsForSubj[s]?.[kd.id]?.subdoelen?.[sub.code];
-                                                        const sSt = getEffectiveStatus(sData);
+                                                        let sSt = 'niet-gestart';
+                                                        let opdList = [];
+                                                        let bewList = [];
+                                                        Object.keys(appState.inventory).forEach(subj => {
+                                                            const sData = appState.inventory[subj]?.[s]?.[kd.id]?.subdoelen?.[sub.code];
+                                                            if (sData) {
+                                                                const st = getEffectiveStatus(sData);
+                                                                if (st === 'geborgd') sSt = 'geborgd';
+                                                                else if (st === 'in-ontwikkeling' && sSt !== 'geborgd') sSt = 'in-ontwikkeling';
+
+                                                                if (sData.opdrachten && sData.opdrachten.trim() && !opdList.includes(sData.opdrachten.trim())) {
+                                                                    opdList.push(sData.opdrachten.trim());
+                                                                }
+                                                                if (sData.bewijslast && sData.bewijslast.trim() && !bewList.includes(sData.bewijslast.trim())) {
+                                                                    bewList.push(sData.bewijslast.trim());
+                                                                }
+                                                            }
+                                                        });
+                                                        const opdrachtenText = opdList.join('; ');
+                                                        const bewijslastText = bewList.join('; ');
+
                                                         return `
                                                             <div class="p-2.5 rounded-lg border text-xs ${sSt !== 'niet-gestart' ? 'bg-slate-50 border-slate-300' : 'bg-slate-50/50 border-slate-200 opacity-60'}">
                                                                 <div class="flex items-center justify-between font-semibold mb-1">
                                                                     <span>${s}</span>
                                                                     <span>${sSt === 'geborgd' ? '🟢 Geborgd' : (sSt === 'in-ontwikkeling' ? '🟡 In ontw.' : '⚪ Niet gestart')}</span>
                                                                 </div>
-                                                                ${sData && sData.opdrachten ? `<p class="text-[11px] text-slate-600"><strong>Opdrachten:</strong> ${sData.opdrachten}</p>` : ''}
-                                                                ${sData && sData.bewijslast ? `<p class="text-[11px] text-slate-500"><strong>Bewijslast:</strong> ${sData.bewijslast}</p>` : ''}
+                                                                ${opdrachtenText ? `<p class="text-[11px] text-slate-600"><strong>Opdrachten:</strong> ${opdrachtenText}</p>` : ''}
+                                                                ${bewijslastText ? `<p class="text-[11px] text-slate-500"><strong>Bewijslast:</strong> ${bewijslastText}</p>` : ''}
                                                             </div>
                                                         `;
                                                     }).join('')}
@@ -2666,7 +2754,8 @@ const KERNDOELEN_DATA = [
                                             `}
                                         </div>
                                     </div>
-                                `).join('')}
+                                    `;
+                                }).join('')}
                             </div>
 
                             <div class="bg-white p-4 rounded-xl border border-indigo-200 shadow-sm flex items-center justify-between flex-wrap gap-2">
@@ -2838,14 +2927,29 @@ const KERNDOELEN_DATA = [
             const allGoals = [...blockAGoals, ...blockBGoals, ...blockCGoals];
 
             const effectiveSection = currentSectie || appState.currentSectie || "aardrijkskunde";
+            const inAdmin = isAdminMode();
 
             let geborgdCount = 0;
             let ontwikkelingCount = 0;
             let nietGestartCount = 0;
 
             allGoals.forEach(kd => {
-                const data = getGoalData(subjectName, effectiveSection, kd.id);
-                const effStatus = getEffectiveGoalStatus(data, kd);
+                let effStatus = 'niet-gestart';
+
+                if (inAdmin) {
+                    Object.keys(appState.inventory).forEach(invSubj => {
+                        const sectionsObj = appState.inventory[invSubj] || {};
+                        Object.keys(sectionsObj).forEach(s => {
+                            const goalData = sectionsObj[s]?.[kd.id];
+                            const st = getEffectiveGoalStatus(goalData, kd);
+                            if (st === 'geborgd') effStatus = 'geborgd';
+                            else if (st === 'in-ontwikkeling' && effStatus !== 'geborgd') effStatus = 'in-ontwikkeling';
+                        });
+                    });
+                } else {
+                    const data = getGoalData(subjectName, effectiveSection, kd.id);
+                    effStatus = getEffectiveGoalStatus(data, kd);
+                }
 
                 if (effStatus === 'geborgd') geborgdCount++;
                 else if (effStatus === 'in-ontwikkeling') ontwikkelingCount++;
@@ -2869,7 +2973,7 @@ const KERNDOELEN_DATA = [
             if (bNiet) bNiet.style.width = `${pctNietGestart}%`;
             if (pCounts) pCounts.innerText = `${geborgdCount} van de ${total} kerndoelen geborgd (${pctGeborgd}%)`;
             if (pSubj) pSubj.innerText = subjectName;
-            if (pSec) pSec.innerText = isAdminMode() ? "Schoolbreed" : effectiveSection;
+            if (pSec) pSec.innerText = inAdmin ? "Schoolbreed" : effectiveSection;
         }
 
         // =========================================================================
@@ -3117,13 +3221,16 @@ const KERNDOELEN_DATA = [
                 let nCount = 0;
 
                 subjGoals.forEach(kd => {
-                    const sections = appState.inventory[subj] || {};
                     let isGeborgd = false;
                     let isOntwikkeling = false;
-                    Object.keys(sections).forEach(s => {
-                        const st = getEffectiveGoalStatus(sections[s][kd.id], kd);
-                        if (st === 'geborgd') isGeborgd = true;
-                        if (st === 'in-ontwikkeling') isOntwikkeling = true;
+                    Object.keys(appState.inventory).forEach(invSubj => {
+                        const sectionsObj = appState.inventory[invSubj] || {};
+                        Object.keys(sectionsObj).forEach(s => {
+                            const goalData = sectionsObj[s]?.[kd.id];
+                            const st = getEffectiveGoalStatus(goalData, kd);
+                            if (st === 'geborgd') isGeborgd = true;
+                            if (st === 'in-ontwikkeling') isOntwikkeling = true;
+                        });
                     });
                     if (isGeborgd) gCount++;
                     else if (isOntwikkeling) oCount++;
@@ -3132,17 +3239,37 @@ const KERNDOELEN_DATA = [
 
                 const totalSubjGoals = subjGoals.length;
                 const pct = totalSubjGoals ? Math.round((gCount / totalSubjGoals) * 100) : 0;
-                const cleanSectionsList = (appState.inventory[subj] ? Object.keys(appState.inventory[subj]) : [])
+                const activeSectionsForSubjSet = new Set();
+                if (appState.inventory[subj]) {
+                    Object.keys(appState.inventory[subj]).forEach(s => activeSectionsForSubjSet.add(s));
+                }
+                Object.keys(appState.inventory).forEach(invSubj => {
+                    const sectionsObj = appState.inventory[invSubj] || {};
+                    Object.keys(sectionsObj).forEach(s => {
+                        const hasDataForSubj = subjGoals.some(kd => {
+                            const goalData = sectionsObj[s]?.[kd.id];
+                            return goalData && getEffectiveGoalStatus(goalData, kd) !== 'niet-gestart';
+                        });
+                        if (hasDataForSubj) {
+                            activeSectionsForSubjSet.add(s);
+                        }
+                    });
+                });
+                const cleanSectionsList = Array.from(activeSectionsForSubjSet)
                     .filter(s => s.trim().toLowerCase() !== 'algemeen' && s.trim().toLowerCase() !== 'standaard sectie');
 
                 const transverseGoals = KERNDOELEN_DATA.filter(kd => kd.leergebied === "Digitale geletterdheid" || kd.leergebied === "Burgerschap");
                 let transverseCount = 0;
                 transverseGoals.forEach(kd => {
-                    const sections = appState.inventory[subj] || {};
                     let isCovered = false;
-                    Object.keys(sections).forEach(s => {
-                        const st = getEffectiveGoalStatus(sections[s]?.[kd.id], kd);
-                        if (st !== 'niet-gestart') isCovered = true;
+                    Object.keys(appState.inventory).forEach(invSubj => {
+                        const sectionsObj = appState.inventory[invSubj] || {};
+                        Object.keys(sectionsObj).forEach(s => {
+                            if (invSubj === subj || activeSectionsForSubjSet.has(s)) {
+                                const st = getEffectiveGoalStatus(sectionsObj[s]?.[kd.id], kd);
+                                if (st !== 'niet-gestart') isCovered = true;
+                            }
+                        });
                     });
                     if (isCovered) transverseCount++;
                 });
@@ -3201,12 +3328,16 @@ const KERNDOELEN_DATA = [
                 const subjGoals = KERNDOELEN_DATA.filter(kd => kd.leergebied === subj);
                 let g = 0, o = 0, n = 0;
                 subjGoals.forEach(kd => {
-                    const sections = appState.inventory[subj] || {};
-                    let isG = false, isO = false;
-                    Object.keys(sections).forEach(s => {
-                        const st = getEffectiveStatus(sections[s][kd.id]);
-                        if (st === 'geborgd') isG = true;
-                        if (st === 'in-ontwikkeling') isO = true;
+                    let isG = false;
+                    let isO = false;
+                    Object.keys(appState.inventory).forEach(invSubj => {
+                        const sectionsObj = appState.inventory[invSubj] || {};
+                        Object.keys(sectionsObj).forEach(s => {
+                            const goalData = sectionsObj[s]?.[kd.id];
+                            const st = getEffectiveGoalStatus(goalData, kd);
+                            if (st === 'geborgd') isG = true;
+                            if (st === 'in-ontwikkeling') isO = true;
+                        });
                     });
                     if (isG) g++;
                     else if (isO) o++;
